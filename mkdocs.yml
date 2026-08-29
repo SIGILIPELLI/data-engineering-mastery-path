@@ -1,0 +1,100 @@
+site_name: Data Engineering Mastery Path
+site_description: A structured, module-wise training program on data engineering — from your first ETL script to production-grade data platforms, with runnable Python code in every module.
+site_url: https://sigilipelli.github.io/data-engineering-mastery-path/
+repo_url: https://github.com/SIGILIPELLI/data-engineering-mastery-path
+repo_name: data-engineering-mastery-path
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Privacy Policy: privacy.md
+  - "Level 1 · Entry":
+      - Overview: level-1/index.md
+      - "01 · What Is Data Engineering?": level-1/01-what-is-data-engineering.md
+      - "02 · Python for Data Engineering": level-1/02-python-for-data-engineering.md
+      - "03 · SQL for Data Engineers": level-1/03-sql-for-data-engineers.md
+      - "04 · ETL Fundamentals": level-1/04-etl-fundamentals.md
+      - "05 · Data Modeling Basics": level-1/05-data-modeling-basics.md
+      - "06 · Working with File Formats": level-1/06-file-formats.md
+      - "07 · Batch Processing Basics": level-1/07-batch-processing-basics.md
+      - "08 · Intro to Orchestration": level-1/08-intro-to-orchestration.md
+      - "09 · Data Quality & Validation": level-1/09-data-quality-validation.md
+      - "10 · Project — Build a Simple ETL Pipeline": level-1/10-project-simple-etl-pipeline.md
+  - "Level 2 · Intermediate":
+      - Overview: level-2/index.md
+      - "01 · Advanced SQL for Pipelines": level-2/01-advanced-sql-for-pipelines.md
+      - "02 · Working with APIs for Ingestion": level-2/02-apis-for-ingestion.md
+      - "03 · Data Warehousing Concepts": level-2/03-data-warehousing-concepts.md
+      - "04 · Airflow Hands-On": level-2/04-airflow-hands-on.md
+      - "05 · Data Partitioning & Incremental Loads": level-2/05-partitioning-incremental-loads.md
+      - "06 · Working with Parquet/Arrow": level-2/06-parquet-arrow.md
+      - "07 · Testing Data Pipelines": level-2/07-testing-data-pipelines.md
+      - "08 · Streaming Basics (Kafka Concepts)": level-2/08-streaming-basics-kafka.md
+      - "09 · dbt Basics": level-2/09-dbt-basics.md
+      - "10 · Project — Orchestrated Multi-Step Pipeline": level-2/10-project-orchestrated-pipeline.md
+  - "Level 3 · Advanced":
+      - Overview: level-3/index.md
+      - "01 · Distributed Processing (Spark Basics)": level-3/01-distributed-processing-spark.md
+      - "02 · Advanced Airflow Patterns": level-3/02-advanced-airflow-patterns.md
+      - "03 · Data Lake Architecture": level-3/03-data-lake-architecture.md
+      - "04 · Streaming Deep Dive": level-3/04-streaming-deep-dive.md
+      - "05 · Data Governance & Cataloging": level-3/05-data-governance-cataloging.md
+      - "06 · CI/CD for Data Pipelines": level-3/06-cicd-for-data-pipelines.md
+      - "07 · Performance Tuning for Pipelines": level-3/07-performance-tuning.md
+      - "08 · Cloud Data Warehouses": level-3/08-cloud-data-warehouses.md
+      - "09 · Pipeline Monitoring & Alerting": level-3/09-pipeline-monitoring-alerting.md
+      - "10 · Project — Spark-based Batch Pipeline": level-3/10-project-spark-batch-pipeline.md
+  - "Level 4 · Master":
+      - Overview: level-4/index.md
+      - "01 · Enterprise Data Platform Architecture": level-4/01-enterprise-platform-architecture.md
+      - "02 · Real-Time Streaming Architecture at Scale": level-4/02-realtime-streaming-at-scale.md
+      - "03 · Data Mesh Concepts": level-4/03-data-mesh-concepts.md
+      - "04 · Advanced Data Governance & Compliance": level-4/04-advanced-governance-compliance.md
+      - "05 · Cost Optimization for Data Platforms": level-4/05-cost-optimization.md
+      - "06 · MLOps & Data Engineering Overlap": level-4/06-mlops-overlap.md
+      - "07 · Building a Data Platform Team": level-4/07-building-a-platform-team.md
+      - "08 · Data Reliability Engineering": level-4/08-data-reliability-engineering.md
+      - "09 · Career Growth in Data Engineering": level-4/09-career-growth.md
+      - "10 · Capstone — Full Production Data Platform Design": level-4/10-capstone-production-platform.md

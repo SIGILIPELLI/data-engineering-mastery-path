@@ -1,0 +1,121 @@
+---
+title: "Learn Data Engineering Free: Beginner to Master Course"
+description: "Free course on data engineering -- ETL pipelines, SQL, orchestration, and data platforms, with real hands-on projects. Part of a 40-course free learning library."
+---
+
+# Data Engineering Mastery Path
+
+A structured, module-wise training program on **data engineering** — from your
+first `pandas` script to production-grade, master-level data platforms — with
+runnable Python code in every module and a hands-on project at the end of each
+level.
+
+Data engineering is the discipline behind every dashboard, ML model, and
+report a company relies on: moving data reliably from where it's produced to
+where it's needed, in a shape people can trust. This site teaches that
+discipline from first principles — plain Python and SQL first, frameworks
+(Airflow, Spark, dbt) once you understand what they're automating.
+
+## How the program is organized
+
+| Level | Focus | Modules |
+|-------|-------|---------|
+| [Level 1 · Entry](level-1/index.md) | Python & SQL for data work, ETL fundamentals, data modeling, file formats, batch processing, orchestration concepts, data quality | 9 topics + 1 project |
+| [Level 2 · Intermediate](level-2/index.md) | Advanced SQL, API ingestion, warehousing, Airflow, partitioning, Parquet/Arrow, pipeline testing, streaming basics, dbt | 9 topics + 1 project |
+| [Level 3 · Advanced](level-3/index.md) | Spark, advanced Airflow, data lakes, streaming, governance, CI/CD, performance tuning, cloud warehouses, monitoring | 9 topics + 1 project |
+| [Level 4 · Master](level-4/index.md) | Enterprise architecture, real-time streaming at scale, data mesh, compliance, cost optimization, MLOps overlap, reliability engineering | 9 topics + 1 capstone |
+
+## What you need
+
+- **Python 3.10+** and `pip`. Level 1 uses only the standard library and
+  `pandas` — no cloud account, no API key, everything runs locally.
+- SQL is taught against SQLite, which ships with Python — no server to install.
+- Later levels introduce Airflow, Parquet/Arrow, dbt, and Spark; each lesson
+  states exactly what to install before you start.
+
+## How to use this site
+
+- Work through each level in order — later modules assume earlier ones.
+- Every topic page has runnable code — copy it into a local `.py` file and run
+  it. Every output block on this site was actually executed, not invented.
+- Each level ends with a project that combines everything learned in that level.
+- Use the search bar (top of the page) to jump straight to a topic.
+
+Start here → [Level 1 · Entry](level-1/index.md)
+
+## Related tracks
+
+Data engineering sits next to analytics, ML, and application development.
+Sister sites cover the neighboring ground:
+
+- [RAG Pipelines Mastery Path](https://sigilipelli.github.io/rag-mastery-path/) — retrieval-augmented generation
+- [AI/ML Mastery Path](https://sigilipelli.github.io/ai-ml-mastery-path/) — machine-learning foundations
+- [SQL Mastery Path](https://sigilipelli.github.io/sql-mastery-path/) — SQL from first principles
+- [Python Testing Mastery Path](https://sigilipelli.github.io/python-testing-mastery-path/) — testing Python code and pipelines
+
+🎥 **Prefer video?** Watch the [Mastery Path video series](https://youtube.com/@sigilipelli) on YouTube — Shorts and full walkthroughs of these lessons.
+
+## More from the Mastery Path series
+
+Free, structured, module-wise training across 40 other languages, platforms and disciplines:
+
+<div class="mastery-grid-wrap">
+<p class="mastery-grid-category">Languages</p>
+<div class="mastery-grid">
+  <a href="https://sigilipelli.github.io/python-mastery-path/">🐍 Python</a>
+  <a href="https://sigilipelli.github.io/java-mastery-path/">☕ Java</a>
+  <a href="https://sigilipelli.github.io/javascript-mastery-path/">🟨 JavaScript</a>
+  <a href="https://sigilipelli.github.io/typescript-mastery-path/">🔷 TypeScript</a>
+  <a href="https://sigilipelli.github.io/shell-mastery-path/">🐚 Shell/Bash</a>
+  <a href="https://sigilipelli.github.io/powershell-mastery-path/">💻 PowerShell</a>
+  <a href="https://sigilipelli.github.io/c-mastery-path/">🇨 C</a>
+  <a href="https://sigilipelli.github.io/cpp-mastery-path/">➕ C++</a>
+  <a href="https://sigilipelli.github.io/go-mastery-path/">🐹 Go</a>
+  <a href="https://sigilipelli.github.io/rust-mastery-path/">🦀 Rust</a>
+  <a href="https://sigilipelli.github.io/sql-mastery-path/">🗄️ SQL</a>
+  <a href="https://sigilipelli.github.io/ruby-mastery-path/">💎 Ruby</a>
+  <a href="https://sigilipelli.github.io/php-mastery-path/">🐘 PHP</a>
+  <a href="https://sigilipelli.github.io/kotlin-mastery-path/">🟣 Kotlin</a>
+  <a href="https://sigilipelli.github.io/swift-mastery-path/">🐦 Swift</a>
+  <a href="https://sigilipelli.github.io/dart-mastery-path/">🎯 Dart</a>
+  <a href="https://sigilipelli.github.io/scala-mastery-path/">🔴 Scala</a>
+  <a href="https://sigilipelli.github.io/r-mastery-path/">📊 R</a>
+</div>
+<p class="mastery-grid-category">Testing & QA</p>
+<div class="mastery-grid">
+  <a href="https://sigilipelli.github.io/java-testing-mastery-path/">🧪 Java Testing</a>
+  <a href="https://sigilipelli.github.io/cpp-testing-mastery-path/">🧪 C/C++ Testing</a>
+  <a href="https://sigilipelli.github.io/python-testing-mastery-path/">🧪 Python Testing</a>
+</div>
+<p class="mastery-grid-category">Cloud Platforms</p>
+<div class="mastery-grid">
+  <a href="https://sigilipelli.github.io/aws-mastery-path/">☁️ AWS</a>
+  <a href="https://sigilipelli.github.io/azure-mastery-path/">☁️ Azure</a>
+  <a href="https://sigilipelli.github.io/gcp-mastery-path/">☁️ GCP</a>
+  <a href="https://sigilipelli.github.io/ibm-cloud-mastery-path/">☁️ IBM Cloud</a>
+  <a href="https://sigilipelli.github.io/adobe-mastery-path/">🎨 Adobe</a>
+</div>
+<p class="mastery-grid-category">AI / ML / LLM</p>
+<div class="mastery-grid">
+  <a href="https://sigilipelli.github.io/rag-mastery-path/">📚 RAG Pipelines</a>
+  <a href="https://sigilipelli.github.io/ai-ml-mastery-path/">🤖 AI/ML</a>
+  <a href="https://sigilipelli.github.io/llm-dev-mastery-path/">🧠 LLM Dev</a>
+  <a href="https://sigilipelli.github.io/edge-ai-mastery-path/">📱 Edge AI</a>
+</div>
+<p class="mastery-grid-category">Embedded Systems</p>
+<div class="mastery-grid">
+  <a href="https://sigilipelli.github.io/embedded-mastery-path/">🔌 Embedded</a>
+  <a href="https://sigilipelli.github.io/embedded-linux-mastery-path/">🐧 Embedded Linux</a>
+  <a href="https://sigilipelli.github.io/embedded-python-mastery-path/">🐍 Embedded Python</a>
+  <a href="https://sigilipelli.github.io/freertos-mastery-path/">⏱️ FreeRTOS</a>
+  <a href="https://sigilipelli.github.io/s32k-mastery-path/">🔧 S32K</a>
+</div>
+<p class="mastery-grid-category">Leadership & Management</p>
+<div class="mastery-grid">
+  <a href="https://sigilipelli.github.io/product-manager-mastery-path/">📋 Product Manager</a>
+  <a href="https://sigilipelli.github.io/product-lead-mastery-path/">🧭 Product Lead</a>
+  <a href="https://sigilipelli.github.io/project-manager-mastery-path/">📅 Project Manager</a>
+  <a href="https://sigilipelli.github.io/ai-manager-mastery-path/">🤖 AI Manager</a>
+  <a href="https://sigilipelli.github.io/servant-leadership-mastery-path/">🤝 Servant Leadership</a>
+</div>
+</div>
