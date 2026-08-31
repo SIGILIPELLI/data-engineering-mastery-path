@@ -1825,10 +1825,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#right-to-erasure-right-to-be-forgotten-as-a-pipeline-requirement" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Right to erasure ("right to be forgotten") as a pipeline requirement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deletion-in-an-append-only-immutable-lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deletion in an append-only / immutable lake
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#derived-aggregates-the-part-people-forget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Derived aggregates: the part people forget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consent-tracking-as-a-joinable-table-not-a-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consent tracking as a joinable table, not a flag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-logging-who-accessed-what-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit logging: who accessed what, when
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-residency-and-cross-border-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data residency and cross-border transfer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2134,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#right-to-erasure-right-to-be-forgotten-as-a-pipeline-requirement" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Right to erasure ("right to be forgotten") as a pipeline requirement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deletion-in-an-append-only-immutable-lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deletion in an append-only / immutable lake
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#derived-aggregates-the-part-people-forget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Derived aggregates: the part people forget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consent-tracking-as-a-joinable-table-not-a-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consent tracking as a joinable table, not a flag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-logging-who-accessed-what-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit logging: who accessed what, when
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-residency-and-cross-border-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data residency and cross-border transfer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2253,207 @@
 
 
 <h1 id="04-advanced-data-governance-compliance">04 · Advanced Data Governance &amp; Compliance<a class="headerlink" href="#04-advanced-data-governance-compliance" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 4 · Master</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Level 3's governance module covered cataloging, lineage, and access control
+as engineering patterns. This module covers what changes when governance
+must satisfy an external legal requirement — GDPR, CCPA, HIPAA — where
+"we have a policy" isn't sufficient; you need to demonstrate compliance on
+demand and handle specific, individually-actionable rights requests.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>Code is reasoned through against documented pandas/SQL behavior for
+the deletion and audit patterns shown; not executed against a real
+regulated dataset. This module is not legal advice — compliance
+scope and required controls vary by jurisdiction and data type; consult
+counsel for an actual compliance program.</p>
+</div>
+<h2 id="right-to-erasure-right-to-be-forgotten-as-a-pipeline-requirement">Right to erasure ("right to be forgotten") as a pipeline requirement<a class="headerlink" href="#right-to-erasure-right-to-be-forgotten-as-a-pipeline-requirement" title="Permanent link">&para;</a></h2>
+<p>GDPR Article 17 and similar laws give individuals the right to have their
+personal data deleted — but deletion in a data platform with append-only
+lakes, replicated warehouses, and derived aggregates is harder than
+<code>DELETE FROM users WHERE id = ?</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">find_all_tables_referencing_subject</span><span class="p">(</span><span class="n">subject_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lineage_graph</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">"""Walk the lineage graph (built in Level 3 Module 5) to find every</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sd">    table that could contain this subject's data, directly or derived —</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sd">    a right-to-erasure request has to reach all of them, not just the</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sd">    table it was originally collected into."""</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">walk</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="k">if</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            <span class="k">return</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="k">for</span> <span class="n">downstream</span> <span class="ow">in</span> <span class="n">lineage_graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="p">[]):</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            <span class="n">walk</span><span class="p">(</span><span class="n">downstream</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">walk</span><span class="p">(</span><span class="s2">"raw.customers"</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">lineage</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="s2">"raw.customers"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"silver.customer_profile"</span><span class="p">],</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="s2">"silver.customer_profile"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"gold.customer_ltv"</span><span class="p">,</span> <span class="s2">"gold.marketing_segments"</span><span class="p">],</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="p">}</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="nb">print</span><span class="p">(</span><span class="n">find_all_tables_referencing_subject</span><span class="p">(</span><span class="s2">"cust-123"</span><span class="p">,</span> <span class="n">lineage</span><span class="p">))</span>
+</code></pre></div>
+<p>This is exactly why the lineage work in Level 3 wasn't just a nice-to-have
+— without a reliable lineage graph, answering "which of our 400 tables
+contain this person's data" is a manual, error-prone search, and getting
+it wrong (missing a table) is itself a compliance failure.</p>
+<h2 id="deletion-in-an-append-only-immutable-lake">Deletion in an append-only / immutable lake<a class="headerlink" href="#deletion-in-an-append-only-immutable-lake" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Delta Lake supports row-level delete even on an append-only table,</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># via a rewrite of affected files under the hood (not a mutation of</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># existing files, which would break time-travel/audit guarantees).</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># delta_table.delete(f"customer_id = 'cust-123'")</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">erasure_request_for_delta_table</span><span class="p">(</span><span class="n">table_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="sd">"""Illustrative — DeltaTable.forPath(spark, table_path).delete(...)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="sd">    is the real call; shown as a function to make the two-step process</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sd">    (delete, then VACUUM) explicit."""</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">return</span> <span class="p">(</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="sa">f</span><span class="s2">"DELETE FROM delta.`</span><span class="si">{</span><span class="n">table_path</span><span class="si">}</span><span class="s2">` WHERE customer_id = '</span><span class="si">{</span><span class="n">subject_id</span><span class="si">}</span><span class="s2">';</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="sa">f</span><span class="s2">"VACUUM delta.`</span><span class="si">{</span><span class="n">table_path</span><span class="si">}</span><span class="s2">` RETAIN 0 HOURS;  "</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="sa">f</span><span class="s2">"-- purges old file versions containing the deleted row"</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">erasure_request_for_delta_table</span><span class="p">(</span><span class="s2">"silver/orders_enriched"</span><span class="p">,</span> <span class="s2">"cust-123"</span><span class="p">))</span>
+</code></pre></div>
+<p>The <code>DELETE</code> alone is not sufficient for compliance purposes: Delta Lake's
+time-travel feature keeps old file versions around by default, meaning the
+"deleted" row is still physically recoverable via <code>VERSION AS OF</code> until a
+<code>VACUUM</code> purges old files. A real erasure process must both delete the
+logical row and vacuum the physical data, and must also cover backups —
+which is why most compliance programs set a maximum backup retention
+window and treat "deleted, will fully purge by end of retention window" as
+an acceptable, documented answer rather than promising instant deletion
+everywhere.</p>
+<h2 id="derived-aggregates-the-part-people-forget">Derived aggregates: the part people forget<a class="headerlink" href="#derived-aggregates-the-part-people-forget" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># gold.customer_ltv was computed FROM silver.customer_profile, which</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># included cust-123's data at aggregation time. Deleting cust-123 from</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># silver does not retroactively fix an already-materialized aggregate.</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">requires_reaggregation_after_erasure</span><span class="p">(</span><span class="n">affected_subject</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">downstream_tables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">return</span> <span class="p">[</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">downstream_tables</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"gold."</span><span class="p">)</span>  <span class="c1"># aggregates are the risk category</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="p">]</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">requires_reaggregation_after_erasure</span><span class="p">(</span><span class="s2">"cust-123"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"gold.customer_ltv"</span><span class="p">,</span> <span class="s2">"gold.marketing_segments"</span><span class="p">]))</span>
+</code></pre></div>
+<p>If a regional revenue aggregate included one now-erased customer's $500
+order, that $500 is still baked into the aggregate until the aggregation
+job reruns against the now-corrected source. Whether this constitutes a
+compliance gap depends on whether the aggregate is itself considered
+personal data (usually not, once sufficiently aggregated — but "sufficient"
+has a real legal threshold, k-anonymity-style, not a vibe) — this is
+exactly the kind of judgment call that needs legal/DPO sign-off, not an
+engineering guess.</p>
+<h2 id="consent-tracking-as-a-joinable-table-not-a-flag">Consent tracking as a joinable table, not a flag<a class="headerlink" href="#consent-tracking-as-a-joinable-table-not-a-flag" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">consent_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="s2">"subject_id"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"cust-123"</span><span class="p">,</span> <span class="s2">"cust-123"</span><span class="p">,</span> <span class="s2">"cust-456"</span><span class="p">],</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="s2">"purpose"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"marketing_email"</span><span class="p">,</span> <span class="s2">"analytics"</span><span class="p">,</span> <span class="s2">"marketing_email"</span><span class="p">],</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="s2">"granted"</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="s2">"recorded_at"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s2">"2024-01-01"</span><span class="p">,</span> <span class="s2">"2024-01-01"</span><span class="p">,</span> <span class="s2">"2024-02-15"</span><span class="p">]),</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">})</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">can_use_for_purpose</span><span class="p">(</span><span class="n">subject_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">purpose</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">consent_log</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="sd">"""Consent is per-purpose and time-stamped, not a single boolean on</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="sd">    the customer record — a customer can consent to analytics but not</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="sd">    marketing, and can revoke either independently later."""</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">relevant</span> <span class="o">=</span> <span class="n">consent_log</span><span class="p">[</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="p">(</span><span class="n">consent_log</span><span class="p">[</span><span class="s2">"subject_id"</span><span class="p">]</span> <span class="o">==</span> <span class="n">subject_id</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">consent_log</span><span class="p">[</span><span class="s2">"purpose"</span><span class="p">]</span> <span class="o">==</span> <span class="n">purpose</span><span class="p">)</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"recorded_at"</span><span class="p">)</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">relevant</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">"granted"</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">relevant</span><span class="p">)</span> <span class="k">else</span> <span class="kc">False</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="nb">print</span><span class="p">(</span><span class="n">can_use_for_purpose</span><span class="p">(</span><span class="s2">"cust-456"</span><span class="p">,</span> <span class="s2">"marketing_email"</span><span class="p">,</span> <span class="n">consent_log</span><span class="p">))</span>  <span class="c1"># False</span>
+</code></pre></div>
+<p>Any pipeline that reads customer data for a specific purpose (sending a
+marketing email, training a model) should join against this kind of
+purpose-scoped, latest-record consent table before acting — treating
+consent as a single mutable flag on the customer row loses the history
+needed to prove, on audit, what consent was in effect at the time an action
+was taken.</p>
+<h2 id="audit-logging-who-accessed-what-when">Audit logging: who accessed what, when<a class="headerlink" href="#audit-logging-who-accessed-what-when" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">log_data_access</span><span class="p">(</span><span class="n">accessor</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">purpose</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">row_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">"""A real implementation writes this to an append-only, tamper-evident</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="sd">    store (a separate audit table with restricted write access, or a</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="sd">    dedicated audit log service) — never to a table the accessor</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="sd">    themselves can modify."""</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="s2">"accessor"</span><span class="p">:</span> <span class="n">accessor</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="s2">"table"</span><span class="p">:</span> <span class="n">table</span><span class="p">,</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="s2">"purpose"</span><span class="p">:</span> <span class="n">purpose</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="s2">"row_count"</span><span class="p">:</span> <span class="n">row_count</span><span class="p">,</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="s2">"accessed_at"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="p">}</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="nb">print</span><span class="p">(</span><span class="n">log_data_access</span><span class="p">(</span><span class="s2">"marketing-analyst-jane"</span><span class="p">,</span> <span class="s2">"gold.customer_ltv"</span><span class="p">,</span> <span class="s2">"campaign_targeting"</span><span class="p">,</span> <span class="mi">50_000</span><span class="p">))</span>
+</code></pre></div>
+<p>For regulated data, "we have access control" is not the same claim as "we
+can show an auditor exactly who accessed this specific sensitive table on
+this specific date and why" — the second requires the access log itself,
+kept separately from the data it describes.</p>
+<h2 id="data-residency-and-cross-border-transfer">Data residency and cross-border transfer<a class="headerlink" href="#data-residency-and-cross-border-transfer" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Many regulations (GDPR especially) restrict transferring personal data
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>outside certain jurisdictions without a legal basis (Standard Contractual
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Clauses, an adequacy decision). Concretely, this affects:
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>- Which cloud region a table's underlying storage lives in
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>- Where a Spark/warehouse compute job actually runs (compute location can
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  itself count as "processing" the data, not just storage location)
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>- Whether a third-party SaaS tool used in the pipeline (an ETL connector,
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  a BI tool) stores or transmits data through a non-compliant region
+</code></pre></div>
+<p>This is one of the reasons enterprise platforms often maintain
+region-pinned pipelines for EU customer data specifically, rather than one
+global pipeline processing all regions' data in a single, convenient
+location — a real architectural cost paid for a real legal requirement.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for advanced data governance &amp; compliance</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Deleting from the source table and considering the request closed.</strong>
+  Derived aggregates and backups need an explicit plan, not silence.</li>
+<li><strong>Treating consent as a single boolean on the customer record.</strong>
+  Loses per-purpose granularity and the audit trail of what was true when.</li>
+<li><strong>No lineage graph, so erasure requests are handled by manual search.</strong>
+  Error-prone and doesn't scale past a handful of tables.</li>
+<li><strong>Assuming "we have RBAC" answers "who accessed sensitive data on
+  date X."</strong> Access control and access <em>logging</em> are different
+  capabilities; compliance audits usually need the log.</li>
+<li><strong>Ignoring compute/processing location, only checking storage region.</strong>
+  Regulations often restrict <em>processing</em> location too, not just where
+  data is stored at rest.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Engineering mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Right to erasure</td>
+<td>Lineage-driven table discovery + delete + vacuum + reaggregate</td>
+</tr>
+<tr>
+<td>Consent</td>
+<td>Purpose-scoped, timestamped, joinable consent log — not a flag</td>
+</tr>
+<tr>
+<td>Auditability</td>
+<td>Separate, tamper-evident access log, not just access control</td>
+</tr>
+<tr>
+<td>Data residency</td>
+<td>Region-pinned storage AND compute for restricted data</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Extend <code>find_all_tables_referencing_subject</code> to also flag which of the
+returned tables are <code>gold.</code>-prefixed aggregates that would need
+reaggregation (not just deletion) to fully honor an erasure request, and
+explain why silently skipping this step could leave the requester's data
+still statistically recoverable from an aggregate.</p>
 
 
 

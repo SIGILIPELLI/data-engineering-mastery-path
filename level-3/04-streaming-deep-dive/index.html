@@ -1451,10 +1451,109 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#structured-streamings-model-an-unbounded-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Structured Streaming's model: an unbounded table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windowed-aggregation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windowed aggregation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#watermarks-bounding-how-late-is-too-late" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watermarks: bounding how late is "too late"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateful-deduplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stateful deduplication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exactly-once-sinks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exactly-once sinks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#micro-batch-vs-continuous-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Micro-batch vs. continuous processing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2145,109 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#structured-streamings-model-an-unbounded-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Structured Streaming's model: an unbounded table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windowed-aggregation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windowed aggregation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#watermarks-bounding-how-late-is-too-late" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watermarks: bounding how late is "too late"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateful-deduplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stateful deduplication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exactly-once-sinks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exactly-once sinks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#micro-batch-vs-continuous-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Micro-batch vs. continuous processing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2275,195 @@
 
 
 <h1 id="04-streaming-deep-dive">04 · Streaming Deep Dive<a class="headerlink" href="#04-streaming-deep-dive" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 3 · Advanced</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Level 2 covered Kafka as transport. This module goes into stream
+<em>processing</em>: windowing, watermarks, stateful aggregation, and exactly-once
+semantics, using Spark Structured Streaming as the concrete engine.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>Code targets PySpark Structured Streaming (3.5), reasoned through
+against its documented streaming API and semantics. Structured
+Streaming needs a running source (Kafka, a socket, or files); the
+file-source examples here are genuinely runnable locally, the
+Kafka-source ones are written correctly but need a broker to execute.</p>
+</div>
+<h2 id="structured-streamings-model-an-unbounded-table">Structured Streaming's model: an unbounded table<a class="headerlink" href="#structured-streamings-model-an-unbounded-table" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyspark.sql</span><span class="w"> </span><span class="kn">import</span> <span class="n">SparkSession</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyspark.sql</span><span class="w"> </span><span class="kn">import</span> <span class="n">functions</span> <span class="k">as</span> <span class="n">F</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyspark.sql.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">StructType</span><span class="p">,</span> <span class="n">StringType</span><span class="p">,</span> <span class="n">DoubleType</span><span class="p">,</span> <span class="n">TimestampType</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">"streaming_demo"</span><span class="p">)</span><span class="o">.</span><span class="n">master</span><span class="p">(</span><span class="s2">"local[2]"</span><span class="p">)</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">schema</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">StructType</span><span class="p">()</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"event_time"</span><span class="p">,</span> <span class="n">TimestampType</span><span class="p">())</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"region"</span><span class="p">,</span> <span class="n">StringType</span><span class="p">())</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"amount"</span><span class="p">,</span> <span class="n">DoubleType</span><span class="p">())</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">stream_df</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="o">.</span><span class="n">schema</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">"maxFilesPerTrigger"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">"/tmp/stream_input/"</span><span class="p">)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="p">)</span>
+</code></pre></div>
+<p>Structured Streaming's core idea: treat the stream as a table that keeps
+growing, and describe the query you want as if the whole table already
+existed. Spark figures out how to compute results incrementally as new rows
+(new files, in this example) arrive — the same DataFrame API from the batch
+Spark module, run continuously instead of once.</p>
+<h2 id="windowed-aggregation">Windowed aggregation<a class="headerlink" href="#windowed-aggregation" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">windowed</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">stream_df</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="o">.</span><span class="n">withWatermark</span><span class="p">(</span><span class="s2">"event_time"</span><span class="p">,</span> <span class="s2">"10 minutes"</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="o">.</span><span class="n">groupBy</span><span class="p">(</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="n">F</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="s2">"event_time"</span><span class="p">,</span> <span class="s2">"5 minutes"</span><span class="p">),</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="s2">"region"</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="p">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s2">"amount"</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">"total_amount"</span><span class="p">))</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">query</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">windowed</span><span class="o">.</span><span class="n">writeStream</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="o">.</span><span class="n">outputMode</span><span class="p">(</span><span class="s2">"update"</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">"console"</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="n">processingTime</span><span class="o">=</span><span class="s2">"30 seconds"</span><span class="p">)</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">)</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="n">query</span><span class="o">.</span><span class="n">awaitTermination</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+</code></pre></div>
+<p><code>F.window("event_time", "5 minutes")</code> buckets events into non-overlapping
+5-minute tumbling windows based on the event's own timestamp (<code>event_time</code>)
+— not the time Spark happened to process it. This distinction (<strong>event
+time</strong> vs. <strong>processing time</strong>) matters because events can arrive late or
+out of order over a network.</p>
+<h2 id="watermarks-bounding-how-late-is-too-late">Watermarks: bounding how late is "too late"<a class="headerlink" href="#watermarks-bounding-how-late-is-too-late" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>withWatermark("event_time", "10 minutes")
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>means: once Spark has seen an event with event_time = T, it will wait up to
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>10 more minutes of event-time progress for late-arriving events before
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>finalizing (and dropping state for) windows ending before T - 10min.
+</code></pre></div>
+<p>Without a watermark, Spark would have to keep <em>all</em> window state forever,
+since an arbitrarily late event could still update any past window — memory
+grows without bound. A watermark tells Spark "assume nothing arrives more
+than 10 minutes late" so it can safely discard state for old, closed
+windows. Events that show up even later than the watermark allows are
+simply dropped from that window's aggregate — a real, documented trade-off,
+not a bug.</p>
+<h2 id="output-modes">Output modes<a class="headerlink" href="#output-modes" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>append  — only rows that are now FINAL (won't change again) are output;
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>          required for windowed aggregations without update semantics
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>update  — only rows that changed since the last trigger are output
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>complete — the entire result table is output every trigger (small results only)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># append mode requires a watermark on windowed aggregations, because</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># Spark needs to know when a window is truly final before emitting it</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">final_only</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">windowed</span><span class="o">.</span><span class="n">writeStream</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="o">.</span><span class="n">outputMode</span><span class="p">(</span><span class="s2">"append"</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">"console"</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">)</span>
+</code></pre></div>
+<p><code>update</code> shows a window's running total changing across triggers as more
+events for it arrive; <code>append</code> waits until the watermark guarantees no more
+events can affect that window, then emits it once. Downstream systems that
+can't handle revised values (e.g. an append-only sink) need <code>append</code> mode.</p>
+<h2 id="stateful-deduplication">Stateful deduplication<a class="headerlink" href="#stateful-deduplication" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">deduped</span> <span class="o">=</span> <span class="n">stream_df</span><span class="o">.</span><span class="n">withWatermark</span><span class="p">(</span><span class="s2">"event_time"</span><span class="p">,</span> <span class="s2">"1 hour"</span><span class="p">)</span><span class="o">.</span><span class="n">dropDuplicates</span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="p">[</span><span class="s2">"region"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">,</span> <span class="s2">"event_time"</span><span class="p">]</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">)</span>
+</code></pre></div>
+<p>Structured Streaming keeps a state store of recently seen keys (bounded by
+the watermark, same reasoning as windowing) to drop exact redeliveries — the
+stream-processing analogue of the idempotency key pattern from the Kafka
+module, applied automatically rather than manually in application code.</p>
+<h2 id="exactly-once-sinks">Exactly-once sinks<a class="headerlink" href="#exactly-once-sinks" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">query</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">windowed</span><span class="o">.</span><span class="n">writeStream</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="o">.</span><span class="n">outputMode</span><span class="p">(</span><span class="s2">"update"</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">"parquet"</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">"path"</span><span class="p">,</span> <span class="s2">"/tmp/stream_output/"</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">"checkpointLocation"</span><span class="p">,</span> <span class="s2">"/tmp/stream_checkpoint/"</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="n">processingTime</span><span class="o">=</span><span class="s2">"1 minute"</span><span class="p">)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">)</span>
+</code></pre></div>
+<p>The <code>checkpointLocation</code> is what makes this exactly-once end-to-end: Spark
+records, per micro-batch, exactly which input offsets were processed and
+what was written. On restart after a crash, it resumes from the checkpoint
+rather than reprocessing or skipping — as long as the sink itself is
+idempotent for a given batch ID (true of the Parquet/Delta sinks, and of a
+JDBC sink written with an upsert keyed on batch ID).</p>
+<h2 id="micro-batch-vs-continuous-processing">Micro-batch vs. continuous processing<a class="headerlink" href="#micro-batch-vs-continuous-processing" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Micro-batch (default): Spark polls the source every `trigger` interval,
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  processes what's accumulated as a small batch. Latency ~ trigger interval
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  (typically 100ms-minutes). Supports the full DataFrame API, including
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  aggregations and joins.
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>Continuous processing (experimental): individual records processed with
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  ~1ms latency, but supports only a restricted subset of operations (no
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  aggregations across the whole stream).
+</code></pre></div>
+<p>For nearly all data engineering pipelines (as opposed to trading-latency use
+cases), micro-batch is the right choice — it supports the operations
+(windowed aggregation, joins, dedup) that real pipelines need.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for streaming deep dive</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>No watermark on an unbounded aggregation.</strong> State grows forever,
+  eventually exhausting memory — always set <code>withWatermark</code> before a
+  <code>groupBy</code> on a streaming DataFrame with no other bound.</li>
+<li><strong>Confusing event time and processing time.</strong> Aggregating by "the time
+  Spark processed the record" instead of "the time the event actually
+  happened" gives wrong results whenever there's network delay or replay —
+  which is most of the time in a real system.</li>
+<li><strong><code>outputMode("complete")</code> on a large aggregation.</strong> Re-emitting the
+  entire result table every trigger doesn't scale once the result has many
+  distinct keys — reserve <code>complete</code> for small dashboards-style results.</li>
+<li><strong>Losing the checkpoint directory.</strong> Deleting or moving
+  <code>checkpointLocation</code> between restarts breaks exactly-once guarantees and
+  can cause full reprocessing or silent gaps — treat it as durable state,
+  not scratch space.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Event time</td>
+<td>When the event happened (in its own data), not when Spark saw it</td>
+</tr>
+<tr>
+<td>Watermark</td>
+<td>How late an event can arrive before its window is considered final</td>
+</tr>
+<tr>
+<td>Tumbling window</td>
+<td>Fixed, non-overlapping time buckets for aggregation</td>
+</tr>
+<tr>
+<td>Output mode</td>
+<td><code>append</code> (final only), <code>update</code> (changed), <code>complete</code> (everything)</td>
+</tr>
+<tr>
+<td>Checkpoint</td>
+<td>Durable record of processed offsets — required for exactly-once</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Change the windowed aggregation to a <strong>sliding</strong> window
+(<code>F.window("event_time", "10 minutes", "5 minutes")</code> — 10-minute windows,
+new one every 5 minutes) instead of tumbling, and explain in your own words
+why the same event can now appear in the aggregate for two different
+windows simultaneously, and why that's the intended behavior rather than a
+duplication bug.</p>
 
 
 

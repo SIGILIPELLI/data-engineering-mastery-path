@@ -1077,10 +1077,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#installing-and-structuring-a-project" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Installing and structuring a project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-first-dag-with-the-taskflow-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A first DAG with the TaskFlow API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-scheduler-runs-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the scheduler runs this
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retries-timeouts-and-slas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retries, timeouts, and SLAs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-and-conditional-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branching and conditional logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backfilling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backfilling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2134,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#installing-and-structuring-a-project" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Installing and structuring a project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-first-dag-with-the-taskflow-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A first DAG with the TaskFlow API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-scheduler-runs-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the scheduler runs this
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retries-timeouts-and-slas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retries, timeouts, and SLAs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-and-conditional-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branching and conditional logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backfilling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backfilling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2253,197 @@
 
 
 <h1 id="04-airflow-hands-on">04 · Airflow Hands-On<a class="headerlink" href="#04-airflow-hands-on" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 2 · Intermediate</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Level 1's "Intro to Orchestration" module used a plain Python script that ran
+steps in order. Apache Airflow formalizes that idea: you describe a pipeline
+as a <strong>DAG</strong> (Directed Acyclic Graph) of tasks, and a scheduler runs it,
+retries failures, and gives you a UI to see what happened. This module builds
+a real two-task DAG and traces exactly how Airflow executes it.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>Airflow needs a running scheduler/metadata DB to fully execute a DAG.
+The DAG code below is written for Airflow 2.7+ (the <code>TaskFlow API</code>,
+<code>@dag</code>/<code>@task</code> decorators) and is syntactically valid, importable Python.
+Where the lesson shows "what happens," that's Airflow's documented
+execution model, not a live screenshot.</p>
+</div>
+<h2 id="installing-and-structuring-a-project">Installing and structuring a project<a class="headerlink" href="#installing-and-structuring-a-project" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"apache-airflow==2.9.3"</span><span class="w"> </span>--constraint<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="s2">"https://raw.githubusercontent.com/apache/airflow/constraints-2.9.3/constraints-3.11.txt"</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AIRFLOW_HOME</span><span class="o">=</span>~/airflow
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>airflow<span class="w"> </span>db<span class="w"> </span>migrate
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>airflow<span class="w"> </span>users<span class="w"> </span>create<span class="w"> </span>--username<span class="w"> </span>admin<span class="w"> </span>--password<span class="w"> </span>admin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>--firstname<span class="w"> </span>a<span class="w"> </span>--lastname<span class="w"> </span>b<span class="w"> </span>--role<span class="w"> </span>Admin<span class="w"> </span>--email<span class="w"> </span>admin@example.com
+</code></pre></div>
+<p>Airflow looks for DAG files in <code>$AIRFLOW_HOME/dags/</code>. Each <code>.py</code> file there is
+imported and scanned for DAG objects.</p>
+<h2 id="a-first-dag-with-the-taskflow-api">A first DAG with the TaskFlow API<a class="headerlink" href="#a-first-dag-with-the-taskflow-api" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># dags/sales_etl.py</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.decorators</span><span class="w"> </span><span class="kn">import</span> <span class="n">dag</span><span class="p">,</span> <span class="n">task</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nd">@dag</span><span class="p">(</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">dag_id</span><span class="o">=</span><span class="s2">"sales_etl"</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">schedule</span><span class="o">=</span><span class="s2">"0 6 * * *"</span><span class="p">,</span>       <span class="c1"># 6 AM daily</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">catchup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"sales"</span><span class="p">,</span> <span class="s2">"etl"</span><span class="p">],</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">sales_etl</span><span class="p">():</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="nd">@task</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">extract</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="c1"># In production this would call an API or query a source DB.</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="k">return</span> <span class="p">[</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>            <span class="p">{</span><span class="s2">"region"</span><span class="p">:</span> <span class="s2">"east"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mi">500</span><span class="p">},</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>            <span class="p">{</span><span class="s2">"region"</span><span class="p">:</span> <span class="s2">"east"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mi">300</span><span class="p">},</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>            <span class="p">{</span><span class="s2">"region"</span><span class="p">:</span> <span class="s2">"west"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mi">900</span><span class="p">},</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>        <span class="p">]</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="nd">@task</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="n">rows</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>        <span class="n">totals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>            <span class="n">totals</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s2">"region"</span><span class="p">]]</span> <span class="o">=</span> <span class="n">totals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">"region"</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        <span class="k">return</span> <span class="n">totals</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    <span class="nd">@task</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">totals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"/tmp/region_totals.json"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">totals</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Loaded: </span><span class="si">{</span><span class="n">totals</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>    <span class="n">load</span><span class="p">(</span><span class="n">transform</span><span class="p">(</span><span class="n">extract</span><span class="p">()))</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="n">sales_etl</span><span class="p">()</span>
+</code></pre></div>
+<p><code>@task</code> wraps a plain Python function as an Airflow operator. Calling
+<code>transform(extract())</code> at DAG-definition time doesn't run anything — it wires
+up a dependency graph. Airflow serializes the return value of <code>extract()</code> via
+<strong>XCom</strong> (cross-communication) and passes it to <code>transform</code> when the task
+actually runs.</p>
+<h2 id="how-the-scheduler-runs-this">How the scheduler runs this<a class="headerlink" href="#how-the-scheduler-runs-this" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>1. Scheduler parses sales_etl.py, registers the DAG, dag_id=sales_etl.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>2. At each schedule interval, it creates a DAG Run for that logical date.
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>3. extract task instance: state=scheduled → queued → running → success.
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>   Its return value is pickled/JSON-serialized into the XCom table.
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>4. transform becomes eligible only after extract succeeds (dependency edge).
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>   It pulls extract's XCom value as its argument.
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>5. load runs last, after transform succeeds.
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>6. DAG Run state = success only if every task instance succeeded.
+</code></pre></div>
+<p>If <code>transform</code> raises an exception, Airflow marks that task instance
+<code>failed</code>, and (depending on <code>retries</code>) either retries it or leaves the DAG
+Run in a <code>failed</code> state — <code>load</code> never runs, because its upstream dependency
+didn't succeed.</p>
+<h2 id="retries-timeouts-and-slas">Retries, timeouts, and SLAs<a class="headerlink" href="#retries-timeouts-and-slas" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">timedelta</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nd">@task</span><span class="p">(</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">retry_delay</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">execution_timeout</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">extract</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="o">...</span>
+</code></pre></div>
 <ul>
-<li>Core concepts and terminology for airflow hands-on</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><code>retries=3</code> — on failure, Airflow re-queues the task instance up to 3
+  times before marking it permanently <code>failed</code>.</li>
+<li><code>retry_delay</code> — how long to wait between attempts (useful for transient
+  network errors against a flaky upstream API).</li>
+<li><code>execution_timeout</code> — kills a hung task instance rather than letting it
+  block downstream tasks indefinitely.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="branching-and-conditional-logic">Branching and conditional logic<a class="headerlink" href="#branching-and-conditional-logic" title="Permanent link">&para;</a></h2>
+<p>Pipelines often need to skip work based on a condition — e.g. don't run the
+weekly rollup task on weekdays.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.operators.python</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_current_context</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">AirflowSkipException</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nd">@task</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">weekly_rollup_only</span><span class="p">():</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">get_current_context</span><span class="p">()</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">logical_date</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">"logical_date"</span><span class="p">]</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="k">if</span> <span class="n">logical_date</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">6</span><span class="p">:</span>  <span class="c1"># not Sunday</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="k">raise</span> <span class="n">AirflowSkipException</span><span class="p">(</span><span class="s2">"Not the weekly run day"</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="c1"># ... do the rollup</span>
+</code></pre></div>
+<p>Raising <code>AirflowSkipException</code> marks the task instance <code>skipped</code> rather than
+<code>failed</code> — downstream tasks configured with the default trigger rule
+(<code>all_success</code>) will still be skipped in turn, keeping the DAG Run's overall
+state clean instead of red.</p>
+<h2 id="backfilling">Backfilling<a class="headerlink" href="#backfilling" title="Permanent link">&para;</a></h2>
+<p>Because <code>start_date</code> and <code>schedule</code> define a timeline, Airflow can "replay"
+past intervals:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>airflow<span class="w"> </span>dags<span class="w"> </span>backfill<span class="w"> </span>sales_etl<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>--start-date<span class="w"> </span><span class="m">2026</span>-01-01<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>--end-date<span class="w"> </span><span class="m">2026</span>-01-07
+</code></pre></div>
+<p>This creates 7 DAG Runs, one per day, each receiving that day's <code>logical_date</code>
+in its task context — exactly as if the scheduler had run on those dates.
+This is why pipelines should read <code>logical_date</code> (not <code>datetime.now()</code>) when
+they need "what day is this run for" — using <code>now()</code> breaks backfills, since
+every backfilled run would compute the same "today."</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Doing real work at DAG-parse time.</strong> Code outside a <code>@task</code> function
+  (e.g. a database query at the top of the file) runs <em>every time the
+  scheduler scans the dags folder</em> — often every 30 seconds — not once per
+  run. Keep the top level to DAG/task wiring only.</li>
+<li><strong>Large XCom payloads.</strong> XCom is stored in the metadata database by
+  default; passing a 500MB DataFrame between tasks this way will exhaust
+  the DB. Write large data to object storage/a file and pass a <em>path</em>
+  through XCom instead.</li>
+<li><strong><code>datetime.now()</code> instead of <code>logical_date</code>.</strong> Breaks backfills and makes
+  reruns non-idempotent, as noted above.</li>
+<li><strong>Missing <code>catchup=False</code>.</strong> If omitted, Airflow will try to run <em>every</em>
+  missed interval between <code>start_date</code> and now the first time the DAG is
+  turned on — often an unwanted flood of runs.</li>
+</ul>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DAG</td>
+<td>The pipeline definition — tasks + dependencies</td>
+</tr>
+<tr>
+<td>Task instance</td>
+<td>One task, for one DAG Run (one logical date)</td>
+</tr>
+<tr>
+<td>XCom</td>
+<td>Small data passed between tasks</td>
+</tr>
+<tr>
+<td><code>logical_date</code></td>
+<td>The date/time the run represents (not wall-clock <code>now()</code>)</td>
+</tr>
+<tr>
+<td>Backfill</td>
+<td>Replay past schedule intervals</td>
+</tr>
+<tr>
+<td><code>retries</code> / <code>retry_delay</code></td>
+<td>Automatic retry policy per task</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Add a fourth task, <code>validate</code>, that runs after <code>load</code> and raises an exception
+if any region's total is negative or zero. Give it <code>retries=1</code>. Then trace
+through what DAG Run state results if <code>validate</code> fails on its final attempt,
+and what happens to a fifth task you add downstream of it with the default
+trigger rule.</p>
 
 
 

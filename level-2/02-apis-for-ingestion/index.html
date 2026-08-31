@@ -1021,10 +1021,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#simulating-the-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Simulating the API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retries-with-exponential-backoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retries with exponential backoff
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pagination-following-has_more-until-its-false" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pagination: following has_more until it's False
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incremental-ingestion-only-fetch-what-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental ingestion: only fetch what changed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2112,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#simulating-the-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Simulating the API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retries-with-exponential-backoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retries with exponential backoff
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pagination-following-has_more-until-its-false" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pagination: following has_more until it's False
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incremental-ingestion-only-fetch-what-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental ingestion: only fetch what changed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2209,182 @@
 
 
 <h1 id="02-working-with-apis-for-ingestion">02 · Working with APIs for Ingestion<a class="headerlink" href="#02-working-with-apis-for-ingestion" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 2 · Intermediate</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Most real pipelines don't start with a clean CSV — they start with a REST
+API: paginated, rate-limited, and occasionally down. This lesson builds a
+resilient ingestion function against a simulated API, covering pagination,
+retries with backoff, and incremental (since-last-run) fetching.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>No real network calls were made. A <code>FakeAPI</code> class simulates paginated
+responses, a transient 429, and a stateful "since" cursor, so the retry
+and pagination logic can be exercised deterministically.</p>
+</div>
+<h2 id="simulating-the-api">Simulating the API<a class="headerlink" href="#simulating-the-api" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">FakeAPI</span><span class="p">:</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="sd">"""Simulates a paginated, occasionally-flaky orders API."""</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_all_orders</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">10.0</span><span class="p">,</span> <span class="s2">"updated_at"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"2026-01-</span><span class="si">{</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">28</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span><span class="p">}</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">47</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="p">]</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_call_count</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_orders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">updated_since</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_call_count</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_count</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>            <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="s2">"429 Too Many Requests"</span><span class="p">)</span>  <span class="c1"># transient failure</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_orders</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="k">if</span> <span class="n">updated_since</span><span class="p">:</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">if</span> <span class="n">o</span><span class="p">[</span><span class="s2">"updated_at"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">updated_since</span><span class="p">]</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">page_size</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        <span class="n">chunk</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">page_size</span><span class="p">]</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>            <span class="s2">"results"</span><span class="p">:</span> <span class="n">chunk</span><span class="p">,</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>            <span class="s2">"has_more"</span><span class="p">:</span> <span class="n">start</span> <span class="o">+</span> <span class="n">page_size</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        <span class="p">}</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="n">api</span> <span class="o">=</span> <span class="n">FakeAPI</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="retries-with-exponential-backoff">Retries with exponential backoff<a class="headerlink" href="#retries-with-exponential-backoff" title="Permanent link">&para;</a></h2>
+<p>An API call fails for all sorts of transient reasons — rate limits, network
+blips, a server restart. The fix isn't "give up," it's "wait and try again,"
+with the wait growing each time so you don't hammer a struggling service.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">call_with_retry</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">max_attempts</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">base_delay</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">last_error</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_attempts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>            <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="k">except</span> <span class="ne">ConnectionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>            <span class="n">last_error</span> <span class="o">=</span> <span class="n">e</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>            <span class="n">delay</span> <span class="o">=</span> <span class="n">base_delay</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">attempt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  attempt </span><span class="si">{</span><span class="n">attempt</span><span class="si">}</span><span class="s2"> failed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">); retrying in </span><span class="si">{</span><span class="n">delay</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s"</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gave up after </span><span class="si">{</span><span class="n">max_attempts</span><span class="si">}</span><span class="s2"> attempts"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">last_error</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">result</span> <span class="o">=</span> <span class="n">call_with_retry</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">get_orders</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fetched </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">'results'</span><span class="p">])</span><span class="si">}</span><span class="s2"> orders on first successful call"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>  attempt 1 failed (429 Too Many Requests); retrying in 0.010s
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Fetched 20 orders on first successful call
+</code></pre></div>
+<p><code>base_delay * (2 ** (attempt - 1))</code> gives 0.01s, 0.02s, 0.04s, 0.08s —
+doubling each time. In production this is usually seconds, not milliseconds,
+and often includes jitter (a small random offset) so many clients retrying
+at once don't all hit the server in the same instant.</p>
+<h2 id="pagination-following-has_more-until-its-false">Pagination: following <code>has_more</code> until it's False<a class="headerlink" href="#pagination-following-has_more-until-its-false" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">fetch_all_pages</span><span class="p">(</span><span class="n">api</span><span class="p">,</span> <span class="n">updated_since</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">all_results</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="n">result</span> <span class="o">=</span> <span class="n">call_with_retry</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">get_orders</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">updated_since</span><span class="o">=</span><span class="n">updated_since</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="n">all_results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"results"</span><span class="p">])</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">[</span><span class="s2">"has_more"</span><span class="p">]:</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            <span class="k">break</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">return</span> <span class="n">all_results</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="n">api</span> <span class="o">=</span> <span class="n">FakeAPI</span><span class="p">()</span>  <span class="c1"># fresh instance, call_count resets</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="n">all_orders</span> <span class="o">=</span> <span class="n">fetch_all_pages</span><span class="p">(</span><span class="n">api</span><span class="p">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fetched </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_orders</span><span class="p">)</span><span class="si">}</span><span class="s2"> orders across pages"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>  attempt 1 failed (429 Too Many Requests); retrying in 0.010s
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Fetched 46 orders across pages
+</code></pre></div>
+<p>The loop only stops when the API explicitly says there's no more data
+(<code>has_more: False</code>) — never on an assumed page count, which breaks the
+moment the underlying dataset grows or shrinks.</p>
+<h2 id="incremental-ingestion-only-fetch-what-changed">Incremental ingestion: only fetch what changed<a class="headerlink" href="#incremental-ingestion-only-fetch-what-changed" title="Permanent link">&para;</a></h2>
+<p>Re-fetching all 46 orders every run wastes API quota and time. A pipeline
+that ingests on a schedule should track the last successful run and ask the
+API for only newer records:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">STATE_FILE</span> <span class="o">=</span> <span class="s2">"ingestion_state.json"</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_last_cursor</span><span class="p">():</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">STATE_FILE</span><span class="p">):</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">STATE_FILE</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"last_updated_at"</span><span class="p">)</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="k">return</span> <span class="kc">None</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">save_cursor</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">STATE_FILE</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">"last_updated_at"</span><span class="p">:</span> <span class="n">value</span><span class="p">},</span> <span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">incremental_fetch</span><span class="p">(</span><span class="n">api</span><span class="p">):</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    <span class="n">since</span> <span class="o">=</span> <span class="n">load_last_cursor</span><span class="p">()</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fetching orders updated since: </span><span class="si">{</span><span class="n">since</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    <span class="n">records</span> <span class="o">=</span> <span class="n">fetch_all_pages</span><span class="p">(</span><span class="n">api</span><span class="p">,</span> <span class="n">updated_since</span><span class="o">=</span><span class="n">since</span><span class="p">)</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>    <span class="k">if</span> <span class="n">records</span><span class="p">:</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>        <span class="n">newest</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"updated_at"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span><span class="p">)</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>        <span class="n">save_cursor</span><span class="p">(</span><span class="n">newest</span><span class="p">)</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>    <span class="k">return</span> <span class="n">records</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="n">api</span> <span class="o">=</span> <span class="n">FakeAPI</span><span class="p">()</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="n">first_batch</span> <span class="o">=</span> <span class="n">incremental_fetch</span><span class="p">(</span><span class="n">api</span><span class="p">)</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First run: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">first_batch</span><span class="p">)</span><span class="si">}</span><span class="s2"> orders"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Fetching orders updated since: None
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  attempt 1 failed (429 Too Many Requests); retrying in 0.010s
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>First run: 46 orders
+</code></pre></div>
+<p>A second run with a fresh <code>FakeAPI</code> (simulating "a day later, some orders
+updated") and the same state file would only request <code>updated_at &gt;=
+&lt;saved cursor&gt;</code>, cutting the payload down to just what changed.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for working with apis for ingestion</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Watermark bugs at the boundary.</strong> Using <code>&gt;</code> instead of <code>&gt;=</code> for the
+  "since" filter silently drops any record updated in the <em>same second</em> as
+  the last cursor. Always use <code>&gt;=</code> and rely on a unique ID or dedup step
+  downstream to avoid double-processing the boundary record.</li>
+<li><strong>Retrying non-transient errors.</strong> A <code>404</code> or <code>401</code> will never succeed on
+  retry — only retry on errors that are actually transient (<code>429</code>, <code>5xx</code>,
+  connection timeouts). Retrying a <code>401</code> for 4 attempts just wastes time
+  before failing anyway.</li>
+<li><strong>No cap on backoff.</strong> Unbounded exponential backoff (<code>2 ** attempt</code>) can
+  reach absurd wait times after a dozen failures. Cap it: <code>min(delay,
+  max_delay)</code>.</li>
+<li><strong>Losing the cursor on a crash.</strong> If the pipeline crashes mid-page after
+  processing some records but before calling <code>save_cursor</code>, the next run
+  reprocesses that whole batch. Make downstream processing idempotent (an
+  upsert, as in lesson 1) so reprocessing is safe rather than corrupting data.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transient failures</td>
+<td>Retry with exponential backoff, cap attempts</td>
+</tr>
+<tr>
+<td>Multi-page results</td>
+<td>Loop until <code>has_more</code> is false, never assume page count</td>
+</tr>
+<tr>
+<td>Avoid re-fetching everything</td>
+<td>Track a cursor (timestamp or ID), request only newer data</td>
+</tr>
+<tr>
+<td>Crash mid-run</td>
+<td>Make downstream loads idempotent so replays are safe</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Add jitter to <code>call_with_retry</code> (<code>delay * random.uniform(0.8, 1.2)</code>) and a
+<code>max_delay</code> cap of 1 second. Then modify <code>incremental_fetch</code> to save the
+cursor <strong>after each page</strong> instead of only at the end, and explain in a
+comment why that's safer if the pipeline crashes on page 3 of 5.</p>
 
 
 

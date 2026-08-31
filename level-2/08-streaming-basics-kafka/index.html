@@ -1189,10 +1189,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#core-vocabulary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Core vocabulary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#producing-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Producing events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consuming-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consuming events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consumer-groups-and-parallelism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consumer groups and parallelism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exactly-once-vs-at-least-once-vs-at-most-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exactly-once vs. at-least-once vs. at-most-once
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streaming-vs-micro-batch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming vs. micro-batch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2134,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#core-vocabulary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Core vocabulary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#producing-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Producing events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consuming-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consuming events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consumer-groups-and-parallelism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consumer groups and parallelism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exactly-once-vs-at-least-once-vs-at-most-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exactly-once vs. at-least-once vs. at-most-once
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streaming-vs-micro-batch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming vs. micro-batch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2253,190 @@
 
 
 <h1 id="08-streaming-basics-kafka-concepts">08 · Streaming Basics (Kafka Concepts)<a class="headerlink" href="#08-streaming-basics-kafka-concepts" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 2 · Intermediate</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Every pipeline so far has been <strong>batch</strong>: pull a chunk of data, process it,
+done. Streaming flips this — data arrives continuously, and the pipeline
+processes it as it comes. Apache Kafka is the dominant technology for
+streaming <em>transport</em> (moving events between systems reliably); this module
+builds up its core concepts and a small producer/consumer example.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>The producer/consumer code uses <code>kafka-python</code>'s documented API against
+a Kafka broker (<code>pip install kafka-python</code>, a local broker via
+<code>docker run -p 9092:9092 apache/kafka</code>). Without a running broker this
+code won't execute in this environment — it is reasoned through
+carefully against the library's real interface, not guessed at.</p>
+</div>
+<h2 id="core-vocabulary">Core vocabulary<a class="headerlink" href="#core-vocabulary" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Topic       — a named stream of events (like a table, but append-only and unbounded)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Partition   — a topic is split into ordered, independent partitions for parallelism
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Producer    — writes events to a topic
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Consumer    — reads events from a topic
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Consumer group — a set of consumers that split a topic's partitions among themselves
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Offset      — a consumer's position (how far it has read) within a partition
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Broker      — one Kafka server; a cluster is several brokers
+</code></pre></div>
+<p>A topic's ordering guarantee is <strong>per partition, not per topic</strong> — two
+events in different partitions have no guaranteed relative order. This is
+why partition <em>key</em> choice matters: events that must stay ordered relative
+to each other (e.g. all updates for one <code>user_id</code>) need to land in the same
+partition.</p>
+<h2 id="producing-events">Producing events<a class="headerlink" href="#producing-events" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">kafka</span><span class="w"> </span><span class="kn">import</span> <span class="n">KafkaProducer</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">producer</span> <span class="o">=</span> <span class="n">KafkaProducer</span><span class="p">(</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="s2">"localhost:9092"</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">value_serializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">),</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">key_serializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">k</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="p">{</span><span class="s2">"user_id"</span><span class="p">:</span> <span class="s2">"u1"</span><span class="p">,</span> <span class="s2">"event"</span><span class="p">:</span> <span class="s2">"page_view"</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"/home"</span><span class="p">},</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="p">{</span><span class="s2">"user_id"</span><span class="p">:</span> <span class="s2">"u2"</span><span class="p">,</span> <span class="s2">"event"</span><span class="p">:</span> <span class="s2">"page_view"</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"/pricing"</span><span class="p">},</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="p">{</span><span class="s2">"user_id"</span><span class="p">:</span> <span class="s2">"u1"</span><span class="p">,</span> <span class="s2">"event"</span><span class="p">:</span> <span class="s2">"click"</span><span class="p">,</span> <span class="s2">"target"</span><span class="p">:</span> <span class="s2">"signup_button"</span><span class="p">},</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">]</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="c1"># keying by user_id sends all of u1's events to the same partition,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="c1"># preserving their relative order</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"user_events"</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">e</span><span class="p">[</span><span class="s2">"user_id"</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="n">e</span><span class="p">)</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="n">producer</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>   <span class="c1"># blocks until all buffered messages are actually sent</span>
+</code></pre></div>
+<p><code>producer.send()</code> is asynchronous by default — it returns a future
+immediately and batches messages in the background for throughput.
+<code>flush()</code> (or checking the returned future) is what guarantees delivery
+actually happened before your code moves on.</p>
+<h2 id="consuming-events">Consuming events<a class="headerlink" href="#consuming-events" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">kafka</span><span class="w"> </span><span class="kn">import</span> <span class="n">KafkaConsumer</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">consumer</span> <span class="o">=</span> <span class="n">KafkaConsumer</span><span class="p">(</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="s2">"user_events"</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="s2">"localhost:9092"</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">group_id</span><span class="o">=</span><span class="s2">"analytics_pipeline"</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">value_deserializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)),</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">auto_offset_reset</span><span class="o">=</span><span class="s2">"earliest"</span><span class="p">,</span>   <span class="c1"># start from the beginning if no committed offset exists</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">enable_auto_commit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>       <span class="c1"># commit offsets manually, after processing succeeds</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">consumer</span><span class="p">:</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">event</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"partition=</span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">partition</span><span class="si">}</span><span class="s2"> offset=</span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2"> event=</span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="c1"># ... process event ...</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="n">consumer</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>   <span class="c1"># only advance the offset after successful processing</span>
+</code></pre></div>
+<p><code>enable_auto_commit=False</code> plus a manual <code>commit()</code> after processing is the
+pattern that gives <strong>at-least-once</strong> delivery: if the consumer crashes
+mid-processing, it hasn't committed yet, so it re-reads (and reprocesses)
+that message on restart. If you committed <em>before</em> processing instead, a
+crash would silently skip that message — at-most-once, usually the wrong
+default for a data pipeline.</p>
+<h2 id="consumer-groups-and-parallelism">Consumer groups and parallelism<a class="headerlink" href="#consumer-groups-and-parallelism" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Topic "user_events" — 3 partitions
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Consumer group "analytics_pipeline" with 3 consumers:
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  consumer-1 -&gt; partition 0
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  consumer-2 -&gt; partition 1
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  consumer-3 -&gt; partition 2
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>Consumer group "analytics_pipeline" with 1 consumer:
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  consumer-1 -&gt; partitions 0, 1, 2   (reads all of them)
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>Consumer group "analytics_pipeline" with 5 consumers:
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  consumer-1..3 -&gt; one partition each
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>  consumer-4, consumer-5 -&gt; idle (more consumers than partitions)
+</code></pre></div>
+<p>Kafka automatically rebalances partition assignment within a group when
+consumers join or leave. This means <strong>partition count sets your maximum
+consumer parallelism</strong> for a group — adding a 4th consumer to a 3-partition
+topic doesn't help; the topic needs more partitions first.</p>
+<h2 id="exactly-once-vs-at-least-once-vs-at-most-once">Exactly-once vs. at-least-once vs. at-most-once<a class="headerlink" href="#exactly-once-vs-at-least-once-vs-at-most-once" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>At-most-once:   commit offset BEFORE processing -&gt; crash loses messages
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>At-least-once:  commit offset AFTER processing  -&gt; crash reprocesses messages
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Exactly-once:   requires idempotent processing (or Kafka transactions) on
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>                top of at-least-once delivery
+</code></pre></div>
+<p>Kafka itself gives at-least-once delivery by default with manual commits.
+"Exactly-once" <em>processing</em> is achieved on top of that by making your
+consumer's side effects idempotent — e.g. upserting by event ID into a
+downstream table rather than blindly inserting — so reprocessing the same
+message twice has no visible effect.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">seen_ids</span><span class="p">:</span> <span class="nb">set</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">event_id</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"event_id"</span><span class="p">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="k">if</span> <span class="n">event_id</span> <span class="ow">in</span> <span class="n">seen_ids</span><span class="p">:</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="k">return</span>   <span class="c1"># already processed — safe no-op on redelivery</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="c1"># ... apply the event ...</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">seen_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="streaming-vs-micro-batch">Streaming vs. micro-batch<a class="headerlink" href="#streaming-vs-micro-batch" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>True streaming:  process each event (or tiny window) as it arrives, low
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>                  latency (ms-seconds), higher operational complexity
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Micro-batch:     consume for a fixed window (e.g. every 60s), process as a
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>                  small batch, higher latency, simpler to reason about and
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>                  test — often "good enough" and much easier to operate
+</code></pre></div>
+<p>A consumer loop that buffers messages for 60 seconds, then runs them through
+the same <code>clean_orders</code>-style transform functions from earlier modules, is a
+perfectly valid streaming pipeline for most business use cases — true
+per-event streaming is reserved for genuinely low-latency needs like fraud
+detection or real-time bidding.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for streaming basics (kafka concepts)</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Partition key skew.</strong> Keying every event by a single dominant value
+  (e.g. one huge customer) sends most traffic to one partition, creating a
+  hot spot no amount of consumer parallelism fixes.</li>
+<li><strong>Auto-committing before processing.</strong> The default <code>enable_auto_commit</code>
+  behavior commits on a timer regardless of whether processing actually
+  finished — silent data loss on crash. Prefer manual commits tied to
+  completed work.</li>
+<li><strong>Unbounded consumer lag.</strong> If consumers process slower than producers
+  produce, lag (unread messages) grows without bound. Monitor consumer lag
+  explicitly — it's the single most important streaming pipeline health
+  metric.</li>
+<li><strong>Treating Kafka as a queue that "goes away" when read.</strong> Kafka retains
+  messages for a configured retention period regardless of consumption —
+  multiple consumer groups can independently re-read the same topic from
+  scratch, which is a feature, but also means "delete on read" queue
+  intuition doesn't apply.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partition</td>
+<td>Unit of ordering and parallelism</td>
+</tr>
+<tr>
+<td>Consumer group</td>
+<td>Splits partitions across consumers for parallel processing</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>A consumer's read position; commit it after successful processing</td>
+</tr>
+<tr>
+<td>At-least-once</td>
+<td>Default safe delivery mode; requires idempotent handlers</td>
+</tr>
+<tr>
+<td>Consumer lag</td>
+<td>Unread message backlog — the key streaming health metric</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Design (in pseudocode, no broker needed) a consumer that processes
+<code>user_events</code> in 60-second micro-batches instead of one message at a time:
+collect messages into a list until either 60 seconds pass or 500 messages
+accumulate, run the batch through a transform function, then commit offsets
+once for the whole batch. Explain why batching commits this way still
+preserves at-least-once semantics.</p>
 
 
 

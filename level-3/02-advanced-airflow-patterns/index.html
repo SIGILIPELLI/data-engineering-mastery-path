@@ -1395,10 +1395,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#dynamic-task-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Dynamic task mapping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensors-waiting-for-an-external-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensors: waiting for an external condition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-dag-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-DAG dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operators-for-reusable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom operators for reusable logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-groups-for-visual-and-logical-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task groups for visual and logical organization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2123,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#dynamic-task-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Dynamic task mapping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensors-waiting-for-an-external-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensors: waiting for an external condition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-dag-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-DAG dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operators-for-reusable-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom operators for reusable logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-groups-for-visual-and-logical-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task groups for visual and logical organization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2231,217 @@
 
 
 <h1 id="02-advanced-airflow-patterns">02 · Advanced Airflow Patterns<a class="headerlink" href="#02-advanced-airflow-patterns" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 3 · Advanced</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Level 2's Airflow module built a straight-line DAG. Real platforms need
+dynamic task generation, cross-DAG dependencies, custom sensors, and shared
+logic across many pipelines. This module covers the patterns that separate
+"a DAG that works" from "a DAG you can operate at scale."</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>Code is written for Airflow 2.7+, syntactically valid and reasoned
+through against documented behavior (dynamic task mapping, sensors,
+<code>TriggerDagRunOperator</code>, custom operators). Not executed against a live
+scheduler in this environment.</p>
+</div>
+<h2 id="dynamic-task-mapping">Dynamic task mapping<a class="headerlink" href="#dynamic-task-mapping" title="Permanent link">&para;</a></h2>
+<p>Processing one file per task, when the number of files varies run to run,
+used to require manually generating tasks in a loop at parse time. Airflow's
+<code>.expand()</code> does it properly, at <em>runtime</em>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.decorators</span><span class="w"> </span><span class="kn">import</span> <span class="n">dag</span><span class="p">,</span> <span class="n">task</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nd">@dag</span><span class="p">(</span><span class="n">schedule</span><span class="o">=</span><span class="s2">"@daily"</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">catchup</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">process_regional_files</span><span class="p">():</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="nd">@task</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">list_files</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="c1"># In production: list objects in a bucket/prefix for today's run</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="k">return</span> <span class="p">[</span><span class="s2">"east.csv"</span><span class="p">,</span> <span class="s2">"west.csv"</span><span class="p">,</span> <span class="s2">"north.csv"</span><span class="p">]</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="nd">@task</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">process_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="c1"># ... read and transform filename ...</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">"file"</span><span class="p">:</span> <span class="n">filename</span><span class="p">,</span> <span class="s2">"rows"</span><span class="p">:</span> <span class="mi">100</span><span class="p">}</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="nd">@task</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summarize</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"rows"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Processed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> files, </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> rows total"</span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="n">files</span> <span class="o">=</span> <span class="n">list_files</span><span class="p">()</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="n">processed</span> <span class="o">=</span> <span class="n">process_file</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>   <span class="c1"># one mapped task instance per file</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    <span class="n">summarize</span><span class="p">(</span><span class="n">processed</span><span class="p">)</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="n">process_regional_files</span><span class="p">()</span>
+</code></pre></div>
+<p><code>process_file.expand(filename=files)</code> creates one task instance per element
+of <code>files</code> <strong>at runtime</strong>, after <code>list_files()</code> has actually returned its
+value — unlike a Python <code>for</code> loop at DAG-parse time, this correctly
+handles a file count that changes every day. Airflow's UI shows these as a
+single mapped task with N instances, each independently retryable.</p>
+<h2 id="sensors-waiting-for-an-external-condition">Sensors: waiting for an external condition<a class="headerlink" href="#sensors-waiting-for-an-external-condition" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.sensors.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSensorOperator</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.utils.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">Context</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">S3KeySensor</span><span class="p">(</span><span class="n">BaseSensorOperator</span><span class="p">):</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">bucket</span> <span class="o">=</span> <span class="n">bucket</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">poke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="c1"># In production: call boto3 head_object and catch NotFound</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="kn">import</span><span class="w"> </span><span class="nn">boto3</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">"s3"</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>            <span class="n">s3</span><span class="o">.</span><span class="n">head_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>            <span class="k">return</span> <span class="kc">True</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="k">except</span> <span class="n">s3</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span><span class="p">:</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>            <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">wait_for_upstream</span> <span class="o">=</span> <span class="n">S3KeySensor</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">task_id</span><span class="o">=</span><span class="s2">"wait_for_upstream_file"</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">bucket</span><span class="o">=</span><span class="s2">"data-lake"</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">key</span><span class="o">=</span><span class="s2">"raw/orders/{{ ds }}/orders.parquet"</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">mode</span><span class="o">=</span><span class="s2">"reschedule"</span><span class="p">,</span>   <span class="c1"># free the worker slot between checks instead of blocking it</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">poke_interval</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">)</span>
+</code></pre></div>
+<p><code>mode="reschedule"</code> is important at scale: the default <code>mode="poke"</code> holds
+a worker slot for the entire wait, which starves other tasks if you have
+many sensors waiting hours for upstream files. <code>reschedule</code> releases the
+slot between checks and re-queues the sensor task, so it costs nothing while
+idle.</p>
+<h2 id="cross-dag-dependencies">Cross-DAG dependencies<a class="headerlink" href="#cross-dag-dependencies" title="Permanent link">&para;</a></h2>
+<p>Two options, for two different needs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.operators.trigger_dagrun</span><span class="w"> </span><span class="kn">import</span> <span class="n">TriggerDagRunOperator</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Option 1: DAG A explicitly kicks off DAG B when it finishes</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">trigger_downstream</span> <span class="o">=</span> <span class="n">TriggerDagRunOperator</span><span class="p">(</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">task_id</span><span class="o">=</span><span class="s2">"trigger_region_summary_dag"</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">trigger_dag_id</span><span class="o">=</span><span class="s2">"region_summary_pipeline"</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">wait_for_completion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.sensors.external_task</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExternalTaskSensor</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Option 2: DAG B waits until a specific task in DAG A has succeeded</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># for the same logical date, without DAG A needing to know DAG B exists</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">wait_for_upstream_dag</span> <span class="o">=</span> <span class="n">ExternalTaskSensor</span><span class="p">(</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">task_id</span><span class="o">=</span><span class="s2">"wait_for_orders_pipeline"</span><span class="p">,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">external_dag_id</span><span class="o">=</span><span class="s2">"orders_pipeline"</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">external_task_id</span><span class="o">=</span><span class="s2">"load_final"</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">30</span><span class="p">,</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">)</span>
+</code></pre></div>
+<p><code>TriggerDagRunOperator</code> is push-based (upstream owns the coupling);
+<code>ExternalTaskSensor</code> is pull-based (downstream owns it). Pull-based is
+usually preferred for platform teams — a shared upstream DAG shouldn't need
+to know about every downstream consumer that depends on it.</p>
+<h2 id="custom-operators-for-reusable-logic">Custom operators for reusable logic<a class="headerlink" href="#custom-operators-for-reusable-logic" title="Permanent link">&para;</a></h2>
+<p>When the same non-trivial logic appears across many DAGs, wrap it once:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseOperator</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">DataQualityCheckOperator</span><span class="p">(</span><span class="n">BaseOperator</span><span class="p">):</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">checks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">checks</span> <span class="o">=</span> <span class="n">checks</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"warehouse.duckdb"</span><span class="p">)</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="n">failed</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">sql_condition</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">checks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>            <span class="n">bad_rows</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>                <span class="sa">f</span><span class="s2">"SELECT COUNT(*) FROM </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="si">}</span><span class="s2"> WHERE NOT (</span><span class="si">{</span><span class="n">sql_condition</span><span class="si">}</span><span class="s2">)"</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>            <span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>            <span class="k">if</span> <span class="n">bad_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>                <span class="n">failed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">bad_rows</span><span class="si">}</span><span class="s2"> violating rows"</span><span class="p">)</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>        <span class="k">if</span> <span class="n">failed</span><span class="p">:</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Quality checks failed for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">failed</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">check_orders</span> <span class="o">=</span> <span class="n">DataQualityCheckOperator</span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">task_id</span><span class="o">=</span><span class="s2">"check_orders_quality"</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">table</span><span class="o">=</span><span class="s2">"stg_orders"</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">checks</span><span class="o">=</span><span class="p">{</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="s2">"amount_non_negative"</span><span class="p">:</span> <span class="s2">"amount &gt;= 0"</span><span class="p">,</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="s2">"region_known"</span><span class="p">:</span> <span class="s2">"region IN ('east','west','north','south')"</span><span class="p">,</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="p">},</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">)</span>
+</code></pre></div>
+<p>Every pipeline that needs a quality gate now imports this operator instead
+of copy-pasting the check logic — a bug fix or improvement (e.g. adding a
+warning threshold) benefits every DAG using it at once.</p>
+<h2 id="task-groups-for-visual-and-logical-organization">Task groups for visual and logical organization<a class="headerlink" href="#task-groups-for-visual-and-logical-organization" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.utils.task_group</span><span class="w"> </span><span class="kn">import</span> <span class="n">TaskGroup</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">with</span> <span class="n">TaskGroup</span><span class="p">(</span><span class="s2">"extract_all_regions"</span><span class="p">)</span> <span class="k">as</span> <span class="n">extract_group</span><span class="p">:</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">east</span> <span class="o">=</span> <span class="n">process_file</span><span class="o">.</span><span class="n">override</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="s2">"process_east"</span><span class="p">)(</span><span class="s2">"east.csv"</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">west</span> <span class="o">=</span> <span class="n">process_file</span><span class="o">.</span><span class="n">override</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="s2">"process_west"</span><span class="p">)(</span><span class="s2">"west.csv"</span><span class="p">)</span>
+</code></pre></div>
+<p><code>TaskGroup</code> is purely organizational — it collapses related tasks into one
+box in the Airflow UI graph view, making a 40-task DAG readable, without
+changing execution semantics at all.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for advanced airflow patterns</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong><code>mode="poke"</code> sensors at scale.</strong> Each poking sensor occupies a worker
+  slot for its entire wait — a handful of long-running sensors can starve
+  an entire Airflow deployment. Default to <code>mode="reschedule"</code>.</li>
+<li><strong>Static loops instead of dynamic task mapping for variable-length work.</strong>
+  A Python <code>for file in list_files_from_db()</code> at DAG-parse time queries the
+  database <em>every scheduler parse cycle</em> (often every 30s) just to build
+  the graph — expensive and fragile. Use <code>.expand()</code>.</li>
+<li><strong>Circular cross-DAG dependencies.</strong> DAG A triggering DAG B which triggers
+  DAG A creates an infinite loop of DAG Runs — treat cross-DAG dependencies
+  as a strict DAG (no cycles) just like task dependencies within one DAG.</li>
+<li><strong>Overusing custom operators for one-off logic.</strong> A custom operator used
+  in exactly one DAG is just a <code>@task</code> function with extra boilerplate —
+  reserve custom operators for logic genuinely shared across multiple
+  pipelines.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.expand()</code></td>
+<td>Variable number of tasks, decided at runtime</td>
+</tr>
+<tr>
+<td>Sensor (<code>mode="reschedule"</code>)</td>
+<td>Waiting on an external condition without blocking a worker</td>
+</tr>
+<tr>
+<td><code>TriggerDagRunOperator</code></td>
+<td>Upstream explicitly kicks off a downstream DAG</td>
+</tr>
+<tr>
+<td><code>ExternalTaskSensor</code></td>
+<td>Downstream waits on upstream without upstream knowing</td>
+</tr>
+<tr>
+<td>Custom operator</td>
+<td>Reusable logic shared across many DAGs</td>
+</tr>
+<tr>
+<td><code>TaskGroup</code></td>
+<td>Visual/logical grouping, no execution change</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Rewrite <code>process_regional_files</code> so <code>list_files()</code> instead queries a
+(mocked) database for "files pending processing today" and can return
+anywhere from 0 to 50 filenames. Add a branch (using
+<code>airflow.exceptions.AirflowSkipException</code> inside <code>summarize</code>, or a
+<code>ShortCircuitOperator</code>) that skips <code>summarize</code> entirely — rather than
+running it on an empty list — when <code>list_files()</code> returns zero files.</p>
 
 
 

@@ -1797,10 +1797,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#the-four-principles-concretely" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        The four principles, concretely
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-data-product-actually-is-as-an-artifact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a data product actually is, as an artifact
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-self-serve-platforms-job-infrastructure-not-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The self-serve platform's job: infrastructure, not pipelines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#federated-governance-enforced-by-tooling-not-committee-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Federated governance enforced by tooling, not committee review
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-data-mesh-is-the-wrong-answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When data mesh is the wrong answer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2123,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#the-four-principles-concretely" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        The four principles, concretely
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-data-product-actually-is-as-an-artifact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a data product actually is, as an artifact
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-self-serve-platforms-job-infrastructure-not-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The self-serve platform's job: infrastructure, not pipelines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#federated-governance-enforced-by-tooling-not-committee-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Federated governance enforced by tooling, not committee review
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-data-mesh-is-the-wrong-answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When data mesh is the wrong answer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2231,190 @@
 
 
 <h1 id="03-data-mesh-concepts">03 · Data Mesh Concepts<a class="headerlink" href="#03-data-mesh-concepts" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 4 · Master</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Data mesh is an organizational and architectural response to the
+centralized-platform-team bottleneck described in Module 1. This module
+covers its four principles concretely, what a "data product" actually
+looks like as an artifact, and — importantly — when data mesh is the wrong
+answer.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>This module is organizational/architectural by nature; code below
+illustrates interface shapes (a data product's contract, a
+self-service platform API) rather than executable pipelines, matching
+how data mesh is discussed in its primary sources (Zhamak Dehghani's
+writing) and in practice.</p>
+</div>
+<h2 id="the-four-principles-concretely">The four principles, concretely<a class="headerlink" href="#the-four-principles-concretely" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1. Domain-oriented ownership
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>   Each business domain (orders, marketing, inventory) owns its own data
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   as a product, produced by the team that generates it — not extracted
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   and reshaped by a separate central data team.
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>2. Data as a product
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>   Each domain's output data has an owner, a documented contract (schema,
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>   SLA, semantics), discoverability (catalog entry), and is held to the
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>   same quality bar as an internal API — not a byproduct nobody's
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>   accountable for.
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>3. Self-serve data platform
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>   A central platform team builds and maintains the *infrastructure*
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>   (storage, compute, catalog, access control, observability tooling) that
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>   domain teams use to build and expose their data products — without the
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>   platform team being in the critical path of any specific domain's
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>   pipeline.
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>4. Federated computational governance
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>   Global rules (security, compliance, interoperability standards) are
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>   agreed centrally but enforced automatically through platform tooling
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>   (the same CI/data-contract mechanisms from Level 3) rather than through
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>   a central team manually reviewing every domain's pipeline.
+</code></pre></div>
+<h2 id="what-a-data-product-actually-is-as-an-artifact">What a data product actually is, as an artifact<a class="headerlink" href="#what-a-data-product-actually-is-as-an-artifact" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">DataProductContract</span><span class="p">:</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">domain_owner</span><span class="p">:</span> <span class="nb">str</span>            <span class="c1"># team, not individual — survives turnover</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">schema_version</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">sla_freshness_minutes</span><span class="p">:</span> <span class="nb">int</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">sla_availability_pct</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">access_policy</span><span class="p">:</span> <span class="nb">str</span>           <span class="c1"># e.g. "self-service, request via catalog"</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">output_ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>  <span class="c1"># e.g. table, API, events</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">orders_product</span> <span class="o">=</span> <span class="n">DataProductContract</span><span class="p">(</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">"orders_domain.order_events"</span><span class="p">,</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="n">domain_owner</span><span class="o">=</span><span class="s2">"orders-team"</span><span class="p">,</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">"Canonical order lifecycle events: created, paid, shipped, refunded."</span><span class="p">,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="n">schema_version</span><span class="o">=</span><span class="s2">"2.1.0"</span><span class="p">,</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="n">sla_freshness_minutes</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">sla_availability_pct</span><span class="o">=</span><span class="mf">99.5</span><span class="p">,</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="n">access_policy</span><span class="o">=</span><span class="s2">"self-service via catalog, no approval needed for read"</span><span class="p">,</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="n">output_ports</span><span class="o">=</span><span class="p">[</span><span class="s2">"kafka:orders.events.v2"</span><span class="p">,</span> <span class="s2">"warehouse:orders_domain.fct_order_events"</span><span class="p">],</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="p">)</span>
+</code></pre></div>
+<p>This is deliberately close to a data contract (Level 3, Module 5) plus a
+few mesh-specific fields — <code>domain_owner</code> (not a central team) and
+<code>output_ports</code> (a product may expose the same underlying data as both a
+stream and a table, so consumers pick the shape that fits their use case).
+The key mindset shift: this contract is a <em>product spec</em> the owning domain
+is accountable for meeting, the same way an internal API team is
+accountable for their API's uptime.</p>
+<h2 id="the-self-serve-platforms-job-infrastructure-not-pipelines">The self-serve platform's job: infrastructure, not pipelines<a class="headerlink" href="#the-self-serve-platforms-job-infrastructure-not-pipelines" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># What the platform team provides — capabilities, invoked by domain teams,</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># not pipelines the platform team writes on domains' behalf.</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">SelfServePlatformAPI</span><span class="p">:</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">provision_storage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">product_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="sd">"""Returns a storage path/bucket already wired into backup,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="sd">        encryption, and lifecycle policy — domain team doesn't configure</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="sd">        any of that themselves."""</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="o">...</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">register_in_catalog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contract</span><span class="p">:</span> <span class="n">DataProductContract</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="sd">"""Publishes the contract so other domains can discover it."""</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="o">...</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">provision_compute_quota</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pool_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="sd">"""Allocates isolated compute (Airflow pool, Spark queue) so this</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="sd">        domain's jobs can't starve another domain's."""</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="o">...</span>
+</code></pre></div>
+<p>Notice what's absent: there's no <code>run_domain_pipeline</code> method. The whole
+point is that the orders team writes and owns their own transformation
+logic using these primitives — the platform team's product is the
+<em>platform</em>, evaluated by how easy it makes a new domain team's onboarding,
+not by how many pipelines it runs on domains' behalf.</p>
+<h2 id="federated-governance-enforced-by-tooling-not-committee-review">Federated governance enforced by tooling, not committee review<a class="headerlink" href="#federated-governance-enforced-by-tooling-not-committee-review" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">validate_product_meets_global_standards</span><span class="p">(</span><span class="n">contract</span><span class="p">:</span> <span class="n">DataProductContract</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">"""Runs in CI when a domain team registers or updates a data product —</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="sd">    this is the 'federated computational governance' principle made</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="sd">    concrete: global rules, locally enforced, no manual review gate."""</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">violations</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="k">if</span> <span class="n">contract</span><span class="o">.</span><span class="n">sla_availability_pct</span> <span class="o">&lt;</span> <span class="mf">99.0</span><span class="p">:</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="n">violations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"global standard requires availability SLA &gt;= 99.0%"</span><span class="p">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">contract</span><span class="o">.</span><span class="n">access_policy</span><span class="p">:</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="n">violations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"access_policy must be declared"</span><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">if</span> <span class="s2">"@"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">contract</span><span class="o">.</span><span class="n">domain_owner</span> <span class="ow">and</span> <span class="s2">"-team"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">contract</span><span class="o">.</span><span class="n">domain_owner</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="n">violations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"domain_owner must be a team identifier, not an individual"</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="k">return</span> <span class="n">violations</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">validate_product_meets_global_standards</span><span class="p">(</span><span class="n">orders_product</span><span class="p">))</span>  <span class="c1"># []</span>
+</code></pre></div>
+<h2 id="when-data-mesh-is-the-wrong-answer">When data mesh is the wrong answer<a class="headerlink" href="#when-data-mesh-is-the-wrong-answer" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Data mesh solves a specific pain: a central data team that has become the
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>bottleneck for every pipeline across a large, multi-domain organization
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>with genuinely independent teams that understand their own data best.
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>It's very likely the wrong investment when:
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>- The organization has fewer than ~5-10 genuinely independent data-
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>  producing domains — the coordination overhead of federated governance
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  exceeds any bottleneck it would relieve.
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>- There isn't yet a mature self-service platform to federate onto —
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>  "let's do data mesh" without first building the platform layer just
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>  produces N uncoordinated, lower-quality versions of what one central
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>  team used to do adequately.
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>- Domain teams don't want data ownership — mesh requires domain teams to
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>  take on product-management-like responsibility for their data; if
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>  engineering leadership can't get buy-in for that accountability, the
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>  model fails regardless of the architecture.
+</code></pre></div>
+<p>Most companies below a certain scale (roughly: a handful of data
+engineers, a handful of domains) are better served by the "federated
+computational governance on a shared platform" pattern from Module 1
+<em>without</em> fully adopting domain-oriented ownership and dedicated per-domain
+product accountability — a lighter-weight version of the same underlying
+idea.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for data mesh concepts</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Adopting data mesh as an architecture pattern without the
+  organizational buy-in.</strong> Mesh is fundamentally an operating-model change
+  (accountability moves to domain teams); implementing only the technical
+  pieces (a catalog, some Kafka topics) without that shift just adds
+  process overhead with none of the benefit.</li>
+<li><strong>No investment in the self-service platform before decentralizing.</strong>
+  Domain teams inherit responsibility for data quality without inheriting
+  the tooling to meet it, and quality drops.</li>
+<li><strong>Treating "data as a product" as a slogan rather than a contract with
+  an SLA.</strong> A data product without a measurable, enforced SLA is just a
+  table with an ownership label on it.</li>
+<li><strong>Skipping federated governance and calling it full autonomy.</strong> Without
+  centrally-agreed, tooling-enforced standards (security, schema
+  interoperability), decentralization produces incompatible, insecure data
+  products across domains.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>What it means in practice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain ownership</td>
+<td>The team that generates the data owns its pipeline and quality</td>
+</tr>
+<tr>
+<td>Data as a product</td>
+<td>Contract + SLA + discoverability, held to API-like standards</td>
+</tr>
+<tr>
+<td>Self-serve platform</td>
+<td>Central team builds infrastructure, not pipelines</td>
+</tr>
+<tr>
+<td>Federated governance</td>
+<td>Global rules, enforced by CI/platform tooling, not manual review</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>For a hypothetical company with 4 domains (orders, marketing, inventory,
+support), decide whether data mesh is a good fit given the guidance above,
+and justify your answer using at least two of the "wrong answer" conditions
+listed.</p>
 
 
 

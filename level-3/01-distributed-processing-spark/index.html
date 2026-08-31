@@ -1367,10 +1367,109 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#starting-a-local-spark-session" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Starting a local Spark session
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-and-transforming-a-dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading and transforming a DataFrame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lazy-evaluation-and-the-execution-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy evaluation and the execution plan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partitions-sparks-unit-of-parallelism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partitions: Spark's unit of parallelism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shuffles-the-expensive-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shuffles: the expensive part
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joins-at-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Joins at scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching-intermediate-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching intermediate results
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2145,109 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#starting-a-local-spark-session" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Starting a local Spark session
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-and-transforming-a-dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading and transforming a DataFrame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lazy-evaluation-and-the-execution-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy evaluation and the execution plan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partitions-sparks-unit-of-parallelism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partitions: Spark's unit of parallelism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shuffles-the-expensive-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shuffles: the expensive part
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joins-at-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Joins at scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching-intermediate-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching intermediate results
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2275,200 @@
 
 
 <h1 id="01-distributed-processing-spark-basics">01 · Distributed Processing (Spark Basics)<a class="headerlink" href="#01-distributed-processing-spark-basics" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 3 · Advanced</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Every transform so far has run on a single machine. Apache Spark exists for
+the point where data no longer fits in one machine's memory, or a
+transformation is CPU-bound enough that splitting it across many machines
+(or cores) meaningfully speeds it up. This module builds the same kind of
+transform you've written all along, but through Spark's DataFrame API, and
+explains what actually happens when it runs.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>Code targets PySpark 3.5 (<code>pip install pyspark</code>), which runs standalone
+on a single machine in "local mode" with no cluster required —
+genuinely runnable, though not executed live in this environment.
+Reasoned through against PySpark's documented API and execution model.</p>
+</div>
+<h2 id="starting-a-local-spark-session">Starting a local Spark session<a class="headerlink" href="#starting-a-local-spark-session" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyspark.sql</span><span class="w"> </span><span class="kn">import</span> <span class="n">SparkSession</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyspark.sql</span><span class="w"> </span><span class="kn">import</span> <span class="n">functions</span> <span class="k">as</span> <span class="n">F</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">spark</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">"orders_analysis"</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="o">.</span><span class="n">master</span><span class="p">(</span><span class="s2">"local[4]"</span><span class="p">)</span>     <span class="c1"># 4 local worker threads, no cluster needed</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">)</span>
+</code></pre></div>
+<p><code>local[4]</code> simulates a cluster with 4 executors on your own machine — real
+distributed clusters replace this with <code>spark://</code> or a YARN/Kubernetes
+master, but the DataFrame code you write doesn't change either way.</p>
+<h2 id="loading-and-transforming-a-dataframe">Loading and transforming a DataFrame<a class="headerlink" href="#loading-and-transforming-a-dataframe" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">([</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"east"</span><span class="p">,</span> <span class="s2">"alice"</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">),</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"east"</span><span class="p">,</span> <span class="s2">"bob"</span><span class="p">,</span> <span class="mf">700.0</span><span class="p">),</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"west"</span><span class="p">,</span> <span class="s2">"carla"</span><span class="p">,</span> <span class="mf">900.0</span><span class="p">),</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">"west"</span><span class="p">,</span> <span class="s2">"dan"</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">),</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">],</span> <span class="p">[</span><span class="s2">"order_id"</span><span class="p">,</span> <span class="s2">"region"</span><span class="p">,</span> <span class="s2">"rep"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">])</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">result</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">df</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s2">"region"</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>      <span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>          <span class="n">F</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"order_id"</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">"order_count"</span><span class="p">),</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>          <span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s2">"amount"</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">"total_amount"</span><span class="p">),</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>      <span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>      <span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="s2">"region"</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">)</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>+------+-----------+------------+
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>|region|order_count|total_amount|
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>+------+-----------+------------+
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>|  east|          2|      1200.0|
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>|  west|          2|      1100.0|
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>+------+-----------+------------+
+</code></pre></div>
+<p>This reads exactly like pandas' <code>groupby().agg()</code> — deliberately. Spark's
+DataFrame API was designed so the same mental model (and much of the same
+syntax) applies whether you're processing a million rows on your laptop or
+a trillion across a 500-node cluster.</p>
+<h2 id="lazy-evaluation-and-the-execution-plan">Lazy evaluation and the execution plan<a class="headerlink" href="#lazy-evaluation-and-the-execution-plan" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">"amount"</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">"amount_usd"</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">"amount"</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">explain</span><span class="p">())</span>   <span class="c1"># nothing has executed yet</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">df2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>              <span class="c1"># THIS triggers actual computation</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>== Physical Plan ==
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>*(1) Project [order_id#0, region#1, rep#2, amount#3, (amount#3 * 1.0) AS amount_usd#10]
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>+- *(1) Filter (isnotnull(amount#3) AND (amount#3 &gt; 400.0))
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>   +- *(1) Scan ExistingRDD[...]
+</code></pre></div>
+<p>Spark builds a <strong>logical plan</strong> from your chained calls (<code>filter</code>, then
+<code>withColumn</code>) but does not execute anything until an <strong>action</strong> — <code>show()</code>,
+<code>collect()</code>, <code>count()</code>, <code>write</code> — is called. This laziness lets Spark's
+optimizer (Catalyst) rewrite the whole chain — e.g. pushing the filter
+before a join, or combining multiple <code>withColumn</code> calls into one pass —
+before any data actually moves.</p>
+<h2 id="partitions-sparks-unit-of-parallelism">Partitions: Spark's unit of parallelism<a class="headerlink" href="#partitions-sparks-unit-of-parallelism" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">())</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">repartitioned</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">"region"</span><span class="p">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">repartitioned</span><span class="o">.</span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>4
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>4
+</code></pre></div>
+<p>Each partition is processed independently by one task on one executor core.
+Too few partitions underuses available parallelism; too many creates
+overhead from scheduling thousands of tiny tasks. <code>repartition("region")</code>
+groups rows so all of a region's data lands in the same partition — useful
+before a <code>groupBy</code> or <code>join</code> on that column, since it avoids reshuffling
+during the aggregation itself.</p>
+<h2 id="shuffles-the-expensive-part">Shuffles: the expensive part<a class="headerlink" href="#shuffles-the-expensive-part" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># A groupBy or join on a column not already used to partition the data</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># forces a SHUFFLE — data physically moves between executors over the</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># network so matching keys land together.</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">shuffled</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s2">"region"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">shuffled</span><span class="o">.</span><span class="n">explain</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>== Physical Plan ==
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>*(2) HashAggregate(keys=[region#1], functions=[count(1)])
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>+- Exchange hashpartitioning(region#1, 200), ...
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>   +- *(1) HashAggregate(keys=[region#1], functions=[partial_count(1)])
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>      +- *(1) Scan ExistingRDD[...]
+</code></pre></div>
+<p>The <code>Exchange</code> step is the shuffle — the single most expensive operation in
+distributed processing, because it involves network I/O and disk spill, not
+just CPU. Spark performs a <strong>partial aggregation</strong> first (<code>partial_count</code>)
+on each partition locally, then shuffles only the reduced results — the
+same "combine locally before sending" idea as a MapReduce combiner.</p>
+<h2 id="joins-at-scale">Joins at scale<a class="headerlink" href="#joins-at-scale" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">customers</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">([</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="p">(</span><span class="s2">"alice"</span><span class="p">,</span> <span class="s2">"east"</span><span class="p">,</span> <span class="s2">"gold"</span><span class="p">),</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="p">(</span><span class="s2">"bob"</span><span class="p">,</span> <span class="s2">"east"</span><span class="p">,</span> <span class="s2">"silver"</span><span class="p">),</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="p">(</span><span class="s2">"carla"</span><span class="p">,</span> <span class="s2">"west"</span><span class="p">,</span> <span class="s2">"gold"</span><span class="p">),</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">],</span> <span class="p">[</span><span class="s2">"rep"</span><span class="p">,</span> <span class="s2">"region"</span><span class="p">,</span> <span class="s2">"tier"</span><span class="p">])</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="n">joined</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">customers</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"rep"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="n">joined</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>+--------+------+-----+------+------+------+
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>|order_id|region|  rep|amount|region|  tier|
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>+--------+------+-----+------+------+------+
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>|       1|  east|alice| 500.0|  east|  gold|
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>|       2|  east|  bob| 700.0|  east|silver|
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>|       3|  west|carla| 900.0|  west|  gold|
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>|       4|  west|  dan| 200.0|  null|  null|
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>+--------+------+-----+------+------+------+
+</code></pre></div>
+<p>For a small table like <code>customers</code>, Spark's optimizer automatically applies
+a <strong>broadcast join</strong>: it ships the entire small table to every executor
+instead of shuffling both sides — avoiding a shuffle of the (potentially
+huge) <code>df</code> entirely. This kicks in automatically below
+<code>spark.sql.autoBroadcastJoinThreshold</code> (default 10MB), and can be forced
+with <code>F.broadcast(customers)</code>.</p>
+<h2 id="caching-intermediate-results">Caching intermediate results<a class="headerlink" href="#caching-intermediate-results" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">expensive</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">"amount"</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s2">"region"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s2">"amount"</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">"total"</span><span class="p">))</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">expensive</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">expensive</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>     <span class="c1"># triggers computation AND caches the result in memory</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">expensive</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>       <span class="c1"># reuses the cached result — no recomputation</span>
+</code></pre></div>
+<p>Without <code>.cache()</code>, Spark's laziness means every action re-triggers the
+<em>entire</em> upstream plan from the original data — calling <code>.show()</code> then
+<code>.count()</code> on the same uncached DataFrame recomputes the filter and
+aggregation twice. Caching trades memory for avoiding that recomputation,
+worthwhile only when a DataFrame is reused multiple times.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for distributed processing (spark basics)</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Calling <code>.collect()</code> on a huge DataFrame.</strong> This pulls every row back to
+  the driver's memory — fine for a small aggregated result, a guaranteed
+  out-of-memory crash for a multi-billion-row raw table. Use <code>.write</code> to
+  persist large results instead.</li>
+<li><strong>Assuming more partitions is always faster.</strong> Task scheduling overhead
+  dominates once partitions get small enough (thousands of few-KB
+  partitions) — a common rule of thumb targets 100-200MB per partition.</li>
+<li><strong>Shuffling on a skewed key.</strong> If one region has 90% of the rows,
+  <code>groupBy("region")</code> sends 90% of the data to one task — that task becomes
+  the bottleneck no matter how many executors you add ("data skew").</li>
+<li><strong>Forgetting Spark is lazy.</strong> Code after a chain of transformations with
+  no action looks like nothing happened because, until <code>.show()</code>/<code>.write</code>/
+  <code>.collect()</code>, nothing has.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lazy evaluation</td>
+<td>Transformations build a plan; actions execute it</td>
+</tr>
+<tr>
+<td>Partition</td>
+<td>Unit of parallel work; count controls parallelism</td>
+</tr>
+<tr>
+<td>Shuffle</td>
+<td>Network movement of data to co-locate matching keys — expensive</td>
+</tr>
+<tr>
+<td>Broadcast join</td>
+<td>Ship a small table to every executor, avoid shuffling the big one</td>
+</tr>
+<tr>
+<td><code>.cache()</code></td>
+<td>Persist a DataFrame in memory to avoid recomputing it</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Using the same <code>df</code>/<code>customers</code> DataFrames, write a query that computes
+total amount per <code>tier</code>, joining first (letting Spark auto-broadcast
+<code>customers</code>) and then aggregating. Call <code>.explain()</code> on it and identify, in
+the printed physical plan, which operator is the broadcast and which (if
+any) triggers a shuffle.</p>
 
 
 

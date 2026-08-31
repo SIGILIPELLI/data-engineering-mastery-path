@@ -1423,10 +1423,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#the-medallion-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        The medallion architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-plain-parquet-on-object-storage-isnt-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why plain Parquet-on-object-storage isn't enough
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-formats-the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table formats: the core idea
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema evolution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compaction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2123,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#the-medallion-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        The medallion architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-plain-parquet-on-object-storage-isnt-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why plain Parquet-on-object-storage isn't enough
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-formats-the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table formats: the core idea
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema evolution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compaction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2231,193 @@
 
 
 <h1 id="03-data-lake-architecture">03 · Data Lake Architecture<a class="headerlink" href="#03-data-lake-architecture" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 3 · Advanced</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>A data lake stores raw and processed data as files in cheap object storage
+(S3, GCS, ADLS) rather than inside a database engine, with compute
+(Spark, DuckDB, Athena) attached on demand. This module covers the
+<strong>medallion architecture</strong> (bronze/silver/gold) and the table formats — Iceberg,
+Delta Lake, Hudi — that make a lake behave like a warehouse.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>File-layer code uses <code>pyarrow</code>/<code>duckdb</code> against the local filesystem,
+which mirrors object storage semantics closely enough for the
+concepts here. Iceberg/Delta-specific snippets are written against
+<code>pyiceberg</code>/<code>delta-spark</code>'s documented APIs, reasoned through, not
+executed live.</p>
+</div>
+<h2 id="the-medallion-architecture">The medallion architecture<a class="headerlink" href="#the-medallion-architecture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Bronze  — raw data, as ingested, minimal/no transformation, append-only
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Silver  — cleaned, deduplicated, conformed schema, still fairly granular
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Gold    — business-level aggregates, ready for BI tools and dashboards
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Bronze: land exactly what the source sent, with ingestion metadata</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyarrow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pa</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyarrow.parquet</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pq</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">land_bronze</span><span class="p">(</span><span class="n">raw_records</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">ingested_at</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">table</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">table</span><span class="p">({</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">raw_records</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">raw_records</span><span class="p">[</span><span class="mi">0</span><span class="p">]},</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="s2">"_ingested_at"</span><span class="p">:</span> <span class="p">[</span><span class="n">ingested_at</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_records</span><span class="p">),</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="s2">"_source"</span><span class="p">:</span> <span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_records</span><span class="p">),</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="p">})</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"/tmp/lake/bronze/</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">ingested_at</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">.parquet"</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">pq</span><span class="o">.</span><span class="n">write_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="k">return</span> <span class="n">path</span>
+</code></pre></div>
+<p>Bronze never overwrites or "corrects" data — even a record you know is bad
+gets landed as-is, with metadata (<code>_ingested_at</code>, <code>_source</code>) attached. This
+gives you a permanent, replayable record of exactly what arrived, which is
+what lets you rebuild silver/gold from scratch if a transformation bug is
+found months later.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Silver: dedupe, enforce types, drop clearly invalid rows</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">build_silver</span><span class="p">(</span><span class="n">bronze_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">"""</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="s2">        COPY (</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="s2">            SELECT DISTINCT ON (order_id)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="s2">                order_id, CAST(customer_id AS INTEGER) AS customer_id,</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="s2">                LOWER(region) AS region, amount, order_date</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="s2">            FROM read_parquet('</span><span class="si">{</span><span class="n">bronze_path</span><span class="si">}</span><span class="s2">')</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="s2">            WHERE amount IS NOT NULL AND order_id IS NOT NULL</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="s2">            ORDER BY order_id, _ingested_at DESC</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="s2">        ) TO '/tmp/lake/silver/orders.parquet' (FORMAT PARQUET)</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="s2">    """</span><span class="p">)</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="k">return</span> <span class="s2">"/tmp/lake/silver/orders.parquet"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Gold: business aggregate, ready for dashboards</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">build_gold</span><span class="p">(</span><span class="n">silver_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">"""</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="s2">        COPY (</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="s2">            SELECT region, order_date, COUNT(*) AS orders, SUM(amount) AS revenue</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="s2">            FROM read_parquet('</span><span class="si">{</span><span class="n">silver_path</span><span class="si">}</span><span class="s2">')</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="s2">            GROUP BY region, order_date</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="s2">        ) TO '/tmp/lake/gold/daily_region_revenue.parquet' (FORMAT PARQUET)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="s2">    """</span><span class="p">)</span>
+</code></pre></div>
+<p>Each layer is a materialized checkpoint — if <code>build_gold</code> has a bug, you fix
+it and rerun <em>only</em> <code>build_gold</code> against the already-correct silver data,
+without re-touching bronze or redoing dedup logic.</p>
+<h2 id="why-plain-parquet-on-object-storage-isnt-enough">Why plain Parquet-on-object-storage isn't enough<a class="headerlink" href="#why-plain-parquet-on-object-storage-isnt-enough" title="Permanent link">&para;</a></h2>
+<p>A raw folder of Parquet files has real gaps:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>- No atomic multi-file writes: a job that fails halfway through writing
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  100 files leaves the dataset in a half-written, inconsistent state.
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>- No schema evolution tracking: adding a column means every reader must
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  handle "file has it" vs "file doesn't" itself.
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>- No time travel: "what did this table look like yesterday" requires you
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  to have kept every old file yourself.
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>- No row-level updates/deletes: fixing one bad record means rewriting an
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  entire partition's files.
+</code></pre></div>
+<p>Table formats — <strong>Apache Iceberg</strong>, <strong>Delta Lake</strong>, <strong>Apache Hudi</strong> — solve
+these by adding a transaction log/metadata layer on top of plain Parquet
+files.</p>
+<h2 id="table-formats-the-core-idea">Table formats: the core idea<a class="headerlink" href="#table-formats-the-core-idea" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Plain Parquet folder:
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  /orders/region=east/part-0001.parquet
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  /orders/region=east/part-0002.parquet
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  (a reader must list files and guess the current, valid set)
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>Iceberg/Delta table:
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  /orders/data/*.parquet                  &lt;- the actual data files (unchanged)
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  /orders/metadata/v1.metadata.json       &lt;- snapshot 1: which files, what schema
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  /orders/metadata/v2.metadata.json       &lt;- snapshot 2: after an insert/update
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  /orders/_delta_log/00000000000000.json  &lt;- (Delta's equivalent log)
+</code></pre></div>
+<p>A write doesn't rewrite existing Parquet files for an append — it writes new
+Parquet files, then atomically publishes a new metadata snapshot that lists
+the old files plus the new ones. Readers always read a consistent snapshot,
+even if a writer is mid-write; a crashed writer just leaves an unpublished,
+ignored snapshot, not a corrupted table.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Iceberg example — reasoned through against pyiceberg's documented API</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyiceberg.catalog</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_catalog</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">catalog</span> <span class="o">=</span> <span class="n">load_catalog</span><span class="p">(</span><span class="s2">"local"</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"sql"</span><span class="p">,</span> <span class="s2">"uri"</span><span class="p">:</span> <span class="s2">"sqlite:////tmp/lake/catalog.db"</span><span class="p">})</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">table</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s2">"silver.orders"</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># time travel: query the table as of an earlier snapshot</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">history</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">history</span><span class="p">()</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">old_snapshot_id</span> <span class="o">=</span> <span class="n">history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">snapshot_id</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">as_of_yesterday</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">snapshot_id</span><span class="o">=</span><span class="n">old_snapshot_id</span><span class="p">)</span><span class="o">.</span><span class="n">to_arrow</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="schema-evolution">Schema evolution<a class="headerlink" href="#schema-evolution" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Adding a column to an Iceberg table is a metadata-only operation —</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># it does NOT rewrite existing Parquet files.</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">with</span> <span class="n">table</span><span class="o">.</span><span class="n">update_schema</span><span class="p">()</span> <span class="k">as</span> <span class="n">update</span><span class="p">:</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">update</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"discount_pct"</span><span class="p">,</span> <span class="s2">"double"</span><span class="p">)</span>
+</code></pre></div>
+<p>Old files simply don't have <code>discount_pct</code>; the table format's readers know
+to return <code>null</code> for that column on rows from before the schema change,
+rather than every downstream query needing its own compatibility logic.</p>
+<h2 id="compaction">Compaction<a class="headerlink" href="#compaction" title="Permanent link">&para;</a></h2>
+<p>Streaming or frequent small writes accumulate many small files over time —
+bad for read performance (more file-open overhead than actual data per
+file). Table formats support <strong>compaction</strong>: rewriting many small files
+into fewer large ones without changing the table's logical content.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Iceberg: rewrite small data files into fewer, larger ones</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyiceberg.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">table</span><span class="o">.</span><span class="n">rewrite_data_files</span><span class="p">()</span>   <span class="c1"># illustrative call against pyiceberg's maintenance API</span>
+</code></pre></div>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for data lake architecture</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Treating a data lake as "no schema needed."</strong> Bronze can be schema-on-
+  read, but silver/gold need enforced schemas — otherwise every consumer
+  independently guesses types, and inconsistencies multiply downstream.</li>
+<li><strong>Skipping bronze and transforming straight from source.</strong> Without an
+  untouched raw layer, a transformation bug discovered later has no
+  ground truth to recompute from — you'd need to re-extract from the
+  (possibly no-longer-available) original source.</li>
+<li><strong>Ignoring small-file accumulation.</strong> A daily job appending one small
+  file per run, for years, eventually makes every query dominated by file-
+  open overhead rather than actual scan time. Schedule regular compaction.</li>
+<li><strong>Not using a table format for anything mutable.</strong> Plain Parquet works
+  fine for pure-append bronze. The moment you need updates, deletes, or
+  time travel (silver/gold usually do), plain files force whole-partition
+  rewrites that a table format avoids.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Contains</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bronze</td>
+<td>Raw, as-ingested</td>
+<td>Append-only, never corrected</td>
+</tr>
+<tr>
+<td>Silver</td>
+<td>Cleaned, deduped, typed</td>
+<td>Row-level updates common</td>
+</tr>
+<tr>
+<td>Gold</td>
+<td>Business aggregates</td>
+<td>Rebuilt from silver on each run</td>
+</tr>
+<tr>
+<td>Table format (Iceberg/Delta/Hudi)</td>
+<td>Metadata log over Parquet</td>
+<td>Atomic writes, time travel, schema evolution</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Extend <code>build_silver</code> to also write a <code>_dq_rejected</code> sibling file
+containing rows that failed the <code>WHERE</code> filter (null <code>amount</code> or
+<code>order_id</code>), instead of silently dropping them. Explain, referencing the
+medallion architecture, why keeping rejected rows visible (rather than
+discarding them) matters for debugging a pipeline that's under-reporting
+revenue.</p>
 
 
 

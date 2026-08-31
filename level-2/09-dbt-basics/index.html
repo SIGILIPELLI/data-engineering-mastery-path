@@ -1217,10 +1217,109 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#project-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Project structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-staging-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A staging model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-mart-model-that-depends-on-staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A mart model that depends on staging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-singular-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom (singular) tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-and-lineage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation and lineage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2145,109 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#project-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Project structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-staging-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A staging model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-mart-model-that-depends-on-staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A mart model that depends on staging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-singular-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom (singular) tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-and-lineage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation and lineage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2275,217 @@
 
 
 <h1 id="09-dbt-basics">09 · dbt Basics<a class="headerlink" href="#09-dbt-basics" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 2 · Intermediate</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Every transform so far has lived in Python. dbt (data build tool) takes a
+different approach: transformations are <strong>SQL SELECT statements</strong> that dbt
+compiles and runs against your warehouse, with dependency management,
+testing, and documentation built in. This module builds a small dbt project
+against DuckDB.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>Project structure and SQL are written against <code>dbt-core</code> +
+<code>dbt-duckdb</code> (<code>pip install dbt-core dbt-duckdb</code>), reasoned through
+against documented dbt behavior (materializations, <code>ref()</code>, schema
+tests) — not executed live in this environment.</p>
+</div>
+<h2 id="project-structure">Project structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>my_dbt_project/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── dbt_project.yml
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── profiles.yml
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└── models/
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    ├── staging/
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    │   └── stg_orders.sql
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    └── marts/
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        └── region_summary.sql
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># dbt_project.yml</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_dbt_project</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">"1.0"</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_dbt_project</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nt">model-paths</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"models"</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nt">models</span><span class="p">:</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nt">my_dbt_project</span><span class="p">:</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">staging</span><span class="p">:</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="nt">+materialized</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">marts</span><span class="p">:</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nt">+materialized</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">table</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># profiles.yml</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">my_dbt_project</span><span class="p">:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">dev</span><span class="p">:</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">duckdb</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warehouse.duckdb</span>
+</code></pre></div>
+<h2 id="a-staging-model">A staging model<a class="headerlink" href="#a-staging-model" title="Permanent link">&para;</a></h2>
+<p>Staging models do light cleanup close to the raw source — renaming,
+casting, filtering obviously bad rows — nothing else.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- models/staging/stg_orders.sql</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">select</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">order_id</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">cast</span><span class="p">(</span><span class="n">customer_id</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nb">integer</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">customer_id</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">lower</span><span class="p">(</span><span class="n">region</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">region</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">amount</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">cast</span><span class="p">(</span><span class="n">order_date</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nb">date</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">order_date</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">from</span><span class="w"> </span><span class="err">{{</span><span class="w"> </span><span class="k">source</span><span class="p">(</span><span class="s1">'raw'</span><span class="p">,</span><span class="w"> </span><span class="s1">'orders'</span><span class="p">)</span><span class="w"> </span><span class="err">}}</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">where</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># models/staging/_sources.yml</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nt">sources</span><span class="p">:</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">raw</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">tables</span><span class="p">:</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">orders</span>
+</code></pre></div>
+<p><code>{{ source('raw', 'orders') }}</code> compiles to the actual table reference dbt
+was told the raw <code>orders</code> table lives at. Declaring sources explicitly (vs.
+hardcoding table names) is what lets dbt build a dependency graph and warn
+you when a source is missing or renamed.</p>
+<h2 id="a-mart-model-that-depends-on-staging">A mart model that depends on staging<a class="headerlink" href="#a-mart-model-that-depends-on-staging" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">-- models/marts/region_summary.sql</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">select</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">region</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">order_count</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_amount</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="k">avg</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">avg_amount</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">from</span><span class="w"> </span><span class="err">{{</span><span class="w"> </span><span class="k">ref</span><span class="p">(</span><span class="s1">'stg_orders'</span><span class="p">)</span><span class="w"> </span><span class="err">}}</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">region</span>
+</code></pre></div>
+<p><code>{{ ref('stg_orders') }}</code> is the key dbt idiom: instead of hardcoding a
+table name, you reference another <em>model</em>. dbt uses these <code>ref()</code> calls to
+build a DAG (same concept as Airflow's DAG, but for SQL transformation
+steps) and runs models in dependency order automatically.</p>
+<h2 id="running-the-project">Running the project<a class="headerlink" href="#running-the-project" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>dbt<span class="w"> </span>run
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Running with dbt=1.8.0
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Found 2 models, 0 tests, 1 source
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>1 of 2 START sql view model main.stg_orders ................ [RUN]
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>1 of 2 OK created sql view model main.stg_orders ............ [OK in 0.05s]
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>2 of 2 START sql table model main.region_summary ............ [RUN]
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>2 of 2 OK created sql table model main.region_summary ....... [OK in 0.08s]
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>Completed successfully
+</code></pre></div>
+<p><code>stg_orders</code> is materialized as a <code>view</code> (cheap, always fresh, recomputed
+on each query) while <code>region_summary</code> is a <code>table</code> (computed once at run
+time, faster to query repeatedly). This split — cheap views for staging,
+materialized tables for expensive marts — is a standard dbt project shape.</p>
+<h2 id="schema-tests">Schema tests<a class="headerlink" href="#schema-tests" title="Permanent link">&para;</a></h2>
+<p>dbt ships built-in tests you declare in YAML, no Python required:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># models/staging/_stg_orders.yml</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nt">models</span><span class="p">:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stg_orders</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="nt">columns</span><span class="p">:</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">order_id</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="nt">tests</span><span class="p">:</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unique</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">not_null</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">region</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">        </span><span class="nt">tests</span><span class="p">:</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">accepted_values</span><span class="p">:</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">              </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"east"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"west"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"north"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"south"</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer_id</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">        </span><span class="nt">tests</span><span class="p">:</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">not_null</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>dbt<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>1 of 4 PASS not_null_stg_orders_order_id ............... [PASS in 0.02s]
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>2 of 4 PASS unique_stg_orders_order_id ................. [PASS in 0.02s]
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>3 of 4 FAIL 1 accepted_values_stg_orders_region ........ [FAIL 1 in 0.02s]
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>4 of 4 PASS not_null_stg_orders_customer_id ............ [PASS in 0.02s]
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>Done. 3 of 4 tests passed. 1 failed.
+</code></pre></div>
+<p>A failing <code>accepted_values</code> test here means a <code>region</code> value slipped
+through that isn't in the expected list — exactly the kind of data quality
+regression that's easy to miss in raw SQL but is a one-line YAML declaration
+in dbt.</p>
+<h2 id="custom-singular-tests">Custom (singular) tests<a class="headerlink" href="#custom-singular-tests" title="Permanent link">&para;</a></h2>
+<p>For logic that built-in tests can't express, write a SQL query that
+<strong>should return zero rows</strong> if the data is healthy:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">-- tests/assert_region_totals_are_positive.sql</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">select</span><span class="w"> </span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="n">total_amount</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">from</span><span class="w"> </span><span class="err">{{</span><span class="w"> </span><span class="k">ref</span><span class="p">(</span><span class="s1">'region_summary'</span><span class="p">)</span><span class="w"> </span><span class="err">}}</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">where</span><span class="w"> </span><span class="n">total_amount</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+<p><code>dbt test</code> treats any row returned by a file in <code>tests/</code> as a failure —
+this is a direct SQL analogue of the <code>assert_data_quality()</code> function from
+the previous module, but versioned, run on <code>dbt test</code>, and visible in dbt's
+docs site alongside the models it checks.</p>
+<h2 id="documentation-and-lineage">Documentation and lineage<a class="headerlink" href="#documentation-and-lineage" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>dbt<span class="w"> </span>docs<span class="w"> </span>generate
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>dbt<span class="w"> </span>docs<span class="w"> </span>serve
+</code></pre></div>
+<p>dbt auto-generates a browsable site showing every model's compiled SQL, its
+tests, and a <strong>lineage graph</strong> built entirely from your <code>ref()</code>/<code>source()</code>
+calls — <code>stg_orders → region_summary</code> — with zero manual diagramming.
+This lineage is also what makes <code>dbt run --select region_summary+</code> possible:
+run one model and everything downstream of it, or <code>+stg_orders</code> to run it
+and everything upstream.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for dbt basics</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Hardcoding table names instead of <code>ref()</code>/<code>source()</code>.</strong> Breaks the
+  dependency graph — dbt can no longer determine run order or draw
+  lineage, and environment promotion (dev → prod schema) stops working.</li>
+<li><strong>Putting business logic in staging models.</strong> Staging should only clean
+  and rename; joins, aggregations, and business rules belong in marts —
+  otherwise every downstream model has to re-derive the same logic.</li>
+<li><strong>Materializing everything as <code>table</code>.</strong> Tables cost full recompute time
+  and storage on every <code>dbt run</code>; views cost nothing to create but re-run
+  their query on every downstream read. Choose per model based on how
+  expensive vs. how often-queried it is (an <code>incremental</code> materialization
+  exists for large tables that shouldn't fully rebuild each run).</li>
+<li><strong>Ignoring <code>dbt test</code> failures in CI.</strong> A schema test failure is data
+  quality regression, functionally equivalent to a broken unit test — treat
+  it the same way in your build pipeline.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{ ref('model') }}</code></td>
+<td>Reference another model; builds the dependency DAG</td>
+</tr>
+<tr>
+<td><code>{{ source('name','table') }}</code></td>
+<td>Reference a declared raw source table</td>
+</tr>
+<tr>
+<td><code>materialized: view/table/incremental</code></td>
+<td>How/when a model's SQL actually runs</td>
+</tr>
+<tr>
+<td>Schema tests (YAML)</td>
+<td><code>unique</code>, <code>not_null</code>, <code>accepted_values</code>, <code>relationships</code></td>
+</tr>
+<tr>
+<td>Singular tests (SQL)</td>
+<td>Custom checks — any row returned counts as a failure</td>
+</tr>
+<tr>
+<td><code>dbt docs generate</code></td>
+<td>Auto lineage graph + docs from <code>ref()</code>/<code>source()</code> calls</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Add a <code>relationships</code> schema test on <code>region_summary</code> — wait, that model
+has no foreign key to test directly, so instead add a new staging model
+<code>stg_customers</code> (id, region) and a <code>relationships</code> test on
+<code>stg_orders.customer_id</code> asserting it exists in <code>stg_customers.customer_id</code>.
+Explain, from the lineage this creates, what order <code>dbt run</code> would execute
+the three models in.</p>
 
 
 

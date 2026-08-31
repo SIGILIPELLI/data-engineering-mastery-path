@@ -1563,10 +1563,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#storagecompute-separation-in-practice" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Storage/compute separation, in practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snowflake-virtual-warehouses-and-auto-suspend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snowflake: virtual warehouses and auto-suspend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bigquery-on-demand-vs-slot-pricing-and-partition-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BigQuery: on-demand vs. slot pricing, and partition pruning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redshift-distribution-and-sort-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redshift: distribution and sort keys
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semi-structured-data-a-genuinely-cross-platform-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semi-structured data: a genuinely cross-platform pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-between-them-the-questions-that-actually-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing between them: the questions that actually matter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2134,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#storagecompute-separation-in-practice" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Storage/compute separation, in practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snowflake-virtual-warehouses-and-auto-suspend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snowflake: virtual warehouses and auto-suspend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bigquery-on-demand-vs-slot-pricing-and-partition-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BigQuery: on-demand vs. slot pricing, and partition pruning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redshift-distribution-and-sort-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redshift: distribution and sort keys
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semi-structured-data-a-genuinely-cross-platform-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semi-structured data: a genuinely cross-platform pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-between-them-the-questions-that-actually-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing between them: the questions that actually matter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2253,204 @@
 
 
 <h1 id="08-working-with-cloud-data-warehouses">08 · Working with Cloud Data Warehouses<a class="headerlink" href="#08-working-with-cloud-data-warehouses" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 3 · Advanced</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Snowflake, BigQuery, and Redshift share a common architecture (separated
+storage and compute, columnar storage, cost driven by both) but differ
+enough in details to trip up someone moving from on-prem Postgres. This
+module covers the concepts and SQL patterns that transfer across all three,
+with dialect notes where it matters.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>No cloud account was provisioned for this module — the SQL is
+standard/documented syntax for each platform (Snowflake, BigQuery
+standard SQL, Redshift), reasoned through against each vendor's public
+SQL reference, not executed against a live warehouse. Treat every
+snippet as syntactically correct and idiomatic, not empirically run.</p>
+</div>
+<h2 id="storagecompute-separation-in-practice">Storage/compute separation, in practice<a class="headerlink" href="#storagecompute-separation-in-practice" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Traditional warehouse (on-prem, or early Redshift):
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  storage and compute live on the same nodes — scaling compute means
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  buying/provisioning more nodes, which also adds storage you may not need.
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Cloud-native warehouse (Snowflake, BigQuery, modern Redshift w/ RA3):
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  storage is separate, cheap, and effectively unlimited (object storage
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  under the hood). Compute ("virtual warehouses" in Snowflake, "slots" in
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  BigQuery) is provisioned independently and can scale to zero when idle.
+</code></pre></div>
+<p>This is <em>why</em> cost in these systems is usually two separate line items
+(storage cost, near-flat and small; compute cost, the one that spikes) and
+why the main cost lever is compute usage, not data volume, for most
+workloads.</p>
+<h2 id="snowflake-virtual-warehouses-and-auto-suspend">Snowflake: virtual warehouses and auto-suspend<a class="headerlink" href="#snowflake-virtual-warehouses-and-auto-suspend" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">WAREHOUSE</span><span class="w"> </span><span class="n">analytics_wh</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">WAREHOUSE_SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'MEDIUM'</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="n">AUTO_SUSPEND</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="w">          </span><span class="c1">-- suspend after 60s idle</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="n">AUTO_RESUME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">TRUE</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">INITIALLY_SUSPENDED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">TRUE</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">USE</span><span class="w"> </span><span class="n">WAREHOUSE</span><span class="w"> </span><span class="n">analytics_wh</span><span class="p">;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">FROM</span><span class="w"> </span><span class="n">analytics</span><span class="p">.</span><span class="n">orders</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">order_date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">DATEADD</span><span class="p">(</span><span class="k">day</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="k">CURRENT_DATE</span><span class="p">())</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">region</span><span class="p">;</span>
+</code></pre></div>
+<p><code>AUTO_SUSPEND = 60</code> is the single highest-leverage cost control in
+Snowflake — compute is billed per-second while a warehouse is running,
+regardless of whether a query is actively executing, so a warehouse left
+running idle between queries burns credits for nothing. Size the warehouse
+(<code>XSMALL</code> through <code>4XLARGE</code>, each roughly double the credits/hour of the
+previous) to the workload; bigger isn't automatically faster for a query
+that isn't actually parallelizable across more nodes.</p>
+<h2 id="bigquery-on-demand-vs-slot-pricing-and-partition-pruning">BigQuery: on-demand vs. slot pricing, and partition pruning<a class="headerlink" href="#bigquery-on-demand-vs-slot-pricing-and-partition-pruning" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- On-demand pricing bills per byte scanned — partition pruning</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">-- directly controls cost, not just speed.</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">project</span><span class="p">.</span><span class="n">analytics</span><span class="p">.</span><span class="n">orders</span><span class="o">`</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">order_date</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="s1">'2024-01-01'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="s1">'2024-01-31'</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">region</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Table must be partitioned on order_date for the WHERE clause above to</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1">-- prune partitions instead of scanning the whole table:</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">project</span><span class="p">.</span><span class="n">analytics</span><span class="p">.</span><span class="n">orders</span><span class="o">`</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">CLUSTER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">region</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">project</span><span class="p">.</span><span class="n">analytics</span><span class="p">.</span><span class="n">orders_staging</span><span class="o">`</span><span class="p">;</span>
+</code></pre></div>
+<p>In BigQuery's on-demand pricing model, a query that scans 1TB costs the
+same whether it returns one row or a billion — so <code>PARTITION BY order_date</code>
+means a query filtered to one month scans roughly 1/365th of the data
+(and cost) it would scan unpartitioned. <code>CLUSTER BY region</code> additionally
+sorts data within each partition so a <code>WHERE region = 'us'</code> filter can skip
+non-matching blocks too. Always check the query validator's byte estimate
+(shown in the BigQuery console, or <code>dry_run=True</code> via the client library)
+<em>before</em> running an expensive query on-demand.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">google.cloud</span><span class="w"> </span><span class="kn">import</span> <span class="n">bigquery</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">client</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">job_config</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">QueryJobConfig</span><span class="p">(</span><span class="n">dry_run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_query_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">query_job</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="s2">"SELECT * FROM `project.analytics.orders` WHERE order_date = '2024-01-15'"</span><span class="p">,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">job_config</span><span class="o">=</span><span class="n">job_config</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"This query will process </span><span class="si">{</span><span class="n">query_job</span><span class="o">.</span><span class="n">total_bytes_processed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e9</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> GB"</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="redshift-distribution-and-sort-keys">Redshift: distribution and sort keys<a class="headerlink" href="#redshift-distribution-and-sort-keys" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">analytics</span><span class="p">.</span><span class="n">orders</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">order_id</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">customer_id</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">region</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">order_total</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">order_date</span><span class="w"> </span><span class="nb">DATE</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">DISTSTYLE</span><span class="w"> </span><span class="k">KEY</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">DISTKEY</span><span class="w"> </span><span class="p">(</span><span class="n">customer_id</span><span class="p">)</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">SORTKEY</span><span class="w"> </span><span class="p">(</span><span class="n">order_date</span><span class="p">);</span>
+</code></pre></div>
+<p><code>DISTKEY (customer_id)</code> controls which compute node stores each row —
+choosing the same distribution key on both sides of a common join
+(<code>orders.customer_id</code> and <code>customers.customer_id</code>) lets Redshift join
+locally on each node instead of shuffling data across the network
+(the Redshift analogue of Spark's shuffle-vs-broadcast tradeoff from the
+previous module). <code>SORTKEY (order_date)</code> lets range-filtered queries on
+that column skip whole blocks (Redshift's "zone maps") without scanning
+them — conceptually the same benefit as BigQuery partition pruning, applied
+within a table rather than across separate partition files.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- Diagnosing distribution skew:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">slice</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">stv_tbl_perm</span><span class="w"> </span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'orders'</span><span class="w"> </span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">slice</span><span class="w"> </span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">count</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+<p>A large imbalance across slices means the chosen <code>DISTKEY</code> doesn't spread
+rows evenly (e.g. one customer with a disproportionate share of orders) —
+the same skew problem covered for Spark, showing up as a warehouse-native
+symptom instead of a Spark stage metric.</p>
+<h2 id="semi-structured-data-a-genuinely-cross-platform-pattern">Semi-structured data: a genuinely cross-platform pattern<a class="headerlink" href="#semi-structured-data-a-genuinely-cross-platform-pattern" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- Snowflake VARIANT</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">raw_event</span><span class="p">:</span><span class="n">user_id</span><span class="p">::</span><span class="n">STRING</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">       </span><span class="n">raw_event</span><span class="p">:</span><span class="n">properties</span><span class="p">.</span><span class="n">plan</span><span class="p">::</span><span class="n">STRING</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">plan</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="p">;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1">-- BigQuery JSON functions</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">JSON_VALUE</span><span class="p">(</span><span class="n">raw_event</span><span class="p">,</span><span class="w"> </span><span class="s1">'$.user_id'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">       </span><span class="n">JSON_VALUE</span><span class="p">(</span><span class="n">raw_event</span><span class="p">,</span><span class="w"> </span><span class="s1">'$.properties.plan'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">plan</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="p">;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="c1">-- Redshift JSON functions</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">JSON_EXTRACT_PATH_TEXT</span><span class="p">(</span><span class="n">raw_event</span><span class="p">,</span><span class="w"> </span><span class="s1">'user_id'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">       </span><span class="n">JSON_EXTRACT_PATH_TEXT</span><span class="p">(</span><span class="n">raw_event</span><span class="p">,</span><span class="w"> </span><span class="s1">'properties'</span><span class="p">,</span><span class="w"> </span><span class="s1">'plan'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">plan</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="p">;</span>
+</code></pre></div>
+<p>All three warehouses let you store a raw JSON payload (an event, a webhook
+body) as-is and extract fields with SQL at query time, rather than forcing
+a rigid schema at ingestion — genuinely useful for a schema you don't fully
+control (third-party API payloads) but it defers, rather than removes, the
+work of validating and typing that data before it drives a report.</p>
+<h2 id="choosing-between-them-the-questions-that-actually-matter">Choosing between them: the questions that actually matter<a class="headerlink" href="#choosing-between-them-the-questions-that-actually-matter" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>- Team's existing SQL dialect fluency and tooling (dbt supports all three
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  well, so this matters less than it used to).
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>- Pricing model fit: BigQuery's per-byte-scanned model rewards well-
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  partitioned tables and punishes ad-hoc SELECT * queries; Snowflake/
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  Redshift's compute-time model rewards right-sizing and suspending
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  clusters/warehouses.
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>- Existing cloud provider (data egress and integration friction with
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  same-cloud services is real, though not usually decisive on its own).
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>- Concurrency needs: Snowflake's separate, independently-scaling virtual
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  warehouses handle many simultaneous, unrelated workloads cleanly;
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  Redshift's shared-cluster model needs more careful workload management
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>  (WLM queues) for the same case.
+</code></pre></div>
+<p>There's rarely a universally "best" choice among the three for a given
+company — the deciding factors are usually organizational (existing cloud
+spend, team skills) more than a raw technical gap.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for working with cloud data warehouses</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Leaving a Snowflake warehouse without <code>AUTO_SUSPEND</code>.</strong> Idle compute is
+  pure wasted cost; there's essentially never a reason to disable it.</li>
+<li><strong><code>SELECT *</code> on an unpartitioned BigQuery table in production.</strong> Scans
+  and bills for every byte in every column, even ones the query doesn't
+  need — always select only needed columns and filter on the partition
+  column.</li>
+<li><strong>Choosing a Redshift <code>DISTKEY</code> without checking join patterns.</strong> A
+  <code>DISTKEY</code> that doesn't match your most common join key doesn't help and
+  can actively cause skew.</li>
+<li><strong>Assuming semi-structured JSON columns are "free" schema flexibility.</strong>
+  Every query touching them pays a parsing cost, and no upstream contract
+  protects consumers from the producer changing the JSON shape.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Compute cost lever</th>
+<th>Cost-relevant lever</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Snowflake</td>
+<td>Warehouse size, <code>AUTO_SUSPEND</code></td>
+<td>Right-size + suspend when idle</td>
+</tr>
+<tr>
+<td>BigQuery</td>
+<td>Bytes scanned (on-demand) or slots (flat-rate)</td>
+<td>Partition + cluster tables</td>
+</tr>
+<tr>
+<td>Redshift</td>
+<td>Cluster size / WLM concurrency</td>
+<td><code>DISTKEY</code>/<code>SORTKEY</code> chosen to match query patterns</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Given a <code>customers</code> table clustered by <code>signup_date</code> in BigQuery and a
+common query pattern <code>WHERE signup_date &gt;= '2024-01-01' AND country = 'US'</code>,
+propose a clustering key change that would speed up this specific query
+pattern, and explain in terms of block-skipping why it helps.</p>
 
 
 

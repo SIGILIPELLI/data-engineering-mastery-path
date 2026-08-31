@@ -1937,10 +1937,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#data-slis-slos-and-error-budgets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Data SLIs, SLOs, and error budgets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-data-slis-that-matter-to-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing data SLIs that matter to consumers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incident-response-for-data-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incident response for data incidents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blameless-postmortems-for-data-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blameless postmortems for data incidents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runbooks-reducing-time-to-mitigate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runbooks: reducing time-to-mitigate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2123,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#data-slis-slos-and-error-budgets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Data SLIs, SLOs, and error budgets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-data-slis-that-matter-to-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing data SLIs that matter to consumers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incident-response-for-data-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incident response for data incidents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blameless-postmortems-for-data-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blameless postmortems for data incidents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runbooks-reducing-time-to-mitigate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runbooks: reducing time-to-mitigate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2231,203 @@
 
 
 <h1 id="08-data-reliability-engineering">08 · Data Reliability Engineering<a class="headerlink" href="#08-data-reliability-engineering" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 4 · Master</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Site Reliability Engineering borrowed to data: treating "the data is
+correct and available" with the same rigor SRE applies to "the service is
+up" — SLOs, error budgets, incident response, and postmortems, applied to
+data quality and freshness rather than uptime alone.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>The SLO/error-budget math is standard arithmetic, independently
+checkable. The incident-response and postmortem templates are
+illustrative process artifacts (matching Google's published SRE
+workbook conventions), not executed code.</p>
+</div>
+<h2 id="data-slis-slos-and-error-budgets">Data SLIs, SLOs, and error budgets<a class="headerlink" href="#data-slis-slos-and-error-budgets" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>SLI (Service Level Indicator): a measured metric.
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  e.g. "percentage of daily batches that complete before 6am UTC"
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>SLO (Service Level Objective): a target for that SLI.
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  e.g. "99% of daily batches complete before 6am UTC, measured over a
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  rolling 30 days"
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Error budget: the allowed slack — if the SLO is 99%, the error budget is
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  the 1% of batches allowed to miss the target before it's treated as a
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  reliability crisis requiring a work stoppage on new features to fix it.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">error_budget_remaining</span><span class="p">(</span><span class="n">slo_target_pct</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">actual_success_pct</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">total_events</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">allowed_failures</span> <span class="o">=</span> <span class="n">total_events</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">slo_target_pct</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">actual_failures</span> <span class="o">=</span> <span class="n">total_events</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">actual_success_pct</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">remaining</span> <span class="o">=</span> <span class="n">allowed_failures</span> <span class="o">-</span> <span class="n">actual_failures</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="s2">"allowed_failures"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">allowed_failures</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="s2">"actual_failures"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">actual_failures</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="s2">"budget_remaining"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">remaining</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="s2">"budget_exhausted"</span><span class="p">:</span> <span class="n">remaining</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="p">}</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">error_budget_remaining</span><span class="p">(</span><span class="n">slo_target_pct</span><span class="o">=</span><span class="mf">99.0</span><span class="p">,</span> <span class="n">actual_success_pct</span><span class="o">=</span><span class="mf">97.5</span><span class="p">,</span> <span class="n">total_events</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># allowed_failures=0.3, actual_failures=0.75 -&gt; budget exhausted</span>
+</code></pre></div>
+<p>An exhausted error budget is the concrete, non-arguable trigger for "the
+platform team stops shipping new features and fixes reliability instead" —
+the value of quantifying it this way is removing the debate about whether
+things are "bad enough" to justify that tradeoff; the number decides.</p>
+<h2 id="choosing-data-slis-that-matter-to-consumers">Choosing data SLIs that matter to consumers<a class="headerlink" href="#choosing-data-slis-that-matter-to-consumers" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Good data SLIs are chosen from the consumer's perspective, not the
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>producer's convenience:
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>- Freshness: "table X is updated within N minutes of the source event"
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  (not "the job ran" — a job can run on time and still produce stale
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  or wrong data)
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>- Completeness: "row count within expected range of historical baseline"
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>- Correctness: "reconciliation against a trusted secondary source matches
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  within tolerance" (e.g. warehouse revenue total matches source-system
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  total within 0.1%)
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>- Availability: "the table/API is queryable" (the traditional SRE
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  metric, still relevant for serving-layer tables)
+</code></pre></div>
+<p>Freshness and correctness SLIs are usually more valuable than availability
+alone for data platforms specifically, because the failure mode unique to
+data systems is "technically available, but wrong or stale" — a category
+uptime monitoring alone can't see.</p>
+<h2 id="incident-response-for-data-incidents">Incident response for data incidents<a class="headerlink" href="#incident-response-for-data-incidents" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">DataIncident</span><span class="p">:</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">severity</span><span class="p">:</span> <span class="nb">str</span>          <span class="c1"># SEV1 (widespread wrong/missing data, business-critical),</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>                            <span class="c1"># SEV2 (contained, one table/team affected), SEV3 (minor)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">detected_at</span><span class="p">:</span> <span class="n">datetime</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">detected_by</span><span class="p">:</span> <span class="nb">str</span>       <span class="c1"># "automated_alert" or a person</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">affected_tables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">suspected_cause</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">triage_severity</span><span class="p">(</span><span class="n">affected_tables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">business_critical</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">consumer_facing</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="k">if</span> <span class="n">business_critical</span> <span class="ow">and</span> <span class="n">consumer_facing</span><span class="p">:</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="k">return</span> <span class="s2">"SEV1"</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">affected_tables</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="ow">or</span> <span class="n">business_critical</span><span class="p">:</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>        <span class="k">return</span> <span class="s2">"SEV2"</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="k">return</span> <span class="s2">"SEV3"</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="n">incident</span> <span class="o">=</span> <span class="n">DataIncident</span><span class="p">(</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="n">severity</span><span class="o">=</span><span class="n">triage_severity</span><span class="p">([</span><span class="s2">"gold.daily_revenue"</span><span class="p">],</span> <span class="n">business_critical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">consumer_facing</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="n">detected_at</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    <span class="n">detected_by</span><span class="o">=</span><span class="s2">"automated_alert"</span><span class="p">,</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="n">affected_tables</span><span class="o">=</span><span class="p">[</span><span class="s2">"gold.daily_revenue"</span><span class="p">],</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="n">suspected_cause</span><span class="o">=</span><span class="s2">"upstream schema change dropped a column silently"</span><span class="p">,</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="p">)</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="nb">print</span><span class="p">(</span><span class="n">incident</span><span class="o">.</span><span class="n">severity</span><span class="p">)</span>  <span class="c1"># SEV1</span>
+</code></pre></div>
+<p>The value of formal triage (rather than an ad-hoc "this seems bad") is
+consistent response: a SEV1 data incident should trigger the same urgency
+(paging, an incident channel, a named incident commander) as a SEV1
+application outage — many organizations under-react to data incidents
+precisely because there's no dashboard visibly "down," even though the
+business impact (a wrong revenue number reaching a board deck) can be worse.</p>
+<h2 id="blameless-postmortems-for-data-incidents">Blameless postmortems for data incidents<a class="headerlink" href="#blameless-postmortems-for-data-incidents" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gu">## Postmortem: gold.daily_revenue undercounted by 12% for 3 days</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="gs">**Impact**</span>: Finance's daily revenue dashboard showed figures ~12% low
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>for Jan 12-15. Discovered when Finance manually reconciled against the
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>payment processor's own totals.
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="gs">**Root cause**</span>: An upstream schema change in <span class="sb">`raw.payments`</span> renamed
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="sb">`transaction_amount`</span> to <span class="sb">`amount_cents`</span>. The silver-layer job referenced
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>the old column name, which pandas/Spark treats as producing nulls rather
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>than an error under the schema config in use, silently excluding those
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>rows from the SUM aggregation instead of failing the job.
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="gs">**Why it wasn't caught sooner**</span>: No data quality gate asserted a non-null
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>rate threshold on the aggregation input column; no automated
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>reconciliation against the payment processor existed.
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="gs">**Corrective actions**</span>:
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="k">1.</span> Add a null-rate quality gate on <span class="sb">`raw.payments.amount_cents`</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>   (owner: data-eng, due: next sprint)
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="k">2.</span> Add automated daily reconciliation against payment processor totals,
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>   alert if variance &gt; 1% (owner: data-eng, due: 2 sprints)
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="k">3.</span> Require schema-change notification from producing team before any
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>   <span class="sb">`raw.payments`</span> deploy (owner: platform team, due: this sprint)
+</code></pre></div>
+<p>The "blameless" framing matters practically, not just culturally: an
+engineer who fears blame for a schema-change incident is incentivized to
+hide or minimize it, which delays the fix and repeats the failure —
+postmortems that focus on system and process gaps (missing quality gate,
+missing reconciliation) rather than individual fault get genuinely acted
+on.</p>
+<h2 id="runbooks-reducing-time-to-mitigate">Runbooks: reducing time-to-mitigate<a class="headerlink" href="#runbooks-reducing-time-to-mitigate" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">RUNBOOK_STALE_GOLD_TABLE</span> <span class="o">=</span> <span class="s2">"""</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="s2">1. Check upstream silver table's last successful write timestamp.</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="s2">   If stale: this is an upstream failure, follow RUNBOOK_UPSTREAM_FAILURE.</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="s2">2. Check the gold aggregation job's most recent run status in Airflow.</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="s2">   If failed: check task logs for the specific error; common causes:</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="s2">   schema drift (see quality gate output), OOM (check executor memory</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="s2">   config), or a dependency table not yet landed (check upstream SLA).</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="s2">3. If job succeeded but output looks wrong: check the data quality gate</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="s2">   metrics from that run (row count, null rate) against the 7-day</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="s2">   baseline before assuming a logic bug — often it's an unexpectedly</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="s2">   valid but unusual upstream data pattern (e.g. a real sales spike),</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="s2">   not a bug.</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="s2">4. If genuinely a bug: roll back to previous DAG code version, rerun</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="s2">   from the last known-good silver snapshot, notify affected consumers</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="s2">   via #data-incidents with expected time to resolution.</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="s2">"""</span>
+</code></pre></div>
+<p>A runbook's job is to shrink the gap between "on-call engineer paged" and
+"first useful diagnostic action taken" — written <em>before</em> an incident,
+based on the most common failure patterns for that specific pipeline, not
+improvised under pressure at 2am.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for data reliability engineering</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>No error budget, just a vague "try to keep it reliable" goal.</strong>
+  Without a number, there's no objective trigger for prioritizing
+  reliability work over new features.</li>
+<li><strong>SLIs measuring job success instead of data correctness.</strong> A job that
+  "succeeds" while silently producing wrong output (the postmortem example
+  above) passes every naive SLI while failing the actual business need.</li>
+<li><strong>Blame-oriented postmortems.</strong> Suppresses honest reporting and repeats
+  the same failure class.</li>
+<li><strong>No runbooks for common failure patterns.</strong> Every incident becomes a
+  from-scratch investigation, even for a failure mode that's happened
+  three times before.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Data-specific application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SLI</td>
+<td>Freshness, completeness, correctness — not just "job ran"</td>
+</tr>
+<tr>
+<td>Error budget</td>
+<td>Quantified trigger for pausing feature work to fix reliability</td>
+</tr>
+<tr>
+<td>Severity triage</td>
+<td>SEV1 for business-critical + consumer-facing data incidents</td>
+</tr>
+<tr>
+<td>Blameless postmortem</td>
+<td>Focus on process/system gaps, drives real corrective actions</td>
+</tr>
+<tr>
+<td>Runbook</td>
+<td>Written before the incident, shrinks time-to-first-useful-action</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Define a concrete SLI, SLO, and error budget for a pipeline you've worked
+on (or a hypothetical <code>orders_etl</code> pipeline), then compute, using
+<code>error_budget_remaining</code>, whether a month with 2 late batches out of 30
+would exhaust a 95% freshness SLO.</p>
 
 
 

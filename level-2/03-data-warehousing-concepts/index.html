@@ -1049,10 +1049,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#oltp-vs-olap" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        OLTP vs. OLAP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#star-schema-facts-and-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Star schema: facts and dimensions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slowly-changing-dimensions-scd-type-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slowly Changing Dimensions (SCD Type 2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2101,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#oltp-vs-olap" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        OLTP vs. OLAP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#star-schema-facts-and-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Star schema: facts and dimensions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slowly-changing-dimensions-scd-type-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slowly Changing Dimensions (SCD Type 2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2187,161 @@
 
 
 <h1 id="03-data-warehousing-concepts">03 · Data Warehousing Concepts<a class="headerlink" href="#03-data-warehousing-concepts" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 2 · Intermediate</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>A data warehouse organizes data for <strong>analysis</strong>, not transactions. This
+lesson covers the star schema (facts and dimensions), slowly changing
+dimensions (SCD Type 2), and why warehouses favor wide, denormalized tables
+over the normalized schemas you'd use for an application database.</p>
+<h2 id="oltp-vs-olap">OLTP vs. OLAP<a class="headerlink" href="#oltp-vs-olap" title="Permanent link">&para;</a></h2>
+<p>An application database (OLTP — online transactional processing) is
+normalized to make single-row writes fast and consistent: an <code>orders</code> table
+references a <code>customer_id</code>, not the customer's full name and address. A
+warehouse (OLAP — online analytical processing) does the opposite on
+purpose: it denormalizes so that answering "total revenue by customer city
+last quarter" doesn't require five joins across millions of rows.</p>
+<h2 id="star-schema-facts-and-dimensions">Star schema: facts and dimensions<a class="headerlink" href="#star-schema-facts-and-dimensions" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Fact table: one row per business event, mostly foreign keys + measures</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">fact_sales</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="p">{</span><span class="s2">"sale_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"date_key"</span><span class="p">:</span> <span class="mi">20260105</span><span class="p">,</span> <span class="s2">"customer_key"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"product_key"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mf">120.0</span><span class="p">,</span> <span class="s2">"qty"</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="p">{</span><span class="s2">"sale_id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"date_key"</span><span class="p">:</span> <span class="mi">20260106</span><span class="p">,</span> <span class="s2">"customer_key"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"product_key"</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mf">45.0</span><span class="p">,</span>  <span class="s2">"qty"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="p">{</span><span class="s2">"sale_id"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"date_key"</span><span class="p">:</span> <span class="mi">20260106</span><span class="p">,</span> <span class="s2">"customer_key"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"product_key"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>  <span class="s2">"qty"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">]</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Dimension tables: descriptive attributes, one row per entity</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">dim_customer</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="p">{</span><span class="s2">"customer_key"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Alice Smith"</span><span class="p">,</span> <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"Austin"</span><span class="p">,</span>  <span class="s2">"segment"</span><span class="p">:</span> <span class="s2">"SMB"</span><span class="p">},</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="p">{</span><span class="s2">"customer_key"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bob Jones"</span><span class="p">,</span>   <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"Denver"</span><span class="p">,</span>  <span class="s2">"segment"</span><span class="p">:</span> <span class="s2">"Enterprise"</span><span class="p">},</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">]</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">dim_product</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="p">{</span><span class="s2">"product_key"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Widget A"</span><span class="p">,</span> <span class="s2">"category"</span><span class="p">:</span> <span class="s2">"Hardware"</span><span class="p">},</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="p">{</span><span class="s2">"product_key"</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Widget B"</span><span class="p">,</span> <span class="s2">"category"</span><span class="p">:</span> <span class="s2">"Hardware"</span><span class="p">},</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">]</span>
+</code></pre></div>
+<p>The <strong>fact table</strong> is narrow and numeric (measures like <code>amount</code>, <code>qty</code>) plus
+foreign keys. The <strong>dimension tables</strong> are wide and descriptive (<code>name</code>,
+<code>city</code>, <code>segment</code>). A query joins one fact to several dimensions — the "star"
+shape, with the fact at the center:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">revenue_by_city</span><span class="p">(</span><span class="n">fact</span><span class="p">,</span> <span class="n">customers</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">cust_by_key</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">[</span><span class="s2">"customer_key"</span><span class="p">]:</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">customers</span><span class="p">}</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">totals</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">fact</span><span class="p">:</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="n">city</span> <span class="o">=</span> <span class="n">cust_by_key</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s2">"customer_key"</span><span class="p">]][</span><span class="s2">"city"</span><span class="p">]</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="n">totals</span><span class="p">[</span><span class="n">city</span><span class="p">]</span> <span class="o">=</span> <span class="n">totals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">return</span> <span class="n">totals</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">revenue_by_city</span><span class="p">(</span><span class="n">fact_sales</span><span class="p">,</span> <span class="n">dim_customer</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>{'Austin': 180.0, 'Denver': 45.0}
+</code></pre></div>
+<p>In a real warehouse this is one <code>JOIN</code> + <code>GROUP BY</code>; the Python loop above is
+just making the join explicit for teaching purposes.</p>
+<h2 id="slowly-changing-dimensions-scd-type-2">Slowly Changing Dimensions (SCD Type 2)<a class="headerlink" href="#slowly-changing-dimensions-scd-type-2" title="Permanent link">&para;</a></h2>
+<p>Dimension data changes: a customer moves cities, a product gets recategorized.
+<strong>SCD Type 2</strong> keeps full history by inserting a new row per change instead of
+overwriting, with <code>effective_from</code> / <code>effective_to</code> dates and an <code>is_current</code>
+flag:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">apply_scd2</span><span class="p">(</span><span class="n">dim_table</span><span class="p">,</span> <span class="n">natural_key</span><span class="p">,</span> <span class="n">key_field</span><span class="p">,</span> <span class="n">new_record</span><span class="p">,</span> <span class="n">as_of_date</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">"""Close out the current row (if the tracked fields changed) and insert a new one."""</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">current</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="p">(</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dim_table</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="n">natural_key</span><span class="p">]</span> <span class="o">==</span> <span class="n">new_record</span><span class="p">[</span><span class="n">natural_key</span><span class="p">]</span> <span class="ow">and</span> <span class="n">r</span><span class="p">[</span><span class="s2">"is_current"</span><span class="p">]),</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">tracked_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">new_record</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">natural_key</span><span class="p">,)]</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">changed</span> <span class="o">=</span> <span class="n">current</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">current</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">!=</span> <span class="n">new_record</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">tracked_fields</span><span class="p">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">changed</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="k">return</span> <span class="n">dim_table</span>  <span class="c1"># no-op: nothing worth versioning</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="k">if</span> <span class="n">current</span><span class="p">:</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="n">current</span><span class="p">[</span><span class="s2">"effective_to"</span><span class="p">]</span> <span class="o">=</span> <span class="n">as_of_date</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="n">current</span><span class="p">[</span><span class="s2">"is_current"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="n">new_key</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">r</span><span class="p">[</span><span class="n">key_field</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dim_table</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="n">dim_table</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        <span class="n">key_field</span><span class="p">:</span> <span class="n">new_key</span><span class="p">,</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        <span class="o">**</span><span class="n">new_record</span><span class="p">,</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>        <span class="s2">"effective_from"</span><span class="p">:</span> <span class="n">as_of_date</span><span class="p">,</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>        <span class="s2">"effective_to"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>        <span class="s2">"is_current"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="p">})</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="k">return</span> <span class="n">dim_table</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="n">dim_customer_scd</span> <span class="o">=</span> <span class="p">[{</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>    <span class="s2">"customer_key"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"customer_id"</span><span class="p">:</span> <span class="s2">"C1"</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Alice Smith"</span><span class="p">,</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>    <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"Austin"</span><span class="p">,</span> <span class="s2">"effective_from"</span><span class="p">:</span> <span class="s2">"2025-01-01"</span><span class="p">,</span> <span class="s2">"effective_to"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>    <span class="s2">"is_current"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="p">}]</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="n">apply_scd2</span><span class="p">(</span><span class="n">dim_customer_scd</span><span class="p">,</span> <span class="s2">"customer_id"</span><span class="p">,</span> <span class="s2">"customer_key"</span><span class="p">,</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>           <span class="p">{</span><span class="s2">"customer_id"</span><span class="p">:</span> <span class="s2">"C1"</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Alice Smith"</span><span class="p">,</span> <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"Denver"</span><span class="p">},</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>           <span class="n">as_of_date</span><span class="o">=</span><span class="s2">"2026-08-01"</span><span class="p">)</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dim_customer_scd</span><span class="p">:</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{'customer_key': 1, 'customer_id': 'C1', 'name': 'Alice Smith', 'city': 'Austin', 'effective_from': '2025-01-01', 'effective_to': '2026-08-01', 'is_current': False}
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>{'customer_key': 2, 'customer_id': 'C1', 'name': 'Alice Smith', 'city': 'Denver', 'effective_from': '2026-08-01', 'effective_to': None, 'is_current': True}
+</code></pre></div>
+<p>This is why a fact table joins on <code>customer_key</code> (the warehouse's own
+surrogate key) rather than <code>customer_id</code> (the source system's natural key) —
+<code>customer_key</code> uniquely identifies <em>this version</em> of the customer, so a
+historical sale in Austin stays attributed to the Austin row even after
+Alice moves.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for data warehousing concepts</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Joining facts to dimensions on the natural key.</strong> This collapses SCD
+  history — every historical sale gets re-attributed to the customer's
+  <em>current</em> attributes, silently rewriting the past.</li>
+<li><strong>Forgetting <code>is_current</code> as a filter.</strong> Queries that want "today's"
+  customer attributes must filter <code>WHERE is_current = TRUE</code>, or they'll
+  double-count facts against every historical version of a changed dimension.</li>
+<li><strong>Making every dimension SCD Type 2.</strong> Full history has a cost (larger
+  tables, more complex joins). Only version fields that matter for historical
+  analysis — a customer's <code>city</code> might matter for regional revenue trends; an
+  <code>internal_notes</code> field usually doesn't need versioning at all (SCD Type 1:
+  just overwrite it).</li>
+<li><strong>Surrogate keys that aren't actually stable.</strong> A surrogate key must never
+  be reused or reassigned — the <code>max(...) + 1</code> pattern above works for a
+  toy example but a production warehouse uses a proper sequence or identity
+  column to guarantee this.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fact table</td>
+<td>Narrow, numeric measures + foreign keys, one row per event</td>
+</tr>
+<tr>
+<td>Dimension table</td>
+<td>Wide, descriptive attributes, one row per entity (or version)</td>
+</tr>
+<tr>
+<td>SCD Type 1</td>
+<td>Overwrite — no history kept</td>
+</tr>
+<tr>
+<td>SCD Type 2</td>
+<td>New row per change, <code>effective_from/to</code> + <code>is_current</code></td>
+</tr>
+<tr>
+<td>Surrogate key</td>
+<td>Warehouse-generated key, stable even as natural-key attributes change</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Extend <code>apply_scd2</code> to also track <code>segment</code> changes, and write a query
+function <code>customer_history(dim_table, customer_id)</code> that returns every
+version of a given customer sorted by <code>effective_from</code>, printing each
+version's active date range. Test it by changing both <code>city</code> and <code>segment</code>
+for the same customer across two separate calls to <code>apply_scd2</code>.</p>
 
 
 

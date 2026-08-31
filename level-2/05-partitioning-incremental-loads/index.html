@@ -1105,10 +1105,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#partitioning-a-dataset-by-date" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Partitioning a dataset by date
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-partitioning-speeds-up-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why partitioning speeds up queries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incremental-loads-high-water-mark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental loads: high-water mark
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incremental-loads-change-tracking-with-a-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental loads: change tracking with a hash
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-both-partitioned-incremental-loads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining both: partitioned incremental loads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2123,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#partitioning-a-dataset-by-date" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Partitioning a dataset by date
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-partitioning-speeds-up-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why partitioning speeds up queries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incremental-loads-high-water-mark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental loads: high-water mark
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incremental-loads-change-tracking-with-a-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incremental loads: change tracking with a hash
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-both-partitioned-incremental-loads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining both: partitioned incremental loads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2231,236 @@
 
 
 <h1 id="05-data-partitioning-incremental-loads">05 · Data Partitioning &amp; Incremental Loads<a class="headerlink" href="#05-data-partitioning-incremental-loads" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 2 · Intermediate</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Reloading an entire table every run works until the table has millions of
+rows and the run takes hours. Two techniques fix this: <strong>partitioning</strong>
+(physically splitting data so queries/loads can skip irrelevant chunks) and
+<strong>incremental loads</strong> (only processing what changed since the last run).</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>All examples run against SQLite via <code>sqlite3</code>, with partitioned files
+demonstrated using plain CSVs on the local filesystem — the same
+directory-per-partition layout used by Hive, Spark, and cloud
+warehouses, just without cloud storage.</p>
+</div>
+<h2 id="partitioning-a-dataset-by-date">Partitioning a dataset by date<a class="headerlink" href="#partitioning-a-dataset-by-date" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="p">{</span><span class="s2">"event_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"event_date"</span><span class="p">:</span> <span class="s2">"2026-01-01"</span><span class="p">,</span> <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="p">{</span><span class="s2">"event_id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"event_date"</span><span class="p">:</span> <span class="s2">"2026-01-01"</span><span class="p">,</span> <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="p">{</span><span class="s2">"event_id"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"event_date"</span><span class="p">:</span> <span class="s2">"2026-01-02"</span><span class="p">,</span> <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mi">15</span><span class="p">},</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="p">{</span><span class="s2">"event_id"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"event_date"</span><span class="p">:</span> <span class="s2">"2026-01-02"</span><span class="p">,</span> <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"c"</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">]</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">base</span> <span class="o">=</span> <span class="s2">"/tmp/events"</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">partition_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">/event_date=</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'event_date'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">partition_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">partition_dir</span><span class="si">}</span><span class="s2">/data.csv"</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">write_header</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">row</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="k">if</span> <span class="n">write_header</span><span class="p">:</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>            <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/tmp/events/event_date=2026-01-01/data.csv
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/tmp/events/event_date=2026-01-02/data.csv
+</code></pre></div>
+<p>This <code>key=value</code> directory naming is <strong>Hive-style partitioning</strong>. Any engine
+that understands it (Spark, Athena, BigQuery external tables, DuckDB) can
+read <code>event_date</code> straight from the path instead of scanning file contents —
+a query for <code>event_date = '2026-01-02'</code> only opens one directory.</p>
+<h2 id="why-partitioning-speeds-up-queries">Why partitioning speeds up queries<a class="headerlink" href="#why-partitioning-speeds-up-queries" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Querying with a partition filter, DuckDB's globbing + Hive-partition</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># detection means only the matching directory's file is actually read.</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">result</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"""</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="s2">    SELECT * FROM read_csv_auto('/tmp/events/*/data.csv', hive_partitioning=1)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="s2">    WHERE event_date = '2026-01-02'</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="s2">"""</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[(3, 'a', 15, '2026-01-02'), (4, 'c', 5, '2026-01-02')]
+</code></pre></div>
+<p>Without partitioning, this query would read every row in the dataset and
+filter afterward — with partitioning, the engine performs <strong>partition
+pruning</strong>: it decides which files to open before reading any of them.</p>
+<h2 id="incremental-loads-high-water-mark">Incremental loads: high-water mark<a class="headerlink" href="#incremental-loads-high-water-mark" title="Permanent link">&para;</a></h2>
+<p>The simplest incremental strategy tracks the maximum value of an
+ever-increasing column (a timestamp or auto-increment ID) already loaded, and
+only pulls rows past that mark next time.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">":memory:"</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"""</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="s2">CREATE TABLE source_orders (</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="s2">    order_id INTEGER PRIMARY KEY,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="s2">    updated_at TEXT,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="s2">    amount REAL</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="s2">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="s2">"""</span><span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"""</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="s2">CREATE TABLE loaded_orders (</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="s2">    order_id INTEGER PRIMARY KEY,</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="s2">    updated_at TEXT,</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="s2">    amount REAL</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="s2">)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="s2">"""</span><span class="p">)</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"CREATE TABLE load_state (source TEXT PRIMARY KEY, high_water_mark TEXT)"</span><span class="p">)</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"INSERT INTO load_state VALUES ('orders', '1970-01-01T00:00:00')"</span><span class="p">)</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="n">conn</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="s2">"INSERT INTO source_orders VALUES (?,?,?)"</span><span class="p">,</span> <span class="p">[</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"2026-01-01T09:00:00"</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"2026-01-01T10:00:00"</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="p">])</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="k">def</span><span class="w"> </span><span class="nf">incremental_load</span><span class="p">():</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>    <span class="n">mark</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>        <span class="s2">"SELECT high_water_mark FROM load_state WHERE source='orders'"</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>    <span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>    <span class="n">new_rows</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>        <span class="s2">"SELECT order_id, updated_at, amount FROM source_orders WHERE updated_at &gt; ?"</span><span class="p">,</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>        <span class="p">(</span><span class="n">mark</span><span class="p">,),</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>    <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">new_rows</span><span class="p">:</span>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>        <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>            <span class="s2">"INSERT INTO loaded_orders VALUES (?,?,?) "</span>
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>            <span class="s2">"ON CONFLICT(order_id) DO UPDATE SET updated_at=excluded.updated_at, amount=excluded.amount"</span><span class="p">,</span>
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>            <span class="n">row</span><span class="p">,</span>
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>        <span class="p">)</span>
+<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>
+<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>    <span class="k">if</span> <span class="n">new_rows</span><span class="p">:</span>
+<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>        <span class="n">new_mark</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">new_rows</span><span class="p">)</span>
+<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>        <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>            <span class="s2">"UPDATE load_state SET high_water_mark=? WHERE source='orders'"</span><span class="p">,</span> <span class="p">(</span><span class="n">new_mark</span><span class="p">,)</span>
+<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>        <span class="p">)</span>
+<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_rows</span><span class="p">)</span>
+<a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a>
+<a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a><span class="nb">print</span><span class="p">(</span><span class="n">incremental_load</span><span class="p">())</span>   <span class="c1"># 2 — first run, loads both</span>
+<a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a><span class="nb">print</span><span class="p">(</span><span class="n">incremental_load</span><span class="p">())</span>   <span class="c1"># 0 — nothing new since the mark advanced</span>
+<a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a>
+<a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"INSERT INTO source_orders VALUES (3, '2026-01-01T11:00:00', 300)"</span><span class="p">)</span>
+<a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a><span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<a id="__codelineno-4-57" name="__codelineno-4-57" href="#__codelineno-4-57"></a><span class="nb">print</span><span class="p">(</span><span class="n">incremental_load</span><span class="p">())</span>   <span class="c1"># 1 — only the new row</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>2
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>0
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>1
+</code></pre></div>
+<p>The <code>load_state</code> table is itself a small piece of pipeline state — it must
+be updated in the same logical unit as the load (ideally the same
+transaction) or a crash between loading rows and advancing the mark will
+either skip or reprocess rows.</p>
+<h2 id="incremental-loads-change-tracking-with-a-hash">Incremental loads: change tracking with a hash<a class="headerlink" href="#incremental-loads-change-tracking-with-a-hash" title="Permanent link">&para;</a></h2>
+<p>When a source has no reliable <code>updated_at</code>, hash each row's content and
+compare against the last-seen hash to detect changes (including updates, not
+just new rows):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">row_hash</span><span class="p">(</span><span class="n">row</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">canonical</span> <span class="o">=</span> <span class="s2">"|"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">canonical</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">previous_hashes</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="n">row_hash</span><span class="p">({</span><span class="s2">"order_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mi">100</span><span class="p">})}</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">current_rows</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="p">{</span><span class="s2">"order_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mi">150</span><span class="p">},</span>   <span class="c1"># changed</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="p">{</span><span class="s2">"order_id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mi">200</span><span class="p">},</span>   <span class="c1"># new</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="p">]</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="n">changed_or_new</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">current_rows</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="k">if</span> <span class="n">previous_hashes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">"order_id"</span><span class="p">])</span> <span class="o">!=</span> <span class="n">row_hash</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">]</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="nb">print</span><span class="p">(</span><span class="n">changed_or_new</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>[{'order_id': 1, 'amount': 150}, {'order_id': 2, 'amount': 200}]
+</code></pre></div>
+<p>This detects updates a high-water mark on <code>updated_at</code> would catch anyway,
+but also protects against a source system that updates rows without
+touching a timestamp column — a common real-world gap.</p>
+<h2 id="combining-both-partitioned-incremental-loads">Combining both: partitioned incremental loads<a class="headerlink" href="#combining-both-partitioned-incremental-loads" title="Permanent link">&para;</a></h2>
+<p>Production pipelines often do both — partition storage by load date, and
+within each partition run incrementally against the source:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">write_partition</span><span class="p">(</span><span class="n">rows</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">run_date</span><span class="p">:</span> <span class="n">date</span><span class="p">):</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">partition</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"/tmp/orders/load_date=</span><span class="si">{</span><span class="n">run_date</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">partition</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">partition</span><span class="si">}</span><span class="s2">/orders.csv"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>        <span class="k">if</span> <span class="n">rows</span><span class="p">:</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>            <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>            <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="n">write_partition</span><span class="p">(</span><span class="n">changed_or_new</span><span class="p">,</span> <span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<p>Each day's incremental delta lands in its own partition — reprocessing a
+single bad day means deleting one directory and rerunning, not touching the
+whole history.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for data partitioning &amp; incremental loads</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Clock skew on <code>updated_at</code>.</strong> If the source system's clock runs ahead
+  of the pipeline's, a high-water-mark load can miss rows written in the
+  gap. Add a small overlap window (e.g. re-pull the last 5 minutes every
+  run) and dedupe on primary key.</li>
+<li><strong>Deletes are invisible to incremental loads.</strong> A high-water mark or hash
+  diff only sees inserts/updates — a row deleted at the source silently
+  stays in your loaded table forever unless you separately reconcile full
+  key sets periodically.</li>
+<li><strong>Partitioning on a high-cardinality column.</strong> Partitioning by
+  <code>user_id</code> (millions of values) creates millions of tiny directories —
+  slower, not faster. Partition by low-cardinality, query-aligned columns:
+  date, region, status.</li>
+<li><strong>Forgetting to update the high-water mark atomically.</strong> If the state
+  update and the data load aren't in the same transaction, a crash between
+  them causes silent data loss or duplication on the next run.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Solves</th>
+<th>Watch out for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hive-style partitioning</td>
+<td>Query/load pruning</td>
+<td>High-cardinality partition keys</td>
+</tr>
+<tr>
+<td>High-water mark</td>
+<td>Incremental pulls, large sources</td>
+<td>Missed rows from clock skew</td>
+</tr>
+<tr>
+<td>Row hashing</td>
+<td>Detecting updates without a timestamp</td>
+<td>Cost of hashing every row every run</td>
+</tr>
+<tr>
+<td>Partitioned incremental loads</td>
+<td>Reprocessability + efficiency</td>
+<td>Keeping state updates atomic with loads</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Extend <code>incremental_load()</code> so the high-water-mark update happens inside the
+same <code>BEGIN</code>/<code>COMMIT</code> as the row inserts (currently they share a connection
+but aren't wrapped in an explicit transaction boundary). Then simulate a
+crash by raising an exception after inserting rows but before updating
+<code>load_state</code>, and confirm that rerunning the function reprocesses those rows
+instead of skipping them.</p>
 
 
 

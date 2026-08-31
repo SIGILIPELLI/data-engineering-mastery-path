@@ -1133,10 +1133,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#row-oriented-vs-columnar-concretely" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Row-oriented vs. columnar, concretely
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-and-reading-parquet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing and reading Parquet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#column-pruning-and-predicate-pushdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column pruning and predicate pushdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-and-types-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema and types matter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arrow-as-the-pandaspolarsduckdb-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrow as the pandas/Polars/DuckDB bridge
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#row-groups-and-file-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Row groups and file layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2134,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#row-oriented-vs-columnar-concretely" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Row-oriented vs. columnar, concretely
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-and-reading-parquet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing and reading Parquet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#column-pruning-and-predicate-pushdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column pruning and predicate pushdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-and-types-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema and types matter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arrow-as-the-pandaspolarsduckdb-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrow as the pandas/Polars/DuckDB bridge
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#row-groups-and-file-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Row groups and file layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2253,197 @@
 
 
 <h1 id="06-working-with-parquetarrow">06 · Working with Parquet/Arrow<a class="headerlink" href="#06-working-with-parquetarrow" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 2 · Intermediate</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>CSV and JSON are row-oriented, text-based, and untyped — fine for small data,
+wasteful for analytics at scale. Parquet is a <strong>columnar</strong>, binary,
+compressed file format built for exactly this. Apache Arrow is the
+in-memory columnar format that pandas, Polars, DuckDB, and Spark increasingly
+share, making conversions between them nearly free. This module writes,
+reads, and reasons about both using <code>pyarrow</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>Code uses <code>pyarrow</code> and <code>pyarrow.parquet</code>, reasoned through against
+documented APIs (<code>pyarrow&gt;=14</code>). Install with <code>pip install pyarrow</code>.</p>
+</div>
+<h2 id="row-oriented-vs-columnar-concretely">Row-oriented vs. columnar, concretely<a class="headerlink" href="#row-oriented-vs-columnar-concretely" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyarrow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pa</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyarrow.parquet</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pq</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">table</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">table</span><span class="p">({</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="s2">"user_id"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">"country"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"IN"</span><span class="p">,</span> <span class="s2">"US"</span><span class="p">,</span> <span class="s2">"IN"</span><span class="p">,</span> <span class="s2">"DE"</span><span class="p">],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="s2">"amount"</span><span class="p">:</span>  <span class="p">[</span><span class="mf">120.5</span><span class="p">,</span> <span class="mf">89.0</span><span class="p">,</span> <span class="mf">45.25</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">})</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>user_id: int64
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>country: string
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>amount: double
+</code></pre></div>
+<p>A CSV row is <code>1,IN,120.5</code> stored contiguously. Parquet instead stores all
+<code>user_id</code> values together, then all <code>country</code> values, then all <code>amount</code>
+values — each column compresses far better (repeated <code>"IN"</code> strings compress
+to almost nothing) and a query touching only <code>amount</code> never has to read
+<code>user_id</code> or <code>country</code> off disk at all.</p>
+<h2 id="writing-and-reading-parquet">Writing and reading Parquet<a class="headerlink" href="#writing-and-reading-parquet" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">pq</span><span class="o">.</span><span class="n">write_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="s2">"/tmp/users.parquet"</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">"snappy"</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">read_back</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s2">"/tmp/users.parquet"</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">read_back</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>   user_id country  amount
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>0        1      IN  120.50
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>1        2      US   89.00
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>2        3      IN   45.25
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>3        4      DE  300.00
+</code></pre></div>
+<p><code>compression="snappy"</code> is the Parquet default — fast to decompress, good
+enough compression ratio for most analytics workloads. <code>gzip</code> compresses
+tighter but is slower to read, which matters more than write time for
+data that's read many times.</p>
+<h2 id="column-pruning-and-predicate-pushdown">Column pruning and predicate pushdown<a class="headerlink" href="#column-pruning-and-predicate-pushdown" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Only reads the 'amount' column off disk — user_id and country are</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># never touched, because Parquet stores column offsets in its footer.</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">amounts_only</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s2">"/tmp/users.parquet"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">])</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">amounts_only</span><span class="o">.</span><span class="n">column_names</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># Predicate pushdown: row-group statistics (min/max per column) let the</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># reader skip entire row groups that can't match the filter.</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyarrow.dataset</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ds</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">dataset</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="s2">"/tmp/users.parquet"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"parquet"</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">filtered</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">to_table</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">"country"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"IN"</span><span class="p">))</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">filtered</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>['amount']
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>   user_id country  amount
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>0        1      IN  120.50
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>1        3      IN   45.25
+</code></pre></div>
+<p>For a file with many row groups, Parquet stores per-row-group min/max
+statistics for each column — if a row group's <code>country</code> min/max can't
+possibly contain <code>"IN"</code>, the reader skips decompressing it entirely. This is
+why Parquet + partition pruning together make cloud data warehouses fast
+without indexes.</p>
+<h2 id="schema-and-types-matter">Schema and types matter<a class="headerlink" href="#schema-and-types-matter" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">schema</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">schema</span><span class="p">([</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="p">(</span><span class="s2">"user_id"</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">int64</span><span class="p">()),</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="p">(</span><span class="s2">"country"</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">()),</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="p">(</span><span class="s2">"amount"</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">decimal128</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>   <span class="c1"># exact decimal, not float</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="p">(</span><span class="s2">"signup_date"</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">date32</span><span class="p">()),</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">])</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">table2</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">table</span><span class="p">({</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="s2">"user_id"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="s2">"country"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"IN"</span><span class="p">],</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="s2">"amount"</span><span class="p">:</span> <span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="mf">120.50</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">decimal128</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))],</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="s2">"signup_date"</span><span class="p">:</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p">},</span> <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">)</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="n">pq</span><span class="o">.</span><span class="n">write_table</span><span class="p">(</span><span class="n">table2</span><span class="p">,</span> <span class="s2">"/tmp/users_typed.parquet"</span><span class="p">)</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">pq</span><span class="o">.</span><span class="n">read_schema</span><span class="p">(</span><span class="s2">"/tmp/users_typed.parquet"</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>user_id: int64
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>country: string
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>amount: decimal128(10, 2)
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>signup_date: date32[day]
+</code></pre></div>
+<p>Unlike CSV, Parquet stores an explicit schema — no re-inferring types on
+every read, and no silent surprises like <code>"120.50"</code> being read back as a
+float that can't represent money exactly. Use <code>decimal128</code> for currency,
+never <code>float64</code>.</p>
+<h2 id="arrow-as-the-pandaspolarsduckdb-bridge">Arrow as the pandas/Polars/DuckDB bridge<a class="headerlink" href="#arrow-as-the-pandaspolarsduckdb-bridge" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">df</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>                 <span class="c1"># Parquet -&gt; Arrow -&gt; pandas, zero-copy where possible</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">back_to_arrow</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">result</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"SELECT country, SUM(amount) FROM read_parquet('/tmp/users.parquet') GROUP BY country"</span><span class="p">)</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>  country      sum(amount)
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>0      IN           165.75
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>1      US            89.00
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>2      DE           300.00
+</code></pre></div>
+<p>DuckDB can query a Parquet file directly with SQL and hand results back as
+an Arrow table — no separate "load into a database" step. This is the basis
+of most modern local/lakehouse analytics tooling: Arrow is the lingua franca
+that lets these tools interoperate without serializing to CSV/JSON in
+between.</p>
+<h2 id="row-groups-and-file-layout">Row groups and file layout<a class="headerlink" href="#row-groups-and-file-layout" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">writer_props</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">ParquetWriter</span><span class="p">(</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="s2">"/tmp/users_rowgroups.parquet"</span><span class="p">,</span> <span class="n">table</span><span class="o">.</span><span class="n">schema</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Writing in chunks creates multiple row groups — useful for very large</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># tables where you want independent, prunable chunks rather than one giant</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1"># block.</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="n">writer_props</span><span class="o">.</span><span class="n">write_table</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">writer_props</span><span class="o">.</span><span class="n">write_table</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="n">writer_props</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="n">meta</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">read_metadata</span><span class="p">(</span><span class="s2">"/tmp/users_rowgroups.parquet"</span><span class="p">)</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">num_row_groups</span><span class="p">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">num_rows</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>2 4
+</code></pre></div>
+<p>A row group is the unit of parallelism and pruning — Spark and other
+distributed engines assign row groups to different workers. Too few row
+groups limits parallelism; too many (tiny row groups) adds per-group
+overhead. A common target is 128MB-1GB of uncompressed data per row group.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for working with parquet/arrow</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Storing money as <code>float64</code>.</strong> Floats can't represent <code>0.10</code> exactly;
+  repeated arithmetic accumulates rounding errors. Use <code>decimal128</code> for any
+  currency or exact-precision numeric column.</li>
+<li><strong>One giant row group.</strong> Writing an entire multi-GB table in a single
+  <code>write_table</code> call with no chunking can produce one row group, killing
+  both parallel reads and pruning granularity.</li>
+<li><strong>Schema drift between files in a dataset.</strong> If file A has <code>amount</code> as
+  <code>int64</code> and file B has it as <code>double</code>, a <code>pyarrow.dataset</code> scan across
+  both can fail or silently upcast — enforce a shared schema when writing.</li>
+<li><strong>Assuming Parquet compression always beats CSV+gzip.</strong> For very small
+  files (a few KB), Parquet's footer/metadata overhead can make it larger
+  than an equivalent gzipped CSV — the columnar win shows up at scale.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What it gives you</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Columnar storage</td>
+<td>Read only the columns a query needs</td>
+</tr>
+<tr>
+<td>Row-group statistics</td>
+<td>Skip whole chunks via predicate pushdown</td>
+</tr>
+<tr>
+<td>Schema in the file</td>
+<td>No re-inference, explicit types (<code>decimal128</code> for money)</td>
+</tr>
+<tr>
+<td>Arrow in-memory format</td>
+<td>Zero/low-copy interop across pandas/DuckDB/Spark/Polars</td>
+</tr>
+<tr>
+<td>Row groups</td>
+<td>Unit of parallelism and pruning granularity</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Take the <code>table</code> from the top of this lesson, write it as Parquet with 4
+separate single-row row groups, then use <code>pyarrow.dataset</code> with a filter on
+<code>user_id &gt; 2</code> and print <code>dataset.to_table(filter=...)</code>'s row count. Confirm
+via <code>pq.read_metadata</code> that the file really has 4 row groups, and explain in
+your own words why an engine could, in principle, skip 2 of them without
+decompressing any data.</p>
 
 
 

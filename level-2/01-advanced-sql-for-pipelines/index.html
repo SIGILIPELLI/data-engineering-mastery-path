@@ -993,10 +993,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#window-functions-running-totals-and-ranks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Window functions: running totals and ranks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctes-making-multi-step-logic-readable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CTEs: making multi-step logic readable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idempotent-loads-insert-on-conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Idempotent loads: INSERT ... ON CONFLICT
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2112,76 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#window-functions-running-totals-and-ranks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Window functions: running totals and ranks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctes-making-multi-step-logic-readable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CTEs: making multi-step logic readable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idempotent-loads-insert-on-conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Idempotent loads: INSERT ... ON CONFLICT
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2209,189 @@
 
 
 <h1 id="01-advanced-sql-for-pipelines">01 · Advanced SQL for Pipelines<a class="headerlink" href="#01-advanced-sql-for-pipelines" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 2 · Intermediate</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Level 1 got you writing <code>SELECT</code>, <code>WHERE</code>, and basic <code>JOIN</code>s. Production
+pipelines lean on a handful of SQL patterns far more often: window functions
+for running calculations, CTEs for readable multi-step logic, and <code>MERGE</code>/
+<code>UPSERT</code> for idempotent loads. This lesson builds all three against a small
+in-memory SQLite database.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>Queries were run against SQLite via Python's <code>sqlite3</code> module. SQLite
+doesn't support <code>MERGE</code>, so the upsert section uses <code>INSERT ... ON
+CONFLICT</code>, which is standard in SQLite, Postgres, and most warehouses.</p>
+</div>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">":memory:"</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"""</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="s2">CREATE TABLE sales (</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="s2">    sale_id INTEGER PRIMARY KEY,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="s2">    region TEXT,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="s2">    rep TEXT,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="s2">    amount REAL,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="s2">    sale_date TEXT</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="s2">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="s2">"""</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"east"</span><span class="p">,</span> <span class="s2">"alice"</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">"2026-01-05"</span><span class="p">),</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"east"</span><span class="p">,</span> <span class="s2">"alice"</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="s2">"2026-01-12"</span><span class="p">),</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"east"</span><span class="p">,</span> <span class="s2">"bob"</span><span class="p">,</span>   <span class="mi">700</span><span class="p">,</span> <span class="s2">"2026-01-06"</span><span class="p">),</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">"west"</span><span class="p">,</span> <span class="s2">"carla"</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="s2">"2026-01-07"</span><span class="p">),</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"west"</span><span class="p">,</span> <span class="s2">"carla"</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="s2">"2026-01-20"</span><span class="p">),</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s2">"west"</span><span class="p">,</span> <span class="s2">"dan"</span><span class="p">,</span>   <span class="mi">200</span><span class="p">,</span> <span class="s2">"2026-01-21"</span><span class="p">),</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="p">]</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">conn</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="s2">"INSERT INTO sales VALUES (?,?,?,?,?)"</span><span class="p">,</span> <span class="n">rows</span><span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="window-functions-running-totals-and-ranks">Window functions: running totals and ranks<a class="headerlink" href="#window-functions-running-totals-and-ranks" title="Permanent link">&para;</a></h2>
+<p>A window function computes a value <strong>per row</strong> while still having access to
+a group of related rows (the "window") — unlike <code>GROUP BY</code>, it doesn't
+collapse rows into one.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">query</span> <span class="o">=</span> <span class="s2">"""</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="s2">SELECT</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="s2">    region, rep, amount, sale_date,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="s2">    SUM(amount) OVER (PARTITION BY region ORDER BY sale_date) AS running_total,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="s2">    RANK() OVER (PARTITION BY region ORDER BY amount DESC) AS rank_in_region</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="s2">FROM sales</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="s2">ORDER BY region, sale_date</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="s2">"""</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>('east', 'alice', 500.0, '2026-01-05', 500.0, 2)
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>('east', 'bob', 700.0, '2026-01-06', 1200.0, 1)
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>('east', 'alice', 300.0, '2026-01-12', 1500.0, 3)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>('west', 'carla', 900.0, '2026-01-07', 900.0, 1)
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>('west', 'dan', 200.0, '2026-01-21', 1100.0, 3)
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>('west', 'carla', 400.0, '2026-01-21', 1500.0, 2)
+</code></pre></div>
+<p><code>PARTITION BY region</code> resets the window per region — exactly like <code>GROUP BY</code>
+would, except every source row still appears in the output. This is the
+pattern behind "running revenue per day," "rank customers by spend," and
+"percent of total per category" — all without a self-join.</p>
+<h2 id="ctes-making-multi-step-logic-readable">CTEs: making multi-step logic readable<a class="headerlink" href="#ctes-making-multi-step-logic-readable" title="Permanent link">&para;</a></h2>
+<p>A pipeline that computes "top rep per region, only regions with &gt;$1000 total"
+naively becomes a tangle of subqueries. A CTE (<code>WITH ... AS</code>) names each step:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">query</span> <span class="o">=</span> <span class="s2">"""</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="s2">WITH region_totals AS (</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="s2">    SELECT region, SUM(amount) AS total</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="s2">    FROM sales</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="s2">    GROUP BY region</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="s2">),</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="s2">qualifying_regions AS (</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="s2">    SELECT region FROM region_totals WHERE total &gt; 1000</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="s2">),</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="s2">ranked_reps AS (</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="s2">    SELECT region, rep, SUM(amount) AS rep_total,</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="s2">           RANK() OVER (PARTITION BY region ORDER BY SUM(amount) DESC) AS rnk</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="s2">    FROM sales</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="s2">    GROUP BY region, rep</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="s2">)</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="s2">SELECT r.region, r.rep, r.rep_total</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="s2">FROM ranked_reps r</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="s2">JOIN qualifying_regions q ON r.region = q.region</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="s2">WHERE r.rnk = 1</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="s2">"""</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>('east', 'bob', 700.0)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>('west', 'carla', 1300.0)
+</code></pre></div>
+<p>Each CTE is a named, testable step — you can run <code>region_totals</code> alone to
+sanity-check it before trusting the final <code>JOIN</code>. This is the same discipline
+as breaking a Python script into functions, applied to SQL.</p>
+<h2 id="idempotent-loads-insert-on-conflict">Idempotent loads: <code>INSERT ... ON CONFLICT</code><a class="headerlink" href="#idempotent-loads-insert-on-conflict" title="Permanent link">&para;</a></h2>
+<p>Pipelines rerun — after failures, on manual backfills, on scheduler retries.
+An upsert makes reruns safe by updating existing rows instead of duplicating
+them:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"""</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="s2">CREATE TABLE rep_summary (</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="s2">    region TEXT,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="s2">    rep TEXT,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="s2">    total_amount REAL,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="s2">    PRIMARY KEY (region, rep)</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="s2">)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="s2">"""</span><span class="p">)</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">upsert_summary</span><span class="p">():</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"""</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="s2">    INSERT INTO rep_summary (region, rep, total_amount)</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="s2">    SELECT region, rep, SUM(amount) FROM sales GROUP BY region, rep</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="s2">    ON CONFLICT(region, rep) DO UPDATE SET</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="s2">        total_amount = excluded.total_amount</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="s2">    """</span><span class="p">)</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="n">upsert_summary</span><span class="p">()</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="n">upsert_summary</span><span class="p">()</span>  <span class="c1"># run twice — must not duplicate or error</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"SELECT * FROM rep_summary ORDER BY region, rep"</span><span class="p">):</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>('east', 'alice', 800.0)
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>('east', 'bob', 700.0)
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>('west', 'carla', 1300.0)
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>('west', 'dan', 200.0)
+</code></pre></div>
+<p><code>excluded.total_amount</code> refers to the value that <em>would</em> have been inserted —
+standard syntax across SQLite, Postgres, and most cloud warehouses (Snowflake
+and BigQuery instead use a <code>MERGE</code> statement with the same intent).</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for advanced sql for pipelines</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Confusing <code>WHERE</code> and <code>HAVING</code>.</strong> <code>WHERE</code> filters rows before
+  aggregation; <code>HAVING</code> filters after <code>GROUP BY</code>. Trying to reference
+  <code>SUM(amount)</code> in <code>WHERE</code> raises a "no such column" error in most engines.</li>
+<li><strong>Window functions in <code>WHERE</code>.</strong> You cannot filter directly on a window
+  function's result in the same query level (<code>WHERE rank_in_region = 1</code>
+  fails) — wrap it in a CTE or subquery first, as done above.</li>
+<li><strong>Forgetting <code>ORDER BY</code> inside <code>OVER()</code>.</strong> Without it, <code>SUM(...) OVER
+  (PARTITION BY region)</code> computes the <em>whole partition's</em> total on every row,
+  not a running total — a subtle bug that silently gives wrong numbers.</li>
+<li><strong>Assuming every warehouse supports <code>MERGE</code>.</strong> SQLite and Postgres use
+  <code>INSERT ... ON CONFLICT</code>; MySQL uses <code>ON DUPLICATE KEY UPDATE</code>; Snowflake
+  and BigQuery use <code>MERGE INTO</code>. Check your target's dialect before copying
+  upsert SQL between projects.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Use for</th>
+<th>Key clause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Window function</td>
+<td>Per-row calc needing group context</td>
+<td><code>OVER (PARTITION BY ... ORDER BY ...)</code></td>
+</tr>
+<tr>
+<td>CTE</td>
+<td>Readable multi-step logic</td>
+<td><code>WITH name AS (...)</code></td>
+</tr>
+<tr>
+<td>Upsert</td>
+<td>Idempotent loads</td>
+<td><code>INSERT ... ON CONFLICT DO UPDATE</code></td>
+</tr>
+<tr>
+<td>Rank vs. row_number</td>
+<td>Ties share a rank vs. never tie</td>
+<td><code>RANK()</code> vs <code>ROW_NUMBER()</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Add a <code>discount_pct</code> window calculation: for each sale, compute what percent
+of that rep's total the sale represents (<code>amount / SUM(amount) OVER
+(PARTITION BY rep) * 100</code>). Then extend the CTE query so it also excludes
+reps whose single largest sale is more than 80% of their total (a sign of an
+unreliable rep total based on one outlier deal).</p>
 
 
 

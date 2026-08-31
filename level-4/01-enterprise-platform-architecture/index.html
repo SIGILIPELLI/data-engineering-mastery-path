@@ -1741,10 +1741,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#why-enterprise-changes-the-problem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Why "enterprise" changes the problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-layered-reference-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The layered reference architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-tenancy-isolating-teams-that-share-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-tenancy: isolating teams that share infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-service-onboarding-the-platform-as-product-mindset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-service onboarding: the platform-as-product mindset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-stability-internal-vs-contractual-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface stability: internal vs. contractual boundaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#federated-vs-centralized-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Federated vs. centralized ownership
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2046,10 +2134,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#why-enterprise-changes-the-problem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        Why "enterprise" changes the problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-layered-reference-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The layered reference architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-tenancy-isolating-teams-that-share-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-tenancy: isolating teams that share infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-service-onboarding-the-platform-as-product-mindset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-service onboarding: the platform-as-product mindset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-stability-internal-vs-contractual-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface stability: internal vs. contractual boundaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#federated-vs-centralized-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Federated vs. centralized ownership
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
       
     </span>
   </a>
@@ -2077,15 +2253,202 @@
 
 
 <h1 id="01-enterprise-data-platform-architecture">01 · Enterprise Data Platform Architecture<a class="headerlink" href="#01-enterprise-data-platform-architecture" title="Permanent link">&para;</a></h1>
-<p>This module is part of <strong>Level 4 · Master</strong> of the Data Engineering Mastery Path.</p>
-<h2 id="what-youll-learn">What you'll learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>Level 4 shifts focus from "how do I build one pipeline" to "how do I design
+a platform that serves hundreds of pipelines and dozens of teams without
+collapsing under its own operational weight." This module covers the
+architectural layers of an enterprise data platform and the concrete
+tradeoffs at each one.</p>
+<div class="admonition note">
+<p class="admonition-title">What actually ran</p>
+<p>This module is architectural/conceptual, matching how the topic is
+actually practiced at this level — the code is illustrative (config
+shapes, interface definitions) rather than a runnable pipeline. Where
+Python appears it's reasoned through against documented library
+behavior, noted per-snippet.</p>
+</div>
+<h2 id="why-enterprise-changes-the-problem">Why "enterprise" changes the problem<a class="headerlink" href="#why-enterprise-changes-the-problem" title="Permanent link">&para;</a></h2>
+<p>A single team's pipeline optimizes for that team's throughput. A platform
+serving fifty teams optimizes for something different: predictable
+behavior under load from teams who don't know each other, self-service
+without a central bottleneck team reviewing every change, and failure
+isolation so one team's bad job doesn't starve everyone else's compute.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Single-team pipeline concerns:          Platform concerns (additive):
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>- Correctness                           - Multi-tenancy / resource isolation
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>- Performance                           - Self-service onboarding
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>- Its own monitoring                    - Platform-wide observability
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                                         - Cost allocation across teams
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                                         - Consistent governance at scale
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                                         - API/interface stability for
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                                           consumers who don't read your code
+</code></pre></div>
+<h2 id="the-layered-reference-architecture">The layered reference architecture<a class="headerlink" href="#the-layered-reference-architecture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌─────────────────────────────────────────────┐
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│  Consumption layer (BI tools, ML features,   │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│  reverse ETL, notebooks)                     │
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├─────────────────────────────────────────────┤
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│  Serving layer (data warehouse, feature      │
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│  store, semantic layer / metrics layer)      │
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>├─────────────────────────────────────────────┤
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│  Transformation layer (dbt, Spark jobs,      │
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│  orchestrated by Airflow/Dagster)            │
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>├─────────────────────────────────────────────┤
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│  Storage layer (data lake — bronze/silver/   │
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│  gold, object storage, table format e.g.     │
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│  Delta/Iceberg)                              │
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>├─────────────────────────────────────────────┤
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│  Ingestion layer (CDC, event streams, batch  │
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│  extracts, managed connectors)               │
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>├─────────────────────────────────────────────┤
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│  Cross-cutting: governance, catalog,         │
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│  observability, security/access control      │
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>└─────────────────────────────────────────────┘
+</code></pre></div>
+<p>Every module in Levels 1-3 lived inside one or two of these layers. The
+enterprise architecture question is how the layers compose, who owns each
+one, and where the interfaces between them are contractual (stable,
+versioned) versus free to change internally.</p>
+<h2 id="multi-tenancy-isolating-teams-that-share-infrastructure">Multi-tenancy: isolating teams that share infrastructure<a class="headerlink" href="#multi-tenancy-isolating-teams-that-share-infrastructure" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Example: Airflow pool config limiting concurrent tasks per team,</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># so one team's heavy backfill can't starve another team's daily job.</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nt">pools</span><span class="p">:</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">team_marketing_pool</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">team_finance_pool</span><span class="p">:</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="nt">team_platform_shared_pool</span><span class="p">:</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">DAG</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">airflow.operators.python</span><span class="w"> </span><span class="kn">import</span> <span class="n">PythonOperator</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">with</span> <span class="n">DAG</span><span class="p">(</span><span class="n">dag_id</span><span class="o">=</span><span class="s2">"marketing_attribution_etl"</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="k">as</span> <span class="n">dag</span><span class="p">:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">task</span> <span class="o">=</span> <span class="n">PythonOperator</span><span class="p">(</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="n">task_id</span><span class="o">=</span><span class="s2">"run_attribution"</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="n">python_callable</span><span class="o">=</span><span class="n">run_job</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="n">pool</span><span class="o">=</span><span class="s2">"team_marketing_pool"</span><span class="p">,</span>   <span class="c1"># bounded, can't consume shared capacity</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="p">)</span>
+</code></pre></div>
+<p>Airflow pools are a concrete, low-effort mechanism for exactly this: they
+cap how many of a team's tasks can run concurrently, regardless of how many
+tasks that team schedules — the difference between "team X's bad DAG slows
+team X" and "team X's bad DAG slows everyone."</p>
+<h2 id="self-service-onboarding-the-platform-as-product-mindset">Self-service onboarding: the platform-as-product mindset<a class="headerlink" href="#self-service-onboarding-the-platform-as-product-mindset" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Without self-service: a new team wanting a pipeline files a ticket to the
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  platform team, waits days/weeks, platform team becomes the bottleneck
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  for every new use case company-wide.
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>With self-service: a documented, templated path (a cookiecutter DAG
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  template, a standard dbt project structure, a self-serve catalog
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>  registration form) lets a team ship a new pipeline without platform
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  team involvement, while still landing inside governance guardrails
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>  (naming conventions, required tags, mandatory data quality checks)
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>  enforced by CI rather than by a human reviewer.
+</code></pre></div>
+<p>The platform team's job shifts from "build every pipeline" to "build the
+paved road every team's pipeline runs on" — a fundamentally different (and
+more scalable) unit of leverage.</p>
+<h2 id="interface-stability-internal-vs-contractual-boundaries">Interface stability: internal vs. contractual boundaries<a class="headerlink" href="#interface-stability-internal-vs-contractual-boundaries" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Contractual: consumers outside the owning team depend on this schema.</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># Changes require the data-contract process from Level 3 Module 5.</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">OrdersFactTable</span><span class="p">:</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="sd">"""analytics.fct_orders — STABLE INTERFACE.</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="sd">    Columns: order_id, customer_id, order_date, total_usd, region.</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="sd">    Breaking changes require a deprecation window + consumer notification.</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="sd">    """</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># Internal: only this team's own pipeline reads/writes it. Free to change</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># without external coordination, but should still be documented as such.</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">OrdersStagingIntermediate</span><span class="p">:</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="sd">"""staging.orders_raw_parsed — INTERNAL, not a stable interface.</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="sd">    Shape may change between runs; do not build downstream dependencies</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="sd">    on it directly.</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="sd">    """</span>
+</code></pre></div>
+<p>Making this distinction explicit (in naming convention, catalog metadata,
+or both — e.g. a <code>stg_</code> vs <code>fct_</code>/<code>dim_</code> naming split, common in dbt
+projects) is what lets teams evolve their internal pipeline logic freely
+while still honoring commitments made to other teams. Without it, every
+table is implicitly "maybe someone depends on this," which makes every
+change feel risky and slows the whole platform down.</p>
+<h2 id="federated-vs-centralized-ownership">Federated vs. centralized ownership<a class="headerlink" href="#federated-vs-centralized-ownership" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Fully centralized: one platform team owns all pipelines. Consistent, but
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  becomes a bottleneck and loses domain context (the platform team
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  doesn't deeply understand marketing's data the way marketing does).
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>Fully federated: every team owns its own pipelines end-to-end, no shared
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  standards. Fast initially, but produces inconsistent quality, duplicated
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  tooling, and no company-wide data literacy.
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>Federated computational governance (the pattern most enterprise platforms
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  converge on): domain teams own their pipelines and data, but build on a
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>  shared, centrally-maintained platform (orchestrator, catalog, CI
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>  templates, quality framework) that enforces consistency through tooling
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>  rather than through a central team reviewing every change.
+</code></pre></div>
+<p>This is the architectural precursor to data mesh (Module 3 of this level)
+— worth naming here because "federated computational governance" is doing
+real work even for organizations that never adopt the full data mesh
+model.</p>
+<h2 id="traps">Traps<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Core concepts and terminology for enterprise data platform architecture</li>
-<li>Practical, runnable examples</li>
-<li>Common pitfalls and how to avoid them</li>
-<li>How this topic connects to the rest of the pipeline</li>
+<li><strong>Building the platform before there are real consumers.</strong> Speculative
+  platform infrastructure (an elaborate self-service portal for two
+  pipelines) is wasted effort; let real pain from a growing number of
+  teams justify each layer of platform investment.</li>
+<li><strong>No resource isolation between teams.</strong> Shared compute with no pools,
+  quotas, or priority tiers means one team's mistake becomes everyone's
+  incident.</li>
+<li><strong>Treating every table as internal until it visibly breaks something.</strong>
+  Without an explicit stable/internal distinction, teams either over-
+  communicate about trivial internal changes or under-communicate about
+  real contract breaks.</li>
+<li><strong>Confusing "self-service" with "no governance."</strong> Self-service that
+  skips guardrails just moves the governance failure downstream, to
+  whoever eventually has to clean up an ungoverned table sprawl.</li>
 </ul>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="cheat-sheet">Cheat sheet<a class="headerlink" href="#cheat-sheet" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Owns</th>
+<th>Example tech</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ingestion</td>
+<td>Getting data in</td>
+<td>CDC tools, Kafka, Fivetran-style connectors</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Durable, queryable data at rest</td>
+<td>S3/GCS + Delta/Iceberg</td>
+</tr>
+<tr>
+<td>Transformation</td>
+<td>Business logic</td>
+<td>dbt, Spark, orchestrated by Airflow/Dagster</td>
+</tr>
+<tr>
+<td>Serving</td>
+<td>Query-optimized access</td>
+<td>Warehouse, feature store, semantic layer</td>
+</tr>
+<tr>
+<td>Cross-cutting</td>
+<td>Trust and safety of the whole platform</td>
+<td>Catalog, lineage, access control</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>For your own organization (or a hypothetical one with 5 data-producing
+teams and 1 platform team), sketch which tables/pipelines you'd classify as
+"contractual" vs. "internal," and propose one concrete CI check that would
+catch a contractual table's schema changing without the required
+deprecation process.</p>
 
 
 
