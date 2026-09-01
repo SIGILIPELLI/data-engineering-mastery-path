@@ -1,8 +1,8 @@
 site_name: Data Engineering Mastery Path
 site_description: A structured, module-wise training program on data engineering — from your first ETL script to production-grade data platforms, with runnable Python code in every module.
-site_url: https://sigilipelli.github.io/data-engineering-skillmastery/
-repo_url: https://github.com/SIGILIPELLI/data-engineering-skillmastery
-repo_name: data-engineering-skillmastery
+site_url: https://sigilipelli.github.io/data-engineering-mastery-path/
+repo_url: https://github.com/SIGILIPELLI/data-engineering-mastery-path
+repo_name: data-engineering-mastery-path
 
 theme:
   name: material
