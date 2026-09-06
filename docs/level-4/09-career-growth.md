@@ -155,6 +155,12 @@ navigated has a much higher one.
 | Mid → Senior | Given ambiguity, produce the spec — not just execute one |
 | Senior → Staff | Multiply impact through others' decisions, not just your own output |
 
+## How It Actually Works
+
+Seniority in data engineering is mechanically distinguishable by scope of judgment, not just skill depth: a mid-level engineer correctly implements a given design (a specified schema, a specified pipeline shape), while a senior+ engineer is the one deciding which tradeoff (normalize vs. denormalize, batch vs. streaming, build vs. buy) is right given constraints nobody wrote down explicitly — the interview signal for this is usually a system-design or tradeoff-discussion question with no single correct answer, specifically because it's testing judgment under ambiguity, not recall of a technique.
+
+A portfolio that actually demonstrates Level 3-4 material has to show artifacts of judgment, not just working code: an ADR (architecture decision record) explaining why a lakehouse over a warehouse for a specific scenario, a postmortem showing how an incident was diagnosed and what systemic fix followed, a cost-optimization writeup showing before/after numbers — these demonstrate the reasoning process a senior role is evaluated on, which a polished pipeline repository alone does not, because "the code works" is table stakes at that level, not the differentiator.
+
 ## Exercise
 
 Fill in the self-assessment rubric honestly for yourself right now, pick

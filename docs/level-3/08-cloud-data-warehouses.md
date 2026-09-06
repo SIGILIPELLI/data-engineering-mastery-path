@@ -205,6 +205,12 @@ spend, team skills) more than a raw technical gap.
 | BigQuery | Bytes scanned (on-demand) or slots (flat-rate) | Partition + cluster tables |
 | Redshift | Cluster size / WLM concurrency | `DISTKEY`/`SORTKEY` chosen to match query patterns |
 
+## How It Actually Works
+
+Storage/compute separation means the bytes on disk (in Snowflake's or BigQuery's blob storage layer) are decoupled from the machines that scan them — a virtual warehouse or a set of slots is compute capacity you can resize or suspend independently of the data it reads, which is what makes "scale compute up for a big job, then back down to zero" possible without touching storage at all. Snowflake's auto-suspend works by tracking warehouse idle time and deallocating the compute cluster after a threshold, so you stop paying for compute the moment nothing is running, while the data itself remains durably stored regardless of whether any warehouse is active.
+
+BigQuery's on-demand pricing charges per byte scanned, which is exactly why partition pruning and column selection have a direct, visible dollar cost in BigQuery: a query against a partitioned, clustered table that prunes to one partition and selects two columns scans (and is billed for) only those bytes, while `SELECT *` against an unpartitioned table scans everything. Redshift's distribution and sort keys control physical row placement across compute nodes: a distribution key determines which node a row lives on (matching join keys across tables to the same distribution key avoids a network shuffle during the join, the same problem Spark solves with broadcast/shuffle joins), and a sort key determines physical row order within a node, which lets zone maps skip blocks whose min/max range can't satisfy a filter — the same min/max-based pruning Parquet does at the file level, applied at the storage-block level instead.
+
 ## Exercise
 
 Given a `customers` table clustered by `signup_date` in BigQuery and a

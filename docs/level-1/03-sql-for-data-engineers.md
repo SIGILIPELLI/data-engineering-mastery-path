@@ -173,6 +173,12 @@ SQL query, and it explains most "why can't I filter on this alias" confusion.
 | Count non-NULL values | `COUNT(column)` |
 | Execution order | `FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY` |
 
+## How It Actually Works
+
+A `JOIN` is not "look up the matching row" in the abstract — the query planner picks a concrete algorithm. For small tables it often builds a hash table on one side (usually the smaller one) keyed by the join column, then streams the other side probing that hash table row by row: O(n+m) instead of the O(n*m) a naive nested loop would cost. For already-sorted inputs (or joins on an indexed, sorted column) the planner may use a merge join instead, walking both sides in lock-step. `LEFT JOIN` doesn't change the algorithm, only the bookkeeping: unmatched left rows are still emitted, padded with `NULL`, instead of being dropped.
+
+`GROUP BY`/`HAVING`/`WHERE` execute in a strict logical order regardless of how you write the SQL: `FROM`/`JOIN` build the row set, `WHERE` filters raw rows before any grouping happens, `GROUP BY` buckets the surviving rows (typically via a hash table keyed by the group columns, accumulating the aggregate per bucket as rows stream through), and `HAVING` filters the resulting groups. This is mechanically why `WHERE` can't reference an aggregate (the aggregate doesn't exist yet when `WHERE` runs) and `HAVING` can.
+
 ## Exercise
 
 Add a `products` table and a `product_id` column on `orders`, but only insert

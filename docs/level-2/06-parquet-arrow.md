@@ -199,6 +199,12 @@ overhead. A common target is 128MB-1GB of uncompressed data per row group.
 | Arrow in-memory format | Zero/low-copy interop across pandas/DuckDB/Spark/Polars |
 | Row groups | Unit of parallelism and pruning granularity |
 
+## How It Actually Works
+
+Parquet's file layout is: a small header, then a sequence of row groups, each row group containing one column chunk per column, each column chunk further split into pages, and finally a footer holding the schema and, per column chunk, min/max statistics, null counts, and byte offsets. A reader that wants columns `a` and `c` out of ten seeks directly to those column chunks' byte offsets (found in the footer) and never touches the bytes for the other eight columns — this is column pruning, and it's a physical I/O optimization, not a logical query-planning trick. Predicate pushdown goes further: because the footer stores each column chunk's min/max, a filter like `WHERE amount > 1000` lets the reader skip entire row groups whose max `amount` is below 1000 without decompressing a single byte of them.
+
+Arrow is the missing piece that makes Parquet fast to *use*, not just fast to store: Arrow defines an in-memory columnar layout that is essentially what Parquet's column chunks decompress into, so a library like DuckDB or Polars can read a Parquet column chunk, decompress it, and hand it to the query engine as an Arrow array with zero row-by-row conversion — the on-disk columnar format and the in-memory columnar format are structurally the same shape, which is why "zero-copy" interchange between pandas/Polars/DuckDB via Arrow is possible at all.
+
 ## Exercise
 
 Take the `table` from the top of this lesson, write it as Parquet with 4

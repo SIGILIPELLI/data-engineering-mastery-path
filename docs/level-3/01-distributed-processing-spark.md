@@ -205,6 +205,12 @@ worthwhile only when a DataFrame is reused multiple times.
 | Broadcast join | Ship a small table to every executor, avoid shuffling the big one |
 | `.cache()` | Persist a DataFrame in memory to avoid recomputing it |
 
+## How It Actually Works
+
+Spark's laziness exists because building an execution plan before running anything lets the Catalyst optimizer rewrite the whole chain of transformations — pushing filters down before joins, pruning unused columns, reordering operations — instead of executing each `.filter()`/`.select()` call naively as it's written. Nothing actually runs until an action (`.collect()`, `.write()`, `.count()`) triggers execution of the optimized physical plan; calling `.filter()` just appends a node to a logical plan graph.
+
+A DataFrame is split into partitions — chunks of rows distributed across executor cores/machines — and most transformations (`filter`, `select`, `map`) apply independently per partition with zero cross-machine communication, which is why they're cheap and scale near-linearly. A shuffle is the expensive exception: operations like `groupBy`, `join`, or `repartition` require rows with the same key to end up on the same partition, which means writing every partition's data to disk, sending it across the network keyed by hash, and re-reading it on the receiving side — this disk-plus-network round trip is why "minimize shuffles" is the single biggest Spark performance lever, and why joining a large table against a small one uses a broadcast join instead (copying the small table to every executor so no shuffle is needed at all).
+
 ## Exercise
 
 Using the same `df`/`customers` DataFrames, write a query that computes

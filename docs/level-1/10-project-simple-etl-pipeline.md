@@ -247,6 +247,12 @@ output somewhere you can compare before/after:
    catch a future bug where a row silently disappears between `transform` and
    `load` without being counted as either clean or rejected.
 
+## How It Actually Works
+
+This project's structure — extract into a raw buffer, validate against a gate, transform row by row, load via overwrite-the-partition — mirrors how a real idempotent pipeline enforces correctness at each boundary rather than hoping the whole run succeeds atomically. The validation gate matters mechanically because it runs *after* extraction but *before* any write: rejecting bad rows in memory costs nothing, while rejecting them after they've already landed in the warehouse means issuing a compensating delete, which is strictly harder to get right under concurrent reads.
+
+Proving idempotency (rerunning the same input and checking the output is byte-for-byte or row-for-row identical) works because the load step is a full overwrite of a bounded scope (the partition or table), not an incremental append: overwrite semantics guarantee that "run twice" and "run once" reach the same end state, since the second run's write simply replaces the first run's write rather than compounding on top of it. This is the same guarantee production pipelines rely on to make retries safe after a mid-run crash — a partial first attempt can be blown away and cleanly redone rather than reconciled row by row.
+
 ## Exercise
 
 Write one paragraph reflecting on which specific lesson each of your three

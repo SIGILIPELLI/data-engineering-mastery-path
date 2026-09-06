@@ -155,6 +155,12 @@ saved on a pay-per-query warehouse.
 | Surrogate key | Stable synthetic ID, independent of business data |
 | SCD | Slowly Changing Dimension — versioning to preserve history |
 
+## How It Actually Works
+
+Normalization (splitting data so each fact lives in exactly one place, per Codd's normal forms) optimizes for write safety: updating a customer's address touches one row in one table, so it's impossible for the address to be correct in one place and stale in another. The cost is paid at read time — reconstructing "customer name + order total" requires a join, and a join means the engine must locate matching rows across two physically separate storage structures, which costs disk/network I/O and CPU for the join algorithm itself.
+
+A star schema inverts that tradeoff on purpose. The fact table stores foreign keys to dimensions plus pre-joined measures (quantity, revenue) at native grain, and dimension tables are wide and denormalized (a `dim_customer` row repeats the customer's region name rather than pointing to a separate `region` table). This means an analytics query filters/groups by dimension attributes with a single join hop from fact to each dimension, never dimension-to-dimension — the schema is shaped like the query pattern, not like the write pattern, because analytics workloads are read-heavy and rarely mutate a single fact row after it lands.
+
 ## Exercise
 
 Add a `dim_date` table (`date_id`, `sale_date`, `day_of_week`, `month`,

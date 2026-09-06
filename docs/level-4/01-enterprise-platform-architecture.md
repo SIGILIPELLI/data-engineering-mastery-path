@@ -189,6 +189,12 @@ model.
 | Serving | Query-optimized access | Warehouse, feature store, semantic layer |
 | Cross-cutting | Trust and safety of the whole platform | Catalog, lineage, access control |
 
+## How It Actually Works
+
+Multi-tenancy at the platform level is enforced through a combination of physical and logical isolation, chosen per resource based on blast-radius tolerance: separate compute clusters/warehouses per tenant give the strongest isolation (one tenant's runaway query can't starve another's) at the highest cost, while shared compute with resource quotas (query concurrency limits, workload management queues) gives cheaper sharing at the cost of needing the platform to actively enforce fairness rather than relying on physical separation. Storage is almost always logically partitioned (per-tenant prefixes/schemas within shared object storage) rather than physically separated, because storage isolation is nearly free (a prefix or IAM policy) while storage duplication is not.
+
+Self-service onboarding works because the platform team ships golden-path templates (a parameterized Terraform module, a cookiecutter DAG template) rather than manually provisioning each new team's infrastructure — a new team instantiates the template with their own parameters and gets a working, governed setup without a platform engineer in the loop, which is what makes the platform scale sub-linearly with team count. Interface stability distinguishes what's contractual (a table schema, an API a consuming team depends on) from what's internal (the DAG's task names, the compute engine used to build a table) — the platform team can freely refactor internals as long as the contractual interface's shape doesn't change, which is the same reasoning behind API versioning in application engineering, applied to data.
+
 ## Exercise
 
 For your own organization (or a hypothetical one with 5 data-producing

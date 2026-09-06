@@ -179,6 +179,12 @@ idea.
 | Self-serve platform | Central team builds infrastructure, not pipelines |
 | Federated governance | Global rules, enforced by CI/platform tooling, not manual review |
 
+## How It Actually Works
+
+A data product being domain-owned works because ownership is enforced at the infrastructure level, not just organizationally: the domain team's pipeline code, the underlying storage, and the schema all live in that domain's repository/account, so a change to the data product happens through that team's normal deploy process rather than requiring a central team's involvement. The "data product" as an artifact is more than a table — it bundles the table with a machine-readable contract (schema, SLAs, ownership metadata) that downstream consumers and the self-serve platform can both query, which is what lets discovery and access-granting be automated instead of requiring a request ticket to a central team.
+
+The self-serve platform's job is deliberately narrow: it provides the paved-road infrastructure (a standard way to publish a table, register it in a catalog, expose it via a governed access pattern) but does not own any domain's transformation logic — this separation is what keeps the platform team from becoming the same central bottleneck a data mesh is trying to eliminate. Federated governance enforced by tooling means global rules (PII must be tagged, schemas must be registered, contracts must pass validation) are checked automatically at publish time by shared tooling, rather than reviewed by a central committee per dataset — the rule is centrally defined but its enforcement is decentralized and automatic, which is the actual mechanism that lets domain teams move independently while still meeting a shared bar.
+
 ## Exercise
 
 For a hypothetical company with 4 domains (orders, marketing, inventory,

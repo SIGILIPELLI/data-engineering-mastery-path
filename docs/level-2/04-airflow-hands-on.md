@@ -185,6 +185,12 @@ every backfilled run would compute the same "today."
 | Backfill | Replay past schedule intervals |
 | `retries` / `retry_delay` | Automatic retry policy per task |
 
+## How It Actually Works
+
+The TaskFlow API's `@task`-decorated Python functions are syntactic sugar over Airflow's older `PythonOperator` + `XCom` pattern: under the hood, calling a `@task` function inside a DAG doesn't execute it immediately — it returns a lazily-evaluated reference, and Airflow wires up a dependency edge based on which task's return value is passed as another task's argument. Each task still runs in its own process (or worker), so "passing a value" between tasks actually means Airflow serializes the return value (by default via a database-backed XCom) and deserializes it in the downstream task's process — this is why passing large DataFrames between tasks is a bad idea: it isn't shared memory, it's a round trip through the metadata database.
+
+The scheduler evaluates task readiness continuously: on every scheduler loop, it checks each task instance's upstream dependencies, trigger rules, and pool/concurrency slots, and only enqueues a task once all of those are satisfied. Retries and timeouts are enforced by the same loop — a task exceeding `execution_timeout` is killed by the executor and its state flipped to `up_for_retry` (if retries remain) or `failed`, and the scheduler picks it back up on a later loop rather than the task managing its own retry logic.
+
 ## Exercise
 
 Add a fourth task, `validate`, that runs after `load` and raises an exception

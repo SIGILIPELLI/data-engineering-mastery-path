@@ -182,6 +182,12 @@ detection or real-time bidding.
 | At-least-once | Default safe delivery mode; requires idempotent handlers |
 | Consumer lag | Unread message backlog — the key streaming health metric |
 
+## How It Actually Works
+
+A Kafka topic is physically split into partitions, and each partition is an append-only log stored as a sequence of immutable segment files on disk — a producer write is just an append to the end of the current segment file, which is why Kafka can sustain very high write throughput: sequential disk writes are dramatically cheaper than random writes. Each message gets a monotonically increasing offset *within its partition* (there is no global ordering across partitions), which is the mechanical reason Kafka only guarantees ordering per-partition, not per-topic, and why choosing a partition key that groups related events together matters.
+
+Consumer groups achieve parallelism by having Kafka assign each partition to exactly one consumer within the group at a time — so a topic with 8 partitions can be consumed in parallel by up to 8 consumers in one group, each independently tracking its own committed offset per partition. Exactly-once delivery is hard precisely because "consume a message, process it, commit the offset" is three separate operations: at-least-once means committing the offset only after processing succeeds (a crash before commit causes reprocessing of an already-handled message); at-most-once means committing before processing (a crash after commit loses the message); true exactly-once requires either an idempotent consumer (safe to reprocess) or Kafka's transactional API tying offset commits and output writes into one atomic unit.
+
 ## Exercise
 
 Design (in pseudocode, no broker needed) a consumer that processes

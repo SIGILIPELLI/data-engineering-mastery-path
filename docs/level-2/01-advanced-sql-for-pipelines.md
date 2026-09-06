@@ -178,6 +178,12 @@ and BigQuery instead use a `MERGE` statement with the same intent).
 | Upsert | Idempotent loads | `INSERT ... ON CONFLICT DO UPDATE` |
 | Rank vs. row_number | Ties share a rank vs. never tie | `RANK()` vs `ROW_NUMBER()` |
 
+## How It Actually Works
+
+Window functions (`ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ...)`) execute in a phase distinct from `GROUP BY`: the engine partitions rows into the specified buckets, sorts each partition by the `ORDER BY` clause, then walks each sorted partition computing the running value (rank, running sum, lag/lead) per row — critically, without collapsing rows the way `GROUP BY` does. That's the mechanical reason a window function can sit alongside ungrouped, row-level columns in the same `SELECT`: it's a per-row annotation computed over a sorted, partitioned view of the data, not an aggregation that reduces cardinality.
+
+`INSERT ... ON CONFLICT (key) DO UPDATE` (an upsert) is atomic at the row level because the database checks the unique/primary-key constraint on the conflict target and chooses insert-or-update behavior within the same statement's execution, under the same transaction and locks — there's no window where a concurrent writer could see a duplicate-key error and a stale row simultaneously. CTEs (`WITH x AS (...)`) are (in most engines) either inlined into the outer query plan or materialized as a temporary result set depending on the optimizer's cost estimate; either way they don't change *what* gets computed, only how the planner names and potentially reuses intermediate results, which is why CTEs are safe to reach for purely for readability.
+
 ## Exercise
 
 Add a `discount_pct` window calculation: for each sale, compute what percent

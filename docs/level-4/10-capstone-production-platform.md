@@ -211,6 +211,12 @@ not discovered as a conflict later.
 | GDPR erasure | Lineage graph designed in from day one, not retrofitted |
 | Budget-conscious | Explicit cost ceiling stated alongside SLOs, single-engine architecture |
 
+## How It Actually Works
+
+This capstone's ADR-driven structure mirrors how real platform decisions actually get made and defended: the lakehouse-on-single-cloud choice, the layered architecture, and the reconciliation/erasure/self-service requirements are each treated as a decision with stated tradeoffs (what was considered, what was rejected, and why), rather than as a foregone conclusion — this is deliberate, because at the platform-architecture level the *reasoning* is the deliverable a team lead or principal engineer is actually accountable for, since the specific technology choice is far easier to reverse than a badly-reasoned decision-making process embedded in a team's culture.
+
+The reconciliation requirement (finance's zero-tolerance ask) and the GDPR erasure requirement both stress the same underlying mechanism covered earlier in this course: reconciliation needs idempotent, auditable writes with a verifiable checksum/count between source and destination at every load, and erasure needs the manifest-rewrite mechanism from the lakehouse table-format module — the capstone's job is showing these aren't independent features bolted onto a platform after the fact, they're properties that have to be designed into the storage and pipeline layer from the start, which is exactly why Step 1's architecture decision (lakehouse table format, specifically) determines whether Steps 3 and 4 are straightforward or require expensive retrofitting.
+
 ## Final exercise
 
 Write your own ADR-002 for one decision this capstone left open — for

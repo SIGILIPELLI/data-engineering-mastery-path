@@ -162,6 +162,12 @@ structurally cannot.
   Between pipeline stages (not for final human-facing exports), Parquet is
   almost always the better default: smaller, faster, and schema-safe.
 
+## How It Actually Works
+
+CSV and JSON are byte-serialized as text with no embedded type information: `42` in a CSV cell is indistinguishable, at the byte level, from the string `"42"` until something parses it and guesses. That's why a CSV round trip can silently turn an integer column into a float (a lone blank cell forces the reader to allow `NaN`, and `NaN` requires float64) or drop leading zeros from a zip code. Parquet and Avro instead embed a schema (column names, types, and for Parquet, per-column encoding metadata) directly in the file, so a reader knows a column is `INT32` or `TIMESTAMP` without inferring it from a sample of the data — types survive the round trip because they were never lost to begin with.
+
+Read speed differences come from physical layout, not just parsing cost. CSV must be scanned close to linearly since row boundaries are only found by scanning for newlines and fields by scanning for commas (with quoting rules complicating that further). Parquet stores data column-by-column with a footer listing byte offsets for each column chunk, so reading three columns out of thirty means seeking directly to those column chunks and skipping the rest of the file's bytes entirely — I/O scales with columns selected, not file size.
+
 ## Exercise
 
 Take the `orders.csv` from this lesson, delete a handful of `amount` values to

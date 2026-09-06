@@ -192,6 +192,12 @@ common causes of "the numbers don't add up" bugs in production.
 | Safe copy before edit | `df[mask].copy()` |
 | Fill missing | `df["col"].fillna(0)` |
 
+## How It Actually Works
+
+pandas (and Polars, DuckDB's DataFrame API) get their speed from the same trick: columns are stored as contiguous, homogeneously-typed arrays (NumPy `ndarray`s under pandas, Arrow arrays under Polars), so an operation like `df['amount'] * 1.1` runs as a single vectorized C loop over contiguous memory instead of a Python-level loop with per-element type dispatch. That is why `.apply(lambda row: ...)` is slow relative to a column expression: `.apply` re-enters the Python interpreter once per row, paying object-creation and bytecode-dispatch overhead every single time, while a vectorized op pays that cost once for the whole column.
+
+`groupby` internally sorts or hashes the grouping key to bucket row indices, then applies the aggregation function to each bucket's slice of the underlying array — this is why `groupby` on a low-cardinality column (few distinct values) is cheap and on a high-cardinality column (like a UUID) approaches the cost of processing every row individually. `merge`/`join` operations build a hash table on the smaller side's join key and probe it with the larger side, which is exactly the hash-join algorithm a SQL engine uses — the difference is pandas does it in-process, in memory, bounded by RAM, with no query optimizer choosing the join strategy for you.
+
 ## Exercise
 
 Using the `df` from this lesson, write code that computes revenue by region

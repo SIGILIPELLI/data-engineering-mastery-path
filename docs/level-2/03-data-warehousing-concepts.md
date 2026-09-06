@@ -147,6 +147,12 @@ Alice moves.
 | SCD Type 2 | New row per change, `effective_from/to` + `is_current` |
 | Surrogate key | Warehouse-generated key, stable even as natural-key attributes change |
 
+## How It Actually Works
+
+The OLTP/OLAP split traces back to physical storage layout. An OLTP engine stores each row's fields contiguously on a disk page (row-store) because its workload is "read/write one whole record" — an order, a user profile — and that access pattern wants all of a record's fields co-located so one page read satisfies the whole operation. An OLAP engine stores each column's values contiguously across all rows (column-store) because its workload is "scan one or two fields across millions of records" — column layout means a `SUM(revenue)` query reads only the bytes belonging to the `revenue` column, skipping every other field entirely, and those tightly-packed, same-typed values compress far better than a row of mixed types.
+
+Slowly Changing Dimension Type 2 keeps full history by never updating a dimension row in place: a change to a customer's region inserts a *new* row with a new surrogate key and a fresh `valid_from`, while the previous row gets its `valid_to` set and (often) an `is_current` flag flipped to false. Mechanically this means every fact row's dimension foreign key points at the surrogate key that was current *at the time the fact occurred* — so a query joining facts to dimensions naturally reproduces the dimension's value as it was on that historical date, without needing any explicit "as of" logic in the query itself.
+
 ## Exercise
 
 Extend `apply_scd2` to also track `segment` changes, and write a query

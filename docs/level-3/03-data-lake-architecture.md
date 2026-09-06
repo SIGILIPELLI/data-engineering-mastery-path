@@ -187,6 +187,12 @@ table.rewrite_data_files()   # illustrative call against pyiceberg's maintenance
 | Gold | Business aggregates | Rebuilt from silver on each run |
 | Table format (Iceberg/Delta/Hudi) | Metadata log over Parquet | Atomic writes, time travel, schema evolution |
 
+## How It Actually Works
+
+Plain Parquet-on-object-storage lacks two things a table needs: atomic multi-file commits and a mutable metadata pointer. If a write touches 50 Parquet files and crashes after writing 30, a reader listing the directory sees a partially-written, inconsistent table with no way to distinguish "in-progress" from "complete." Table formats (Iceberg, Delta Lake, Hudi) solve this by never having readers list directories at all — they read a metadata layer (a manifest listing exactly which data files constitute the current valid snapshot) and a single atomic pointer swap (an S3 conditional-put, or a version file) is what makes a write visible all-at-once, which is the same commit semantics a database transaction provides, implemented over immutable object storage instead of a transaction log.
+
+Schema evolution works because the manifest stores column IDs, not column positions — adding, renaming, or reordering a column only changes the mapping in the manifest's schema definition, not the bytes of already-written data files, so old files remain readable under the new schema without a rewrite. Compaction exists because streaming/micro-batch writes naturally produce many small files (each write commits its own new files), and small files mean the query engine pays per-file open/seek overhead disproportionate to the data they hold — a compaction job periodically rewrites a set of small files into fewer, larger ones and atomically swaps them into the table's manifest, exactly the mechanism medallion architectures rely on to keep bronze/silver layers query-efficient over time.
+
 ## Exercise
 
 Extend `build_silver` to also write a `_dq_rejected` sibling file

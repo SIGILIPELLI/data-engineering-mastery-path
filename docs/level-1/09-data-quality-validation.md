@@ -173,6 +173,12 @@ deciding to override it.
 | Required (non-null) columns | Missing values in fields that must always be present |
 | Null meaning | Documented per-column — "valid absence" vs. "genuinely missing" |
 
+## How It Actually Works
+
+Schema drift detection works by comparing an observed schema (column names, types, nullability inferred from an actual batch of data) against an expected schema (a stored contract, or the schema of a previous successful run) before the batch is allowed to write to the destination. Mechanically this is nothing more than a diff over two ordered lists of `(name, type)` pairs, but doing it *before* the load — rather than letting a warehouse's `ALTER TABLE ADD COLUMN` or a type-widening cast happen implicitly — is what turns a silent schema change into a loud, actionable failure at the pipeline boundary instead of a corrupted downstream report discovered days later.
+
+`NULL` is not one value with one meaning; a validation gate has to encode which meaning is expected per column. `NULL` can mean "not yet known" (a shipped_at date before shipping), "not applicable" (a discount_code column for an order with no discount), or "missing due to upstream failure" (a required customer_id that's null because an API call errored). A blanket `NOT NULL` check conflates all three, so a real validation gate checks nullability per-column against what that column's semantics actually allow, and treats a null failing that check as a hard stop rather than a warning.
+
 ## Exercise
 
 Take the `validate()` function above and add a check for **duplicate primary

@@ -180,6 +180,12 @@ installs Airflow and runs a DAG like this for real.
 | Cycle | A dependency loop — makes part or all of the DAG unrunnable |
 | Catchup | Whether missed scheduled runs are backfilled automatically |
 
+## How It Actually Works
+
+A pipeline's tasks form a directed graph where an edge A→B means "B must not start until A finishes." Computing a valid execution order is the classic topological sort: repeatedly find a node with no unprocessed incoming edges, emit it, remove its outgoing edges, and repeat (Kahn's algorithm) — this is literally what a scheduler like Airflow's does when it decides which tasks in a DAG are eligible to run at a given moment. A cycle (A depends on B which depends on A) breaks the algorithm outright: no node in the cycle ever has zero remaining incoming edges, so Kahn's algorithm terminates having emitted fewer nodes than exist in the graph — which is precisely how Airflow detects a cyclic DAG at parse time and refuses to schedule it, rather than deadlocking silently at runtime.
+
+Airflow's scheduler doesn't execute tasks itself; it continuously parses DAG files, computes which task instances have satisfied dependencies for the current run, and hands eligible tasks to an executor (LocalExecutor forks a subprocess, CeleryExecutor/KubernetesExecutor dispatch to workers). Each task instance's state (queued, running, success, failed) is persisted in the metadata database, which is what lets the scheduler resume correctly after a restart instead of re-deriving state from scratch.
+
 ## Exercise
 
 Add a `notify_failure` task to the hand-rolled `dag` dict that should run

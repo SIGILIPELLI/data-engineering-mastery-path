@@ -191,6 +191,12 @@ cases), micro-batch is the right choice — it supports the operations
 | Output mode | `append` (final only), `update` (changed), `complete` (everything) |
 | Checkpoint | Durable record of processed offsets — required for exactly-once |
 
+## How It Actually Works
+
+Structured Streaming's "unbounded table" model works by treating each micro-batch of new data as a set of rows appended to a conceptually infinite table, and re-running (incrementally, not from scratch) the same query you'd write against a static table over the accumulated state. This is what lets a `groupBy(window(...)).agg(...)` query look identical whether it's batch or streaming: the engine maintains the partial aggregation state (the running sum per window) between micro-batches instead of recomputing over all historical data each time.
+
+A watermark bounds how long the engine waits for late-arriving events before finalizing a window's aggregate and discarding its state: `withWatermark("event_time", "10 minutes")` tells the engine "once I've seen an event with timestamp T, assume no event older than T - 10 minutes will ever arrive," which lets it safely drop state for windows older than that threshold — without a watermark, the engine would have to retain unbounded state forever, since a window could theoretically still receive a late event. Output modes (append/update/complete) determine what a micro-batch actually writes to the sink: append only emits rows that are now final (won't change again, which for windowed aggregates means only after the watermark has passed the window's end), while update emits every row whose aggregate changed this batch, even if a later batch might still revise it.
+
 ## Exercise
 
 Change the windowed aggregation to a **sliding** window

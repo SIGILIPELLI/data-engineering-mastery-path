@@ -133,6 +133,12 @@ felt the pain that streaming exists to solve.
 | Warehouse/lake | Where transformed data lands for querying |
 | Idempotency | Rerunning a pipeline produces the same result, not duplicates |
 
+## How It Actually Works
+
+"Data engineering" as a discipline exists because of a mechanical fact: databases and analytics engines are optimized for very different access patterns. An OLTP database (Postgres, MySQL) stores rows physically clustered together on disk pages, so "fetch this one order and its 3 line items" is a handful of page reads. An OLAP warehouse stores data column-oriented, so "sum revenue across 400 million orders" only reads the `revenue` column's bytes, not every field of every row. A pipeline's job is to move bytes from a row-oriented, transaction-safe system into a column-oriented, scan-optimized one, and to do the reshaping (denormalizing joins, precomputing aggregates) the destination's storage layout expects.
+
+Mechanically, a batch pipeline acquires a delta of source data (a full snapshot, a timestamp filter, or a change-data-capture stream), holds it as an intermediate representation (a DataFrame, an in-memory Arrow buffer), applies transformation as vectorized column operations, and writes the result as new immutable files or upserted rows. Every stage boundary is also a checkpoint: if the process dies between extract and load, replaying from the last successful checkpoint rather than from scratch is what makes production pipelines resumable instead of catastrophic on failure.
+
 ## Exercise
 
 Pick three data products you use in daily life (a bank app's transaction

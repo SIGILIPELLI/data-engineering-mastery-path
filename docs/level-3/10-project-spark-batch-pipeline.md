@@ -269,6 +269,12 @@ emit_pipeline_metrics(gold, run_date="2024-01-15")
 | Gold | Aggregation for consumption | overwrite |
 | Quality gate | Assert invariants between stages | run after every write |
 
+## How It Actually Works
+
+This project's bronze/silver/gold structure is the medallion architecture implemented directly: bronze enforces schema on landing (rejecting or quarantining rows that don't match, so garbage never silently enters the lake), silver deduplicates and joins (the expensive shuffle-heavy work, done once so gold doesn't repeat it), and gold aggregates to the grain consumers actually query. Each layer being a materialized table (not a view recomputed on demand) means a failure or bug in gold can be fixed by rerunning just the gold step against silver's already-validated output, instead of re-running the whole pipeline from bronze.
+
+The quality gate sitting between silver and gold, rather than only at bronze, exists because dedup and join logic can itself introduce new problems (a bad join key fanning out rows, a dedup rule collapsing legitimately distinct records) that wouldn't have been visible in bronze's raw, unjoined data — checking again after the shuffle-heavy transformations catches errors the transformation itself introduced, not just errors inherited from the source. Wiring this into an Airflow DAG with a monitoring hook closes the loop: task-level retries handle transient Spark failures, and the monitoring hook (emitting row counts/duration per stage) is what lets an on-call engineer diagnose *which* layer degraded without re-deriving that from scratch during an incident.
+
 ## Exercise
 
 Replace the silver layer's `mode("overwrite")` with a Delta `MERGE INTO`

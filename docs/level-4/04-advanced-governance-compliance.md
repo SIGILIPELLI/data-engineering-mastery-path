@@ -202,6 +202,12 @@ location — a real architectural cost paid for a real legal requirement.
 | Auditability | Separate, tamper-evident access log, not just access control |
 | Data residency | Region-pinned storage AND compute for restricted data |
 
+## How It Actually Works
+
+Right-to-erasure against an append-only, immutable lake table (Iceberg/Delta/Hudi) can't be a row-level in-place edit, because the underlying Parquet files are never mutated after being written — instead, erasure is implemented as a rewrite: the engine reads every data file containing the target row, writes new files with that row (and only that row) removed, and atomically swaps the table's manifest to point at the new files instead of the old ones, leaving the old physical files to be garbage-collected once no snapshot references them anymore. This is mechanically identical to how compaction rewrites small files into larger ones — erasure is just a compaction pass with an extra row-level filter applied during the rewrite.
+
+Derived aggregates are the part people forget because deleting the source row doesn't retroactively un-compute a `SUM()` or a trained model feature that already incorporated that row's value — a real erasure pipeline has to trace lineage forward from the deleted row to every materialized aggregate/feature it contributed to and either recompute those or accept a documented, bounded staleness window. Consent tracking as a joinable table (rather than a flag baked into each record) works because consent state changes independently of the data it governs — storing `(user_id, consent_type, granted_at, revoked_at)` as its own table lets every downstream query join against current consent state at query time, rather than requiring every table that touches user data to be individually updated whenever consent changes.
+
 ## Exercise
 
 Extend `find_all_tables_referencing_subject` to also flag which of the

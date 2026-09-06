@@ -242,6 +242,12 @@ when a dashboard shows nulls.
 | Row-level security | Access control enforced by the warehouse engine, not application code |
 | Data contract | Schema agreement checked in producer's CI, before a breaking change ships |
 
+## How It Actually Works
+
+Cataloging is a pipeline problem because metadata (schema, classification, lineage) goes stale the instant a pipeline changes what it produces — a catalog populated by manual documentation drifts from reality within weeks, while a catalog populated by pipeline code itself (emitting its own output schema and column classifications as a side effect of running) stays accurate because it's generated from the same source of truth that produces the data. Column-level classification (tagging a column as PII, financial, or public) mechanically works the same way a schema check does: pattern-match column names/values against known sensitive patterns, or read explicit tags attached in code, and propagate that classification downstream through the lineage graph so a derived column inherits the sensitivity of the columns it was computed from.
+
+Lineage capture at the pipeline level means recording, for every write, which upstream tables/columns fed it and via which transformation — in practice this is often extracted by parsing the SQL a job executes (identifying tables in `FROM`/`JOIN` clauses) or by instrumenting the orchestrator to log task-to-table relationships. Row-level access control is enforced by rewriting a query to inject a filter (`WHERE region = current_user_region()`) transparently before execution, so the same view can return different rows to different users without duplicating the underlying table — this is a query-rewrite mechanism, not a separate copy of the data per user.
+
 ## Exercise
 
 Extend `validate_against_contract` to also flag a contract violation when a

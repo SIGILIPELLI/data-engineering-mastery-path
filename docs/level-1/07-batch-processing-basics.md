@@ -137,6 +137,12 @@ dashboards that get corrected in a nightly batch reconciliation.
 | Late-arriving data | Event-time falls in a window already closed |
 | Grace period | Delay window close to reduce (not eliminate) lost late data |
 
+## How It Actually Works
+
+Chunked processing exists because of a hard constraint: a process can only hold what fits in the memory allotted to it, but source data can be arbitrarily larger. Reading in chunks (via `pd.read_csv(chunksize=...)`, a cursor with `LIMIT`/`OFFSET` or, better, keyset pagination, or a generator that yields batches) bounds peak memory to one chunk's size regardless of total input size, at the cost of doing the read/transform/write cycle N times instead of once. Chunk size is a real tuning knob: too small and per-chunk overhead (function calls, I/O round trips, transaction commits) dominates; too large and you're back to the original memory problem.
+
+Windowing (tumbling, sliding, or session windows) is the batch-world's way of turning an unbounded conceptual stream into bounded units of work: a tumbling window groups events into fixed, non-overlapping time buckets (assign each row to `floor(timestamp / window_size)`), which is exactly the same bucketing operation a `GROUP BY DATE_TRUNC(...)` performs in SQL — batch windowing and streaming windowing are the same mathematical operation, just triggered by a schedule instead of by watermark-driven event arrival.
+
 ## Exercise
 
 Extend the events list to 30 events spread across three hourly windows, with

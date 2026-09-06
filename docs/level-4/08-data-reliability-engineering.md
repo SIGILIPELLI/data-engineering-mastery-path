@@ -193,6 +193,12 @@ improvised under pressure at 2am.
 | Blameless postmortem | Focus on process/system gaps, drives real corrective actions |
 | Runbook | Written before the incident, shrinks time-to-first-useful-action |
 
+## How It Actually Works
+
+An SLI is a directly measurable quantity (freshness lag, percentage of rows passing validation, query success rate), an SLO is a target threshold on that SLI over a time window (99% of daily loads complete before 6am over a rolling 30 days), and an error budget is simply "100% minus the SLO" — the amount of unreliability you're explicitly allowed to spend before it becomes a declared incident. This framing matters mechanically because it turns "is this bad enough to page someone" from a subjective judgment call into an arithmetic check against a pre-agreed threshold, and it lets a team consciously trade reliability work against feature work by tracking how much of the budget remains.
+
+Choosing SLIs that matter to consumers (rather than ones convenient to measure) means picking metrics tied to what breaks a downstream report or model, not just what the orchestrator already exposes — job success rate is easy to measure but can be 100% while the *data* itself is wrong (a job that completes successfully but writes zero rows, or the wrong rows, is by job-status metrics a success). Blameless postmortems work by structuring the incident writeup around the timeline and the systemic gap that allowed the failure (a missing quality gate, an untested edge case), rather than around who ran the command that triggered it — this isn't just a cultural nicety, it's what makes the postmortem's findings actionable as a *system* fix (add the missing gate) instead of an unenforceable behavioral one ("be more careful"), which is why runbooks derived from postmortems reduce time-to-mitigate on the next, inevitably similar, incident.
+
 ## Exercise
 
 Define a concrete SLI, SLO, and error budget for a pipeline you've worked

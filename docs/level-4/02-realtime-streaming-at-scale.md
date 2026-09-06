@@ -176,6 +176,12 @@ schema_compatibility_mode = "BACKWARD"
 | Exactly-once | Producer idempotence + consumer-side idempotent write, both required |
 | Schema registry | Enforces compatibility at the broker, before bad messages spread |
 
+## How It Actually Works
+
+Partitions are Kafka's actual unit of horizontal scale: throughput scales by adding partitions (each partition can be written and read independently, in parallel), not by adding brokers alone — a topic with one partition is capped at whatever single-partition throughput one broker can sustain, no matter how many brokers exist in the cluster. Consumer lag (the difference between the latest committed offset in a partition and the latest offset a consumer has processed) is the metric that actually reflects health because a consumer can be "up" and processing messages while still falling further behind every second if incoming throughput exceeds processing throughput — lag is the only number that captures that growing backlog directly.
+
+Multi-region replication (MirrorMaker 2, Confluent's cluster linking) works by having a dedicated consumer-then-producer pipeline read from the source region's cluster and re-produce into the destination region's cluster, which means replicated messages get *new* offsets in the destination — this is why cross-region exactly-once and offset-based resumption after failover are hard: offsets aren't portable across clusters, so failover logic has to key on something else (timestamps, or an embedded idempotency key) rather than assuming offset continuity. Backpressure in a streaming system isn't a single mechanism but a chain: a slow consumer causes its input buffer to fill, which (in a properly backpressured system) signals upstream to slow production, whereas a naive system just drops messages or grows an unbounded queue until it runs out of memory — this is why bounded queues with an explicit backpressure signal are a deliberate design choice, not an incidental detail.
+
 ## Exercise
 
 Given a topic with 20 partitions and a consumer group with 8 consumers,

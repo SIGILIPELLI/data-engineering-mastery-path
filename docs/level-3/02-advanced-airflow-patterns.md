@@ -209,6 +209,12 @@ changing execution semantics at all.
 | Custom operator | Reusable logic shared across many DAGs |
 | `TaskGroup` | Visual/logical grouping, no execution change |
 
+## How It Actually Works
+
+Dynamic task mapping (`.expand()`) doesn't create tasks at DAG-parse time the way a `for` loop over a static list would — it creates one *task template* that the scheduler expands into N task instances at run time, once the upstream value determining N is known. This is mechanically different from a Python loop generating tasks: a Python loop needs the list at parse time (before any data has been processed), while mapped tasks can fan out based on a count only known after a prior task runs, like "one task per file returned by yesterday's extract."
+
+A sensor is a task that polls a condition (a file's existence, a partition landing) on an interval rather than doing work — in `poke` mode it occupies a worker slot the entire time it's waiting, which at scale exhausts available slots; in `reschedule` mode it releases the worker slot between polls and lets the scheduler re-queue it, trading slightly higher scheduling latency for not starving the pool. Cross-DAG dependencies (`ExternalTaskSensor`, datasets) exist because the scheduler's dependency graph is normally scoped to one DAG — an external sensor is really just a specialized poll against another DAG's metadata-database state, and the dataset-aware scheduling introduced in modern Airflow makes that dependency a first-class scheduler concept instead of a polling workaround.
+
 ## Exercise
 
 Rewrite `process_regional_files` so `list_files()` instead queries a

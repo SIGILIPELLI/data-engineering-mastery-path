@@ -231,6 +231,12 @@ whole history.
 | Row hashing | Detecting updates without a timestamp | Cost of hashing every row every run |
 | Partitioned incremental loads | Reprocessability + efficiency | Keeping state updates atomic with loads |
 
+## How It Actually Works
+
+Partitioning speeds up queries through partition pruning: when a table is physically split into separate files/directories by a column (commonly a date), and a query filters on that column, the query engine can consult partition metadata (directory names, or a catalog's partition list) and skip reading the files for partitions that can't match the filter — entirely at the file-selection stage, before any row is even opened. This is why `WHERE order_date = '2024-01-15'` against a table partitioned by `order_date` can be orders of magnitude faster than the same filter against an unpartitioned table: the engine physically never touches the other 364 days of files.
+
+A high-water mark works because most operational tables have a monotonically increasing `updated_at`/`id` column: storing the maximum value seen on the last successful run and filtering `WHERE updated_at > last_watermark` on the next run captures exactly the rows that changed since then, without rescanning the entire source. The failure mode this misses is *deletions* and *silent backdated updates* — a hash-based change-tracking approach (storing a hash of each row's content and comparing hashes on the next pass) catches content changes a watermark would miss, but at the cost of having to read every row to compute its hash, trading pruning efficiency for correctness completeness.
+
 ## Exercise
 
 Extend `incremental_load()` so the high-water-mark update happens inside the

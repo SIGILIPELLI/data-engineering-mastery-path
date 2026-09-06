@@ -229,6 +229,12 @@ written.
 | Staging smoke test | One real run against real (non-prod) infra |
 | Prod deploy | Gated by required reviewer |
 
+## How It Actually Works
+
+Pipeline CI differs from application CI because a pipeline's real correctness depends on the interaction of code with an execution graph and (often) live external data, which unit tests alone can't cover. DAG import validation exists as its own stage because Airflow evaluates a DAG file as live Python at parse time — a typo, a missing import, or a cyclic dependency doesn't fail loudly like a compile error; it either crashes the scheduler's parsing loop or silently fails to register the DAG, so CI runs the same parse step Airflow's scheduler runs, just earlier and with a hard failure instead of a silent one.
+
+dbt compilation checks (`dbt compile` or `dbt parse`) catch a different class of error: Jinja template errors, broken `ref()`s to non-existent models, and circular model dependencies — all resolvable without touching a live warehouse, because compilation only needs the model files and the manifest, not actual query execution. Staged deployment (dev → staging → prod) exists because a pipeline's failure mode against real data volumes and real upstream schemas often only appears at a scale or with edge cases a dev environment doesn't have — promoting the same tested artifact (not re-writing code per environment) through progressively more production-like environments is what catches that gap before it reaches customers, and rollback works by redeploying the last known-good artifact/DAG version rather than attempting to patch forward under pressure.
+
 ## Exercise
 
 Add a CI job that runs `dbt test` (not just `dbt compile`) against a

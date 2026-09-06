@@ -213,6 +213,12 @@ rather than a separate bespoke tool just for data pipelines.
 | Freshness | Minutes since last successful load | Can this be trusted right now |
 | Alert severity | critical/warning/info routed differently | Does this need action now |
 
+## How It Actually Works
+
+Operational metrics (task duration, success/failure counts, queue depth) come directly out of Airflow's metadata database — every task instance's start time, end time, and final state is already persisted there for scheduling purposes, so a metrics exporter is largely just querying that database and re-emitting it in a format Prometheus can scrape, rather than instrumenting anything new. Data quality metrics work differently: they have to be computed *by the pipeline itself* as a deliberate output (row counts, null rates, distribution stats written to a metrics table or emitted alongside the data), because the orchestrator has no visibility into whether the data a task produced is any good — only whether the task exited zero.
+
+Row-count anomaly detection is typically a simple statistical test — comparing today's count against a rolling mean and standard deviation of recent days, and alerting if today's value falls outside some number of standard deviations — which is cheap to compute and catches the common failure modes (an upstream source going empty, a duplicate load doubling counts) without needing a trained model. Freshness (time since the last successful load, or the max event timestamp present in the table) matters more to consumers than uptime metrics because a pipeline can be "running successfully" on schedule while silently processing zero new rows — freshness is computed from the data's own timestamps, not from the job's exit code, which is exactly why it catches failures job-status metrics miss.
+
 ## Exercise
 
 Extend `is_row_count_anomalous` to also account for a known weekly

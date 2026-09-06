@@ -222,6 +222,12 @@ and everything upstream.
 | Singular tests (SQL) | Custom checks — any row returned counts as a failure |
 | `dbt docs generate` | Auto lineage graph + docs from `ref()`/`source()` calls |
 
+## How It Actually Works
+
+dbt does not execute transformations itself — every model compiles down to a `CREATE TABLE AS SELECT` or `CREATE VIEW AS SELECT` statement, and dbt hands that compiled SQL to the warehouse to execute. This is why dbt models are only ever as fast as the warehouse's own query engine: dbt's job is templating (Jinja `{{ ref() }}` resolves to the fully-qualified table name of the referenced model) and dependency ordering (the DAG dbt builds from `ref()` calls determines the topological order models run in), not query execution.
+
+Schema tests compile to a generic SQL query that's expected to return zero rows when the constraint holds — `unique` compiles to a `GROUP BY` + `HAVING COUNT(*) > 1` query, `not_null` compiles to a `WHERE column IS NULL` query, and the test fails if that query returns any rows at all. This is exactly why custom (singular) tests follow the same contract: they're just a `.sql` file whose query is expected to return zero rows, letting dbt reuse one uniform pass/fail mechanism for both built-in and hand-written data quality checks. Lineage/documentation generation walks the same `ref()` dependency graph dbt already builds for execution ordering — the DAG diagram in `dbt docs` isn't separately computed, it's the same graph visualized.
+
 ## Exercise
 
 Add a `relationships` schema test on `region_summary` — wait, that model

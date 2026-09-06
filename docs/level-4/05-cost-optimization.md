@@ -191,6 +191,12 @@ abstract platform-wide concern.
 | Spark clusters | Spot workers (never driver) + autoscaling |
 | Organizational | Cost tagging per team, visible to that team |
 
+## How It Actually Works
+
+Compute cost in a cloud data platform is overwhelmingly driven by two things: how long compute runs, and how much data it scans/shuffles — right-sizing (matching cluster/warehouse size to actual workload, not provisioning for peak) and scheduling (suspending idle compute, as covered in the warehouse module) attack the first; column pruning, partition pruning, and reducing shuffle attack the second. Catching expensive queries before they run means running the query planner's cost estimate (or a dry-run in BigQuery's case, which reports bytes-to-be-scanned without executing) and gating execution on a threshold — this works because most warehouses can produce that estimate without actually reading the data, since it's derived from partition/file metadata, the same metadata partition pruning itself relies on.
+
+Storage lifecycle policies (auto-tiering cold data to cheaper storage classes, expiring old partitions) work because object storage pricing is tiered by access frequency assumption, not just volume — data nobody has read in 90 days costs the same to store in a hot tier as data read every hour, so a lifecycle rule that demotes it based on last-access time captures savings with no code change. Spot instances for Spark work because Spark's own fault tolerance (recomputing a lost partition from its lineage, the same DAG-based lazy evaluation covered earlier) already handles a worker disappearing mid-job — spot instances being reclaimable on short notice is a cost the framework was already built to absorb, which is why Spark clusters tolerate spot pricing far better than a stateful, non-fault-tolerant service would.
+
 ## Exercise
 
 Given a BigQuery table scanned by 200 identical daily dashboard queries

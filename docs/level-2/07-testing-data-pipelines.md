@@ -199,6 +199,12 @@ would never notice.
 | Idempotency test | Reruns don't duplicate/corrupt | CI + periodically in prod |
 | Schema contract test | Upstream hasn't silently changed types | CI + inside the pipeline |
 
+## How It Actually Works
+
+Unit-testing a transform function works because a well-written transform is a pure function: given the same input DataFrame, it produces the same output DataFrame, with no hidden dependency on wall-clock time, an external API, or database state. That purity is what lets a test construct a small, hand-crafted input (a fixture) and assert an exact expected output — the moment a transform reaches out to `datetime.now()` or a live connection, the same test becomes flaky, because the function's output now depends on when or where it runs, not just what it's given.
+
+Testing idempotency mechanically means running the full write path twice against the same input and diffing the destination's state before and after the second run — if the diff is empty, the write is idempotent. Testing a schema contract means asserting the transform's *output* schema (column names, types, nullability) against a fixed expected schema, independent of the data values — this catches a transform silently returning an extra or renamed column, which a value-only assertion would miss entirely, and it's the same check a schema-drift gate makes in production, just run at test time before the transform is trusted with real data.
+
 ## Exercise
 
 Add a data quality check, `amount_within_bounds`, that fails if any

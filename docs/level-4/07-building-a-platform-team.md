@@ -157,6 +157,12 @@ reorganization.
 | Self-service rate | Fraction of new pipelines launched without a platform ticket |
 | Golden path adoption | Fraction of pipelines using the supported template/pattern |
 
+## How It Actually Works
+
+A platform team functioning as a "platform" in the Team Topologies sense means its output is a self-service capability (an API, a golden-path template, a paved-road tool) that other teams consume without needing the platform team in the loop for each use — this is a mechanically different deliverable than a typical feature team's, whose output is a specific business capability used by end users. Golden paths work because they encode the platform team's accumulated hard-won decisions (which orchestrator, which table format, which testing pattern) into a template that a new team can `git clone` and configure, rather than requiring every team to independently rediscover and debug the same infrastructure choices.
+
+Measuring platform success can't use the same metrics as a feature team (revenue, user engagement) because the platform team is a level removed from the end user — the real signal is adoption (how many teams use the golden path vs. build their own) and time-to-first-value for a new team onboarding, because both directly measure whether the self-service capability is actually reducing other teams' work, which is the platform team's entire value proposition. On-call for a platform team differs from an application on-call because a platform incident (the shared orchestrator down, a shared catalog unavailable) has a blast radius spanning every team that depends on it, which is why platform on-call runbooks tend to prioritize fast mitigation (failover, rollback) over root-cause diagnosis during the incident itself — every minute of platform downtime is multiplied across every dependent team.
+
 ## Exercise
 
 Using `score_platform_initiative`, score two real or hypothetical platform

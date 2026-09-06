@@ -191,6 +191,12 @@ exactly the property lesson 10's capstone project is graded on.
 | Load | Write clean data to destination | Business logic |
 | Idempotency | Rerun-safe (`INSERT OR REPLACE` / `MERGE`) | Plain `INSERT` on rerun |
 
+## How It Actually Works
+
+Idempotency isn't a coding style — it's a property of the write operation relative to the source data. `INSERT` is not idempotent: running it twice with the same input produces duplicate rows, because the database has no idea the second batch is "the same" as the first. `INSERT ... ON CONFLICT (key) DO UPDATE` (upsert) *is* idempotent, because the database checks a unique constraint before deciding whether to insert or overwrite, so replaying the same batch converges to the same end state instead of accumulating duplicates. A full `DELETE` + `INSERT` scoped to a partition (rewrite-the-partition) is also idempotent by construction: no matter how many times you rerun it for `2024-01-15`, the partition ends up holding exactly that day's rows.
+
+This is why "extract" almost always means "extract a bounded, identifiable slice" (a partition, a `WHERE updated_at >= watermark` filter) rather than "extract everything" — a slice gives you something concrete to overwrite atomically on retry, whereas an unbounded extract gives you no safe way to undo a partial, failed load.
+
 ## Exercise
 
 Extend `transform` to also reject rows where `order_date` isn't a valid

@@ -246,6 +246,12 @@ automatically in many cases.
 | `category` dtype | Big memory win for low-cardinality string columns |
 | Partition skew | One partition/task much larger than others dominates stage time |
 
+## How It Actually Works
+
+`EXPLAIN ANALYZE` reveals what the optimizer actually chose and how its cost estimates compared to reality: it shows the physical operators used (sequential scan vs. index scan, hash join vs. nested loop), the estimated vs. actual row counts at each step, and time spent per node. A sequential scan appearing where you expected an index scan usually means the optimizer's cost model decided scanning was cheaper — often because the table is small enough that an index lookup's overhead exceeds a full scan, or because statistics are stale and the row-count estimate is wrong. A large gap between estimated and actual rows at a join node is the single most common cause of a bad plan: the optimizer chose a join algorithm (nested loop, say) based on an estimate that assumed few rows, and reality delivered orders of magnitude more.
+
+Spark's physical plan (`.explain()`) shows the same kind of information at Spark's granularity: whether a join was broadcast (no shuffle) or sort-merge (full shuffle), and where `Exchange` nodes appear — each `Exchange` is a shuffle boundary, and counting them in the plan is a direct measure of how much network/disk I/O the query will incur. Partition skew — one partition holding far more rows than others because of an uneven key distribution — shows up as a job where most tasks finish quickly and a handful run far longer, because Spark parallelism is bounded by the slowest partition in a stage, not the average.
+
 ## Exercise
 
 Take the `tax_slow` function above, profile it against a 500k-row

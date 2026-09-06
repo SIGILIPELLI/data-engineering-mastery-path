@@ -298,6 +298,12 @@ test_pipeline.py::test_load_is_idempotent PASSED
 - **Test**: unit tests for the happy path, a rejected-bad-data path, and
   rerun/idempotency — the three test types this level introduced.
 
+## How It Actually Works
+
+This pipeline's shape — paginated extract, partitioned write, quality gate, SQL transform, idempotent load, wired into a DAG — is a compressed version of the medallion pattern used in production lakehouses: raw/bronze data lands partitioned and mostly as-is, a gate stops corrupted batches before they propagate, and only validated data reaches a transform stage. The reason the quality gate sits *between* the partitioned write and the transform (rather than after the transform) is that catching bad data earlier means less has been computed on top of it — a rejected batch at the gate costs one wasted extract, while a rejected batch discovered post-transform means the transform's output has to be discarded too.
+
+Wiring this into an Airflow DAG turns implicit ordering (function A's output feeds function B) into explicit, schedulable dependency edges the scheduler can reason about — retry a single failed task without rerunning the whole pipeline, backfill a specific date, or query task-level duration metrics. The end-to-end test at the close of the project validates the same property idempotent loads always need to prove: run the whole chain twice against the same source window and confirm the destination state converges rather than duplicating.
+
 ## Exercise
 
 Add a sixth task, `notify_on_failure`, using Airflow's

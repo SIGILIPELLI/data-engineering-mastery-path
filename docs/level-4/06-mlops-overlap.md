@@ -183,6 +183,12 @@ is exactly the collaboration a feature store is designed to structure.
 | Feature store | One feature definition, offline (training) + online (serving) retrieval |
 | PSI / drift detection | Leading indicator of model degradation, ahead of label-based metrics |
 
+## How It Actually Works
+
+Training/serving skew happens because a feature computed in a batch training pipeline (say, a 30-day rolling average computed with full historical context available) and the "same" feature computed at serving time (computed online, possibly with a different windowing implementation or different available context) can produce numerically different values for what's conceptually the same feature — the model was trained on one distribution of that feature and serves against a subtly different one, degrading accuracy without any obvious error. A feature store's actual job is eliminating this by having exactly one code path compute a feature's definition, used by both the batch job that builds training sets and the online service that computes it at inference time.
+
+Point-in-time correctness (avoiding training-data leakage) requires that when building a training example for an event at time T, every feature used is computed only from data available *as of* T — not data that happened to exist when the training set was built later. This is why naive joins for feature engineering are dangerous: joining a "current" customer lifetime value onto historical training rows leaks future information (the model implicitly learns the outcome, since lifetime value computed today already includes purchases that happened after the training event), and it's the mechanical reason feature stores implement "as-of" joins keyed on event time rather than simple foreign-key joins. Distribution drift detection (comparing the statistical distribution of incoming feature values against the training distribution, via a KS-test or population stability index) matters for ML data quality specifically because a model can silently degrade on data that's perfectly well-formed by row-count/null-rate standards — the values are all present and valid, just shifted from what the model was trained to expect.
+
 ## Exercise
 
 Modify `point_in_time_feature` to compute a *rolling 30-day* spend feature

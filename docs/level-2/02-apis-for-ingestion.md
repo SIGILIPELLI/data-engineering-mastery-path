@@ -176,6 +176,12 @@ updated") and the same state file would only request `updated_at >=
 | Avoid re-fetching everything | Track a cursor (timestamp or ID), request only newer data |
 | Crash mid-run | Make downstream loads idempotent so replays are safe |
 
+## How It Actually Works
+
+Exponential backoff exists to solve a specific failure mode: if every client retries a failed request immediately, a struggling server gets hit with the same request rate that just overwhelmed it, and never recovers (a retry storm). Doubling the wait after each failure (1s, 2s, 4s, 8s...), usually with random jitter added, spreads retries out in time so the aggregate request rate against a struggling server actually decreases while it's unhealthy, rather than staying constant or increasing. Jitter specifically prevents synchronized retries: without it, many clients that failed at the same moment would all retry at exactly the same moment again.
+
+Pagination protocols (`has_more` + cursor, or `page`/`limit`) exist because an API can't safely return an unbounded response — the server would have to buffer the entire result set in memory, and the client would have to receive it in one giant payload with no way to resume if the connection drops partway through. A cursor-based `has_more` loop is mechanically a `while` loop that treats the next cursor as loop state, which is why it composes cleanly with incremental ingestion: the "high-water mark" for incremental loads and the "next cursor" for pagination are the same idea — a checkpoint that lets you resume exactly where you left off instead of restarting from the beginning.
+
 ## Exercise
 
 Add jitter to `call_with_retry` (`delay * random.uniform(0.8, 1.2)`) and a
