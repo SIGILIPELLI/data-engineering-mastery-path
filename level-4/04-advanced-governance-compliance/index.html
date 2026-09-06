@@ -2018,6 +2018,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2553,6 +2575,9 @@ location — a real architectural cost paid for a real legal requirement.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Right-to-erasure against an append-only, immutable lake table (Iceberg/Delta/Hudi) can't be a row-level in-place edit, because the underlying Parquet files are never mutated after being written — instead, erasure is implemented as a rewrite: the engine reads every data file containing the target row, writes new files with that row (and only that row) removed, and atomically swaps the table's manifest to point at the new files instead of the old ones, leaving the old physical files to be garbage-collected once no snapshot references them anymore. This is mechanically identical to how compaction rewrites small files into larger ones — erasure is just a compaction pass with an extra row-level filter applied during the rewrite.</p>
+<p>Derived aggregates are the part people forget because deleting the source row doesn't retroactively un-compute a <code>SUM()</code> or a trained model feature that already incorporated that row's value — a real erasure pipeline has to trace lineage forward from the deleted row to every materialized aggregate/feature it contributed to and either recompute those or accept a documented, bounded staleness window. Consent tracking as a joinable table (rather than a flag baked into each record) works because consent state changes independently of the data it governs — storing <code>(user_id, consent_type, granted_at, revoked_at)</code> as its own table lets every downstream query join against current consent state at query time, rather than requiring every table that touches user data to be individually updated whenever consent changes.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Extend <code>find_all_tables_referencing_subject</code> to also flag which of the
 returned tables are <code>gold.</code>-prefixed aggregates that would need

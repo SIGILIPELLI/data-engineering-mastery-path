@@ -924,6 +924,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2473,6 +2495,9 @@ structurally cannot.</p>
   Between pipeline stages (not for final human-facing exports), Parquet is
   almost always the better default: smaller, faster, and schema-safe.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>CSV and JSON are byte-serialized as text with no embedded type information: <code>42</code> in a CSV cell is indistinguishable, at the byte level, from the string <code>"42"</code> until something parses it and guesses. That's why a CSV round trip can silently turn an integer column into a float (a lone blank cell forces the reader to allow <code>NaN</code>, and <code>NaN</code> requires float64) or drop leading zeros from a zip code. Parquet and Avro instead embed a schema (column names, types, and for Parquet, per-column encoding metadata) directly in the file, so a reader knows a column is <code>INT32</code> or <code>TIMESTAMP</code> without inferring it from a sample of the data — types survive the round trip because they were never lost to begin with.</p>
+<p>Read speed differences come from physical layout, not just parsing cost. CSV must be scanned close to linearly since row boundaries are only found by scanning for newlines and fields by scanning for commas (with quoting rules complicating that further). Parquet stores data column-by-column with a footer listing byte offsets for each column chunk, so reading three columns out of thirty means seeking directly to those column chunks and skipping the rest of the file's bytes entirely — I/O scales with columns selected, not file size.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Take the <code>orders.csv</code> from this lesson, delete a handful of <code>amount</code> values to
 make blank cells, save it back to CSV, then also save the <em>same</em> dirty data to

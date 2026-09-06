@@ -1832,6 +1832,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2371,6 +2382,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2663,6 +2685,9 @@ than a production run.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>This project's bronze/silver/gold structure is the medallion architecture implemented directly: bronze enforces schema on landing (rejecting or quarantining rows that don't match, so garbage never silently enters the lake), silver deduplicates and joins (the expensive shuffle-heavy work, done once so gold doesn't repeat it), and gold aggregates to the grain consumers actually query. Each layer being a materialized table (not a view recomputed on demand) means a failure or bug in gold can be fixed by rerunning just the gold step against silver's already-validated output, instead of re-running the whole pipeline from bronze.</p>
+<p>The quality gate sitting between silver and gold, rather than only at bronze, exists because dedup and join logic can itself introduce new problems (a bad join key fanning out rows, a dedup rule collapsing legitimately distinct records) that wouldn't have been visible in bronze's raw, unjoined data — checking again after the shuffle-heavy transformations catches errors the transformation itself introduced, not just errors inherited from the source. Wiring this into an Airflow DAG with a monitoring hook closes the loop: task-level retries handle transient Spark failures, and the monitoring hook (emitting row counts/duration per stage) is what lets an on-call engineer diagnose <em>which</em> layer degraded without re-deriving that from scratch during an incident.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Replace the silver layer's <code>mode("overwrite")</code> with a Delta <code>MERGE INTO</code>
 keyed on <code>order_id</code>, so that reprocessing only upserts changed/new orders

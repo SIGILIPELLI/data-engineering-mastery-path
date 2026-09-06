@@ -2119,6 +2119,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2298,6 +2309,17 @@
     <span class="md-ellipsis">
       
         Cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
       
     </span>
   </a>
@@ -2528,6 +2550,9 @@ improvised under pressure at 2am.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>An SLI is a directly measurable quantity (freshness lag, percentage of rows passing validation, query success rate), an SLO is a target threshold on that SLI over a time window (99% of daily loads complete before 6am over a rolling 30 days), and an error budget is simply "100% minus the SLO" — the amount of unreliability you're explicitly allowed to spend before it becomes a declared incident. This framing matters mechanically because it turns "is this bad enough to page someone" from a subjective judgment call into an arithmetic check against a pre-agreed threshold, and it lets a team consciously trade reliability work against feature work by tracking how much of the budget remains.</p>
+<p>Choosing SLIs that matter to consumers (rather than ones convenient to measure) means picking metrics tied to what breaks a downstream report or model, not just what the orchestrator already exposes — job success rate is easy to measure but can be 100% while the <em>data</em> itself is wrong (a job that completes successfully but writes zero rows, or the wrong rows, is by job-status metrics a success). Blameless postmortems work by structuring the incident writeup around the timeline and the systemic gap that allowed the failure (a missing quality gate, an untested edge case), rather than around who ran the command that triggered it — this isn't just a cultural nicety, it's what makes the postmortem's findings actionable as a <em>system</em> fix (add the missing gate) instead of an unenforceable behavioral one ("be more careful"), which is why runbooks derived from postmortems reduce time-to-mitigate on the next, inevitably similar, incident.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Define a concrete SLI, SLO, and error budget for a pipeline you've worked
 on (or a hypothetical <code>orders_etl</code> pipeline), then compute, using

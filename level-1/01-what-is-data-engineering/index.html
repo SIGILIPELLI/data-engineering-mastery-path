@@ -784,6 +784,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2479,6 +2501,9 @@ felt the pain that streaming exists to solve.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>"Data engineering" as a discipline exists because of a mechanical fact: databases and analytics engines are optimized for very different access patterns. An OLTP database (Postgres, MySQL) stores rows physically clustered together on disk pages, so "fetch this one order and its 3 line items" is a handful of page reads. An OLAP warehouse stores data column-oriented, so "sum revenue across 400 million orders" only reads the <code>revenue</code> column's bytes, not every field of every row. A pipeline's job is to move bytes from a row-oriented, transaction-safe system into a column-oriented, scan-optimized one, and to do the reshaping (denormalizing joins, precomputing aggregates) the destination's storage layout expects.</p>
+<p>Mechanically, a batch pipeline acquires a delta of source data (a full snapshot, a timestamp filter, or a change-data-capture stream), holds it as an intermediate representation (a DataFrame, an in-memory Arrow buffer), applies transformation as vectorized column operations, and writes the result as new immutable files or upserted rows. Every stage boundary is also a checkpoint: if the process dies between extract and load, replaying from the last successful checkpoint rather than from scratch is what makes production pipelines resumable instead of catastrophic on failure.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Pick three data products you use in daily life (a bank app's transaction
 history, a music app's "Discover Weekly," a food-delivery ETA). For each one,

@@ -879,6 +879,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2522,6 +2544,9 @@ exactly the property lesson 10's capstone project is graded on.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Idempotency isn't a coding style — it's a property of the write operation relative to the source data. <code>INSERT</code> is not idempotent: running it twice with the same input produces duplicate rows, because the database has no idea the second batch is "the same" as the first. <code>INSERT ... ON CONFLICT (key) DO UPDATE</code> (upsert) <em>is</em> idempotent, because the database checks a unique constraint before deciding whether to insert or overwrite, so replaying the same batch converges to the same end state instead of accumulating duplicates. A full <code>DELETE</code> + <code>INSERT</code> scoped to a partition (rewrite-the-partition) is also idempotent by construction: no matter how many times you rerun it for <code>2024-01-15</code>, the partition ends up holding exactly that day's rows.</p>
+<p>This is why "extract" almost always means "extract a bounded, identifiable slice" (a partition, a <code>WHERE updated_at &gt;= watermark</code> filter) rather than "extract everything" — a slice gives you something concrete to overwrite atomically on retry, whereas an unbounded extract gives you no safe way to undo a partial, failed load.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Extend <code>transform</code> to also reject rows where <code>order_date</code> isn't a valid
 <code>YYYY-MM-DD</code> date (use <code>datetime.strptime</code> in a <code>try/except</code>), and rows where

@@ -1160,6 +1160,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2491,6 +2513,9 @@ and BigQuery instead use a <code>MERGE</code> statement with the same intent).</
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Window functions (<code>ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ...)</code>) execute in a phase distinct from <code>GROUP BY</code>: the engine partitions rows into the specified buckets, sorts each partition by the <code>ORDER BY</code> clause, then walks each sorted partition computing the running value (rank, running sum, lag/lead) per row — critically, without collapsing rows the way <code>GROUP BY</code> does. That's the mechanical reason a window function can sit alongside ungrouped, row-level columns in the same <code>SELECT</code>: it's a per-row annotation computed over a sorted, partitioned view of the data, not an aggregation that reduces cardinality.</p>
+<p><code>INSERT ... ON CONFLICT (key) DO UPDATE</code> (an upsert) is atomic at the row level because the database checks the unique/primary-key constraint on the conflict target and chooses insert-or-update behavior within the same statement's execution, under the same transaction and locks — there's no window where a concurrent writer could see a duplicate-key error and a stale row simultaneously. CTEs (<code>WITH x AS (...)</code>) are (in most engines) either inlined into the outer query plan or materialized as a temporary result set depending on the optimizer's cost estimate; either way they don't change <em>what</em> gets computed, only how the planner names and potentially reuses intermediate results, which is why CTEs are safe to reach for purely for readability.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Add a <code>discount_pct</code> window calculation: for each sale, compute what percent
 of that rep's total the sale represents (<code>amount / SUM(amount) OVER

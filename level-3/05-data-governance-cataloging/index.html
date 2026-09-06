@@ -1659,6 +1659,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2576,6 +2598,9 @@ when a dashboard shows nulls.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Cataloging is a pipeline problem because metadata (schema, classification, lineage) goes stale the instant a pipeline changes what it produces — a catalog populated by manual documentation drifts from reality within weeks, while a catalog populated by pipeline code itself (emitting its own output schema and column classifications as a side effect of running) stays accurate because it's generated from the same source of truth that produces the data. Column-level classification (tagging a column as PII, financial, or public) mechanically works the same way a schema check does: pattern-match column names/values against known sensitive patterns, or read explicit tags attached in code, and propagate that classification downstream through the lineage graph so a derived column inherits the sensitivity of the columns it was computed from.</p>
+<p>Lineage capture at the pipeline level means recording, for every write, which upstream tables/columns fed it and via which transformation — in practice this is often extracted by parsing the SQL a job executes (identifying tables in <code>FROM</code>/<code>JOIN</code> clauses) or by instrumenting the orchestrator to log task-to-table relationships. Row-level access control is enforced by rewriting a query to inject a filter (<code>WHERE region = current_user_region()</code>) transparently before execution, so the same view can return different rows to different users without duplicating the underlying table — this is a query-rewrite mechanism, not a separate copy of the data per user.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Extend <code>validate_against_contract</code> to also flag a contract violation when a
 column that the contract marks <code>nullable: False</code> is actually present with

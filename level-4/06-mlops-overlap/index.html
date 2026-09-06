@@ -2063,6 +2063,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2516,6 +2538,9 @@ labels, frequently delayed) catch up.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Training/serving skew happens because a feature computed in a batch training pipeline (say, a 30-day rolling average computed with full historical context available) and the "same" feature computed at serving time (computed online, possibly with a different windowing implementation or different available context) can produce numerically different values for what's conceptually the same feature — the model was trained on one distribution of that feature and serves against a subtly different one, degrading accuracy without any obvious error. A feature store's actual job is eliminating this by having exactly one code path compute a feature's definition, used by both the batch job that builds training sets and the online service that computes it at inference time.</p>
+<p>Point-in-time correctness (avoiding training-data leakage) requires that when building a training example for an event at time T, every feature used is computed only from data available <em>as of</em> T — not data that happened to exist when the training set was built later. This is why naive joins for feature engineering are dangerous: joining a "current" customer lifetime value onto historical training rows leaks future information (the model implicitly learns the outcome, since lifetime value computed today already includes purchases that happened after the training event), and it's the mechanical reason feature stores implement "as-of" joins keyed on event time rather than simple foreign-key joins. Distribution drift detection (comparing the statistical distribution of incoming feature values against the training distribution, via a KS-test or population stability index) matters for ML data quality specifically because a model can silently degrade on data that's perfectly well-formed by row-count/null-rate standards — the values are all present and valid, just shifted from what the model was trained to expect.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Modify <code>point_in_time_feature</code> to compute a <em>rolling 30-day</em> spend feature
 (only orders in the 30 days before <code>as_of</code>, not all-time history) and

@@ -1417,6 +1417,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2349,6 +2360,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2584,6 +2606,9 @@ and everything upstream.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>dbt does not execute transformations itself — every model compiles down to a <code>CREATE TABLE AS SELECT</code> or <code>CREATE VIEW AS SELECT</code> statement, and dbt hands that compiled SQL to the warehouse to execute. This is why dbt models are only ever as fast as the warehouse's own query engine: dbt's job is templating (Jinja <code>{{ ref() }}</code> resolves to the fully-qualified table name of the referenced model) and dependency ordering (the DAG dbt builds from <code>ref()</code> calls determines the topological order models run in), not query execution.</p>
+<p>Schema tests compile to a generic SQL query that's expected to return zero rows when the constraint holds — <code>unique</code> compiles to a <code>GROUP BY</code> + <code>HAVING COUNT(*) &gt; 1</code> query, <code>not_null</code> compiles to a <code>WHERE column IS NULL</code> query, and the test fails if that query returns any rows at all. This is exactly why custom (singular) tests follow the same contract: they're just a <code>.sql</code> file whose query is expected to return zero rows, letting dbt reuse one uniform pass/fail mechanism for both built-in and hand-written data quality checks. Lineage/documentation generation walks the same <code>ref()</code> dependency graph dbt already builds for execution ordering — the DAG diagram in <code>dbt docs</code> isn't separately computed, it's the same graph visualized.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Add a <code>relationships</code> schema test on <code>region_summary</code> — wait, that model
 has no foreign key to test directly, so instead add a new staging model

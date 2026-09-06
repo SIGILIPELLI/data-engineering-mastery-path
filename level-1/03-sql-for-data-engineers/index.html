@@ -829,6 +829,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2479,6 +2501,9 @@ SQL query, and it explains most "why can't I filter on this alias" confusion.</p
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A <code>JOIN</code> is not "look up the matching row" in the abstract — the query planner picks a concrete algorithm. For small tables it often builds a hash table on one side (usually the smaller one) keyed by the join column, then streams the other side probing that hash table row by row: O(n+m) instead of the O(n*m) a naive nested loop would cost. For already-sorted inputs (or joins on an indexed, sorted column) the planner may use a merge join instead, walking both sides in lock-step. <code>LEFT JOIN</code> doesn't change the algorithm, only the bookkeeping: unmatched left rows are still emitted, padded with <code>NULL</code>, instead of being dropped.</p>
+<p><code>GROUP BY</code>/<code>HAVING</code>/<code>WHERE</code> execute in a strict logical order regardless of how you write the SQL: <code>FROM</code>/<code>JOIN</code> build the row set, <code>WHERE</code> filters raw rows before any grouping happens, <code>GROUP BY</code> buckets the surviving rows (typically via a hash table keyed by the group columns, accumulating the aggregate per bucket as rows stream through), and <code>HAVING</code> filters the resulting groups. This is mechanically why <code>WHERE</code> can't reference an aggregate (the aggregate doesn't exist yet when <code>WHERE</code> runs) and <code>HAVING</code> can.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Add a <code>products</code> table and a <code>product_id</code> column on <code>orders</code>, but only insert
 products for <em>some</em> of the order rows' <code>product_id</code> values (leave a couple

@@ -980,6 +980,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2501,6 +2523,9 @@ installs Airflow and runs a DAG like this for real.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A pipeline's tasks form a directed graph where an edge A→B means "B must not start until A finishes." Computing a valid execution order is the classic topological sort: repeatedly find a node with no unprocessed incoming edges, emit it, remove its outgoing edges, and repeat (Kahn's algorithm) — this is literally what a scheduler like Airflow's does when it decides which tasks in a DAG are eligible to run at a given moment. A cycle (A depends on B which depends on A) breaks the algorithm outright: no node in the cycle ever has zero remaining incoming edges, so Kahn's algorithm terminates having emitted fewer nodes than exist in the graph — which is precisely how Airflow detects a cyclic DAG at parse time and refuses to schedule it, rather than deadlocking silently at runtime.</p>
+<p>Airflow's scheduler doesn't execute tasks itself; it continuously parses DAG files, computes which task instances have satisfied dependencies for the current run, and hands eligible tasks to an executor (LocalExecutor forks a subprocess, CeleryExecutor/KubernetesExecutor dispatch to workers). Each task instance's state (queued, running, success, failed) is persisted in the metadata database, which is what lets the scheduler resume correctly after a restart instead of re-deriving state from scratch.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Add a <code>notify_failure</code> task to the hand-rolled <code>dag</code> dict that should run
 whenever any of <code>extract_orders</code>, <code>extract_customers</code>, <code>clean_orders</code>, or

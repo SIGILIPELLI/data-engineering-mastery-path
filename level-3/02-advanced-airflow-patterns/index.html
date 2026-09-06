@@ -1575,6 +1575,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2540,6 +2562,9 @@ changing execution semantics at all.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Dynamic task mapping (<code>.expand()</code>) doesn't create tasks at DAG-parse time the way a <code>for</code> loop over a static list would — it creates one <em>task template</em> that the scheduler expands into N task instances at run time, once the upstream value determining N is known. This is mechanically different from a Python loop generating tasks: a Python loop needs the list at parse time (before any data has been processed), while mapped tasks can fan out based on a count only known after a prior task runs, like "one task per file returned by yesterday's extract."</p>
+<p>A sensor is a task that polls a condition (a file's existence, a partition landing) on an interval rather than doing work — in <code>poke</code> mode it occupies a worker slot the entire time it's waiting, which at scale exhausts available slots; in <code>reschedule</code> mode it releases the worker slot between polls and lets the scheduler re-queue it, trading slightly higher scheduling latency for not starving the pool. Cross-DAG dependencies (<code>ExternalTaskSensor</code>, datasets) exist because the scheduler's dependency graph is normally scoped to one DAG — an external sensor is really just a specialized poll against another DAG's metadata-database state, and the dataset-aware scheduling introduced in modern Airflow makes that dependency a first-class scheduler concept instead of a polling workaround.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Rewrite <code>process_regional_files</code> so <code>list_files()</code> instead queries a
 (mocked) database for "files pending processing today" and can return

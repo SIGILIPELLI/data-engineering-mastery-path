@@ -930,6 +930,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2239,6 +2250,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2416,6 +2438,9 @@ dashboards that get corrected in a nightly batch reconciliation.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Chunked processing exists because of a hard constraint: a process can only hold what fits in the memory allotted to it, but source data can be arbitrarily larger. Reading in chunks (via <code>pd.read_csv(chunksize=...)</code>, a cursor with <code>LIMIT</code>/<code>OFFSET</code> or, better, keyset pagination, or a generator that yields batches) bounds peak memory to one chunk's size regardless of total input size, at the cost of doing the read/transform/write cycle N times instead of once. Chunk size is a real tuning knob: too small and per-chunk overhead (function calls, I/O round trips, transaction commits) dominates; too large and you're back to the original memory problem.</p>
+<p>Windowing (tumbling, sliding, or session windows) is the batch-world's way of turning an unbounded conceptual stream into bounded units of work: a tumbling window groups events into fixed, non-overlapping time buckets (assign each row to <code>floor(timestamp / window_size)</code>), which is exactly the same bucketing operation a <code>GROUP BY DATE_TRUNC(...)</code> performs in SQL — batch windowing and streaming windowing are the same mathematical operation, just triggered by a schedule instead of by watermark-driven event arrival.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Extend the events list to 30 events spread across three hourly windows, with
 roughly 10% arriving "late" (event-time in an earlier window than their

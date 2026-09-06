@@ -1322,6 +1322,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2542,6 +2564,9 @@ overhead. A common target is 128MB-1GB of uncompressed data per row group.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Parquet's file layout is: a small header, then a sequence of row groups, each row group containing one column chunk per column, each column chunk further split into pages, and finally a footer holding the schema and, per column chunk, min/max statistics, null counts, and byte offsets. A reader that wants columns <code>a</code> and <code>c</code> out of ten seeks directly to those column chunks' byte offsets (found in the footer) and never touches the bytes for the other eight columns — this is column pruning, and it's a physical I/O optimization, not a logical query-planning trick. Predicate pushdown goes further: because the footer stores each column chunk's min/max, a filter like <code>WHERE amount &gt; 1000</code> lets the reader skip entire row groups whose max <code>amount</code> is below 1000 without decompressing a single byte of them.</p>
+<p>Arrow is the missing piece that makes Parquet fast to <em>use</em>, not just fast to store: Arrow defines an in-memory columnar layout that is essentially what Parquet's column chunks decompress into, so a library like DuckDB or Polars can read a Parquet column chunk, decompress it, and hand it to the query engine as an Arrow array with zero row-by-row conversion — the on-disk columnar format and the in-memory columnar format are structurally the same shape, which is why "zero-copy" interchange between pandas/Polars/DuckDB via Arrow is possible at all.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Take the <code>table</code> from the top of this lesson, write it as Parquet with 4
 separate single-row row groups, then use <code>pyarrow.dataset</code> with a filter on

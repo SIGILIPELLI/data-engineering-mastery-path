@@ -1378,6 +1378,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2535,6 +2557,9 @@ detection or real-time bidding.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A Kafka topic is physically split into partitions, and each partition is an append-only log stored as a sequence of immutable segment files on disk — a producer write is just an append to the end of the current segment file, which is why Kafka can sustain very high write throughput: sequential disk writes are dramatically cheaper than random writes. Each message gets a monotonically increasing offset <em>within its partition</em> (there is no global ordering across partitions), which is the mechanical reason Kafka only guarantees ordering per-partition, not per-topic, and why choosing a partition key that groups related events together matters.</p>
+<p>Consumer groups achieve parallelism by having Kafka assign each partition to exactly one consumer within the group at a time — so a topic with 8 partitions can be consumed in parallel by up to 8 consumers in one group, each independently tracking its own committed offset per partition. Exactly-once delivery is hard precisely because "consume a message, process it, commit the offset" is three separate operations: at-least-once means committing the offset only after processing succeeds (a crash before commit causes reprocessing of an already-handled message); at-most-once means committing before processing (a crash after commit loses the message); true exactly-once requires either an idempotent consumer (safe to reprocess) or Kafka's transactional API tying offset commits and output writes into one atomic unit.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Design (in pseudocode, no broker needed) a consumer that processes
 <code>user_events</code> in 60-second micro-batches instead of one message at a time:

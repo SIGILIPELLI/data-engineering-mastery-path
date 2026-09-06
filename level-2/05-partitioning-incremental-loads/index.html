@@ -1283,6 +1283,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2559,6 +2581,9 @@ whole history.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Partitioning speeds up queries through partition pruning: when a table is physically split into separate files/directories by a column (commonly a date), and a query filters on that column, the query engine can consult partition metadata (directory names, or a catalog's partition list) and skip reading the files for partitions that can't match the filter — entirely at the file-selection stage, before any row is even opened. This is why <code>WHERE order_date = '2024-01-15'</code> against a table partitioned by <code>order_date</code> can be orders of magnitude faster than the same filter against an unpartitioned table: the engine physically never touches the other 364 days of files.</p>
+<p>A high-water mark works because most operational tables have a monotonically increasing <code>updated_at</code>/<code>id</code> column: storing the maximum value seen on the last successful run and filtering <code>WHERE updated_at &gt; last_watermark</code> on the next run captures exactly the rows that changed since then, without rescanning the entire source. The failure mode this misses is <em>deletions</em> and <em>silent backdated updates</em> — a hash-based change-tracking approach (storing a hash of each row's content and comparing hashes on the next pass) catches content changes a watermark would miss, but at the cost of having to read every row to compute its hash, trading pruning efficiency for correctness completeness.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Extend <code>incremental_load()</code> so the high-water-mark update happens inside the
 same <code>BEGIN</code>/<code>COMMIT</code> as the row inserts (currently they share a connection

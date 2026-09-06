@@ -1754,6 +1754,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2551,6 +2573,9 @@ spend, team skills) more than a raw technical gap.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Storage/compute separation means the bytes on disk (in Snowflake's or BigQuery's blob storage layer) are decoupled from the machines that scan them — a virtual warehouse or a set of slots is compute capacity you can resize or suspend independently of the data it reads, which is what makes "scale compute up for a big job, then back down to zero" possible without touching storage at all. Snowflake's auto-suspend works by tracking warehouse idle time and deallocating the compute cluster after a threshold, so you stop paying for compute the moment nothing is running, while the data itself remains durably stored regardless of whether any warehouse is active.</p>
+<p>BigQuery's on-demand pricing charges per byte scanned, which is exactly why partition pruning and column selection have a direct, visible dollar cost in BigQuery: a query against a partitioned, clustered table that prunes to one partition and selects two columns scans (and is billed for) only those bytes, while <code>SELECT *</code> against an unpartitioned table scans everything. Redshift's distribution and sort keys control physical row placement across compute nodes: a distribution key determines which node a row lives on (matching join keys across tables to the same distribution key avoids a network shuffle during the join, the same problem Spark solves with broadcast/shuffle joins), and a sort key determines physical row order within a node, which lets zone maps skip blocks whose min/max range can't satisfy a filter — the same min/max-based pruning Parquet does at the file level, applied at the storage-block level instead.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Given a <code>customers</code> table clustered by <code>signup_date</code> in BigQuery and a
 common query pattern <code>WHERE signup_date &gt;= '2024-01-01' AND country = 'US'</code>,

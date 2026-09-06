@@ -1569,6 +1569,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2349,6 +2360,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2568,6 +2590,9 @@ worthwhile only when a DataFrame is reused multiple times.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Spark's laziness exists because building an execution plan before running anything lets the Catalyst optimizer rewrite the whole chain of transformations — pushing filters down before joins, pruning unused columns, reordering operations — instead of executing each <code>.filter()</code>/<code>.select()</code> call naively as it's written. Nothing actually runs until an action (<code>.collect()</code>, <code>.write()</code>, <code>.count()</code>) triggers execution of the optimized physical plan; calling <code>.filter()</code> just appends a node to a logical plan graph.</p>
+<p>A DataFrame is split into partitions — chunks of rows distributed across executor cores/machines — and most transformations (<code>filter</code>, <code>select</code>, <code>map</code>) apply independently per partition with zero cross-machine communication, which is why they're cheap and scale near-linearly. A shuffle is the expensive exception: operations like <code>groupBy</code>, <code>join</code>, or <code>repartition</code> require rows with the same key to end up on the same partition, which means writing every partition's data to disk, sending it across the network keyed by hash, and re-reading it on the receiving side — this disk-plus-network round trip is why "minimize shuffles" is the single biggest Spark performance lever, and why joining a large table against a small one uses a broadcast join instead (copying the small table to every executor so no shuffle is needed at all).</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Using the same <code>df</code>/<code>customers</code> DataFrames, write a query that computes
 total amount per <code>tier</code>, joining first (letting Spark auto-broadcast

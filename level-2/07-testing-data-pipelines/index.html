@@ -1339,6 +1339,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2529,6 +2551,9 @@ would never notice.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Unit-testing a transform function works because a well-written transform is a pure function: given the same input DataFrame, it produces the same output DataFrame, with no hidden dependency on wall-clock time, an external API, or database state. That purity is what lets a test construct a small, hand-crafted input (a fixture) and assert an exact expected output — the moment a transform reaches out to <code>datetime.now()</code> or a live connection, the same test becomes flaky, because the function's output now depends on when or where it runs, not just what it's given.</p>
+<p>Testing idempotency mechanically means running the full write path twice against the same input and diffing the destination's state before and after the second run — if the diff is empty, the write is idempotent. Testing a schema contract means asserting the transform's <em>output</em> schema (column names, types, nullability) against a fixed expected schema, independent of the data values — this catches a transform silently returning an extra or renamed column, which a value-only assertion would miss entirely, and it's the same check a schema-drift gate makes in production, just run at test time before the transform is trusted with real data.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Add a data quality check, <code>amount_within_bounds</code>, that fails if any
 <code>amount</code> exceeds a configurable <code>max_amount</code> (say 100,000) — a common guard
