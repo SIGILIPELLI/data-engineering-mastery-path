@@ -167,6 +167,12 @@ A platform team functioning as a "platform" in the Team Topologies sense means i
 
 Measuring platform success can't use the same metrics as a feature team (revenue, user engagement) because the platform team is a level removed from the end user — the real signal is adoption (how many teams use the golden path vs. build their own) and time-to-first-value for a new team onboarding, because both directly measure whether the self-service capability is actually reducing other teams' work, which is the platform team's entire value proposition. On-call for a platform team differs from an application on-call because a platform incident (the shared orchestrator down, a shared catalog unavailable) has a blast radius spanning every team that depends on it, which is why platform on-call runbooks tend to prioritize fast mitigation (failover, rollback) over root-cause diagnosis during the incident itself — every minute of platform downtime is multiplied across every dependent team.
 
+## 🔀 Related lessons on other tracks
+
+- [Azure — 08 · Data Platform at Scale (Synapse, Data Factory)](https://sigilipelli.github.io/azure-mastery-path/level-4/08-data-platform-at-scale/)
+- [Data Science — 03 · Building a Data Science Platform](https://sigilipelli.github.io/data-science-mastery-path/level-4/03-data-science-platform/)
+- [ETL & Data Lake — 09 · Building a Data Platform Team](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/09-building-a-platform-team/)
+
 ## Exercise
 
 Using `score_platform_initiative`, score two real or hypothetical platform

@@ -199,6 +199,12 @@ Multi-tenancy at the platform level is enforced through a combination of physica
 
 Self-service onboarding works because the platform team ships golden-path templates (a parameterized Terraform module, a cookiecutter DAG template) rather than manually provisioning each new team's infrastructure — a new team instantiates the template with their own parameters and gets a working, governed setup without a platform engineer in the loop, which is what makes the platform scale sub-linearly with team count. Interface stability distinguishes what's contractual (a table schema, an API a consuming team depends on) from what's internal (the DAG's task names, the compute engine used to build a table) — the platform team can freely refactor internals as long as the contractual interface's shape doesn't change, which is the same reasoning behind API versioning in application engineering, applied to data.
 
+## 🔀 Related lessons on other tracks
+
+- [ETL & Data Lake — 10 · Capstone — Governed Enterprise Data Lake Architecture](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/10-capstone-enterprise-lake-architecture/)
+- [Excel — 01 · Enterprise Excel Architecture](https://sigilipelli.github.io/excel-mastery-path/level-4/01-enterprise-excel-architecture/)
+- [LLM Dev — 03 · Production LLM Platform Architecture](https://sigilipelli.github.io/llm-dev-mastery-path/level-4/03-llm-platform-architecture/)
+
 ## Exercise
 
 For your own organization (or a hypothetical one with 5 data-producing

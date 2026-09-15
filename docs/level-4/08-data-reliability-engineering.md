@@ -203,6 +203,11 @@ An SLI is a directly measurable quantity (freshness lag, percentage of rows pass
 
 Choosing SLIs that matter to consumers (rather than ones convenient to measure) means picking metrics tied to what breaks a downstream report or model, not just what the orchestrator already exposes — job success rate is easy to measure but can be 100% while the *data* itself is wrong (a job that completes successfully but writes zero rows, or the wrong rows, is by job-status metrics a success). Blameless postmortems work by structuring the incident writeup around the timeline and the systemic gap that allowed the failure (a missing quality gate, an untested edge case), rather than around who ran the command that triggered it — this isn't just a cultural nicety, it's what makes the postmortem's findings actionable as a *system* fix (add the missing gate) instead of an unenforceable behavioral one ("be more careful"), which is why runbooks derived from postmortems reduce time-to-mitigate on the next, inevitably similar, incident.
 
+## 🔀 Related lessons on other tracks
+
+- [IBM Cloud — 09 · Site Reliability Engineering on IBM Cloud](https://sigilipelli.github.io/ibm-cloud-mastery-path/level-4/09-sre-on-ibm-cloud/)
+- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://sigilipelli.github.io/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
+
 ## Exercise
 
 Define a concrete SLI, SLO, and error budget for a pipeline you've worked

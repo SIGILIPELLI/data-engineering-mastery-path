@@ -202,6 +202,11 @@ pandas (and Polars, DuckDB's DataFrame API) get their speed from the same trick:
 
 `groupby` internally sorts or hashes the grouping key to bucket row indices, then applies the aggregation function to each bucket's slice of the underlying array — this is why `groupby` on a low-cardinality column (few distinct values) is cheap and on a high-cardinality column (like a UUID) approaches the cost of processing every row individually. `merge`/`join` operations build a hash table on the smaller side's join key and probe it with the larger side, which is exactly the hash-join algorithm a SQL engine uses — the difference is pandas does it in-process, in memory, bounded by RAM, with no query optimizer choosing the join strategy for you.
 
+## 🔀 Related lessons on other tracks
+
+- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://sigilipelli.github.io/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
+- [Data Science — 02 · Python for Data Science](https://sigilipelli.github.io/data-science-mastery-path/level-1/02-python-for-data-science/)
+
 ## Exercise
 
 Using the `df` from this lesson, write code that computes revenue by region

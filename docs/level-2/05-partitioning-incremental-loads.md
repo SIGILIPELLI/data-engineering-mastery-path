@@ -241,6 +241,10 @@ Partitioning speeds up queries through partition pruning: when a table is physic
 
 A high-water mark works because most operational tables have a monotonically increasing `updated_at`/`id` column: storing the maximum value seen on the last successful run and filtering `WHERE updated_at > last_watermark` on the next run captures exactly the rows that changed since then, without rescanning the entire source. The failure mode this misses is *deletions* and *silent backdated updates* — a hash-based change-tracking approach (storing a hash of each row's content and comparing hashes on the next pass) catches content changes a watermark would miss, but at the cost of having to read every row to compute its hash, trading pruning efficiency for correctness completeness.
 
+## 🔀 Related lessons on other tracks
+
+- [ETL & Data Lake — 01 · Incremental Loads & Change Data Capture](https://sigilipelli.github.io/etl-datalake-mastery-path/level-2/01-incremental-loads-cdc/)
+
 ## Exercise
 
 Extend `incremental_load()` so the high-water-mark update happens inside the

@@ -229,3 +229,9 @@ Structured Streaming, or a managed alternative (e.g. a cloud-native
 streaming service)?" — following the same Context/Decision/Alternatives/
 Consequences structure as ADR-001 above, and justify it against this
 scenario's specific constraints (team size, budget, existing skills).
+
+## 🔀 Related lessons on other tracks
+
+- [Edge AI — Data Collection & Dataset Design](https://sigilipelli.github.io/edge-ai-mastery-path/level-2/04-data-collection-datasets/)
+- [Azure — 08 · Data Platform at Scale (Synapse, Data Factory)](https://sigilipelli.github.io/azure-mastery-path/level-4/08-data-platform-at-scale/)
+- [Data Science — 03 · Building a Data Science Platform](https://sigilipelli.github.io/data-science-mastery-path/level-4/03-data-science-platform/)

@@ -223,6 +223,10 @@ Operational metrics (task duration, success/failure counts, queue depth) come di
 
 Row-count anomaly detection is typically a simple statistical test — comparing today's count against a rolling mean and standard deviation of recent days, and alerting if today's value falls outside some number of standard deviations — which is cheap to compute and catches the common failure modes (an upstream source going empty, a duplicate load doubling counts) without needing a trained model. Freshness (time since the last successful load, or the max event timestamp present in the table) matters more to consumers than uptime metrics because a pipeline can be "running successfully" on schedule while silently processing zero new rows — freshness is computed from the data's own timestamps, not from the job's exit code, which is exactly why it catches failures job-status metrics miss.
 
+## 🔀 Related lessons on other tracks
+
+- [ETL & Data Lake — 08 · Monitoring & Alerting for Pipelines](https://sigilipelli.github.io/etl-datalake-mastery-path/level-2/08-monitoring-alerting/)
+
 ## Exercise
 
 Extend `is_row_count_anomalous` to also account for a known weekly

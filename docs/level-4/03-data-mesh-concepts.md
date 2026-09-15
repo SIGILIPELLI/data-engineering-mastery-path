@@ -189,6 +189,10 @@ A data product being domain-owned works because ownership is enforced at the inf
 
 The self-serve platform's job is deliberately narrow: it provides the paved-road infrastructure (a standard way to publish a table, register it in a catalog, expose it via a governed access pattern) but does not own any domain's transformation logic — this separation is what keeps the platform team from becoming the same central bottleneck a data mesh is trying to eliminate. Federated governance enforced by tooling means global rules (PII must be tagged, schemas must be registered, contracts must pass validation) are checked automatically at publish time by shared tooling, rather than reviewed by a central committee per dataset — the rule is centrally defined but its enforcement is decentralized and automatic, which is the actual mechanism that lets domain teams move independently while still meeting a shared bar.
 
+## 🔀 Related lessons on other tracks
+
+- [ETL & Data Lake — 05 · Data Mesh & Domain-Oriented Lake Ownership](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/05-data-mesh-domain-ownership/)
+
 ## Exercise
 
 For a hypothetical company with 4 domains (orders, marketing, inventory,

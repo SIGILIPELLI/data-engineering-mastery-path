@@ -183,6 +183,12 @@ Schema drift detection works by comparing an observed schema (column names, type
 
 `NULL` is not one value with one meaning; a validation gate has to encode which meaning is expected per column. `NULL` can mean "not yet known" (a shipped_at date before shipping), "not applicable" (a discount_code column for an order with no discount), or "missing due to upstream failure" (a required customer_id that's null because an API call errored). A blanket `NOT NULL` check conflates all three, so a real validation gate checks nullability per-column against what that column's semantics actually allow, and treats a null failing that check as a hard stop rather than a warning.
 
+## 🔀 Related lessons on other tracks
+
+- [ETL & Data Lake — 02 · Data Quality Checks & Validation](https://sigilipelli.github.io/etl-datalake-mastery-path/level-2/02-data-quality-validation/)
+- [Excel — 09 · Data Validation & Cleaning](https://sigilipelli.github.io/excel-mastery-path/level-1/09-data-validation-cleaning/)
+- [Pyspark — 07 · Data Quality Gates](https://sigilipelli.github.io/pyspark-mastery-path/level-4/07-data-quality-gates/)
+
 ## Exercise
 
 Take the `validate()` function above and add a check for **duplicate primary

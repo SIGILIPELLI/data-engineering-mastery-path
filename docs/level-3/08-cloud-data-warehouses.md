@@ -215,6 +215,12 @@ Storage/compute separation means the bytes on disk (in Snowflake's or BigQuery's
 
 BigQuery's on-demand pricing charges per byte scanned, which is exactly why partition pruning and column selection have a direct, visible dollar cost in BigQuery: a query against a partitioned, clustered table that prunes to one partition and selects two columns scans (and is billed for) only those bytes, while `SELECT *` against an unpartitioned table scans everything. Redshift's distribution and sort keys control physical row placement across compute nodes: a distribution key determines which node a row lives on (matching join keys across tables to the same distribution key avoids a network shuffle during the join, the same problem Spark solves with broadcast/shuffle joins), and a sort key determines physical row order within a node, which lets zone maps skip blocks whose min/max range can't satisfy a filter — the same min/max-based pruning Parquet does at the file level, applied at the storage-block level instead.
 
+## 🔀 Related lessons on other tracks
+
+- [Data Science — 04 · Working with Big Data](https://sigilipelli.github.io/data-science-mastery-path/level-3/04-working-with-big-data/)
+- [Product Manager — 06 · Working with Data Teams](https://sigilipelli.github.io/product-manager-mastery-path/level-2/06-working-with-data-teams/)
+- [Tableau — 07 · Working with Multiple Data Sources](https://sigilipelli.github.io/tableau-mastery-path/level-2/07-multiple-data-sources/)
+
 ## Exercise
 
 Given a `customers` table clustered by `signup_date` in BigQuery and a

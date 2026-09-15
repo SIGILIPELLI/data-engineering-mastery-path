@@ -183,6 +183,10 @@ A `JOIN` is not "look up the matching row" in the abstract — the query planner
 
 `GROUP BY`/`HAVING`/`WHERE` execute in a strict logical order regardless of how you write the SQL: `FROM`/`JOIN` build the row set, `WHERE` filters raw rows before any grouping happens, `GROUP BY` buckets the surviving rows (typically via a hash table keyed by the group columns, accumulating the aggregate per bucket as rows stream through), and `HAVING` filters the resulting groups. This is mechanically why `WHERE` can't reference an aggregate (the aggregate doesn't exist yet when `WHERE` runs) and `HAVING` can.
 
+## 🔀 Related lessons on other tracks
+
+- [Data Science — 08 · SQL for Data Scientists](https://sigilipelli.github.io/data-science-mastery-path/level-2/08-sql-for-data-scientists/)
+
 ## Exercise
 
 Add a `products` table and a `product_id` column on `orders`, but only insert

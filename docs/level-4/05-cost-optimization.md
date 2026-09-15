@@ -201,6 +201,12 @@ Compute cost in a cloud data platform is overwhelmingly driven by two things: ho
 
 Storage lifecycle policies (auto-tiering cold data to cheaper storage classes, expiring old partitions) work because object storage pricing is tiered by access frequency assumption, not just volume — data nobody has read in 90 days costs the same to store in a hot tier as data read every hour, so a lifecycle rule that demotes it based on last-access time captures savings with no code change. Spot instances for Spark work because Spark's own fault tolerance (recomputing a lost partition from its lineage, the same DAG-based lazy evaluation covered earlier) already handles a worker disappearing mid-job — spot instances being reclaimable on short notice is a cost the framework was already built to absorb, which is why Spark clusters tolerate spot pricing far better than a stateful, non-fault-tolerant service would.
 
+## 🔀 Related lessons on other tracks
+
+- [AI/ML — 08 · Cost Optimization & Efficient Inference](https://sigilipelli.github.io/ai-ml-mastery-path/level-4/08-efficient-inference/)
+- [AWS — Cost Optimization at Scale](https://sigilipelli.github.io/aws-mastery-path/level-4/06-cost-optimization-at-scale/)
+- [Azure — 09 · Cost Management & Optimization](https://sigilipelli.github.io/azure-mastery-path/level-3/09-cost-management-optimization/)
+
 ## Exercise
 
 Given a BigQuery table scanned by 200 identical daily dashboard queries

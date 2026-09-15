@@ -252,6 +252,12 @@ Cataloging is a pipeline problem because metadata (schema, classification, linea
 
 Lineage capture at the pipeline level means recording, for every write, which upstream tables/columns fed it and via which transformation — in practice this is often extracted by parsing the SQL a job executes (identifying tables in `FROM`/`JOIN` clauses) or by instrumenting the orchestrator to log task-to-table relationships. Row-level access control is enforced by rewriting a query to inject a filter (`WHERE region = current_user_region()`) transparently before execution, so the same view can return different rows to different users without duplicating the underlying table — this is a query-rewrite mechanism, not a separate copy of the data per user.
 
+## 🔀 Related lessons on other tracks
+
+- [ETL & Data Lake — 03 · Data Cataloging & Metadata Management](https://sigilipelli.github.io/etl-datalake-mastery-path/level-3/03-data-cataloging-metadata/)
+- [AI Manager — 04 · Data Governance Basics](https://sigilipelli.github.io/ai-manager-mastery-path/level-2/04-data-governance-basics/)
+- [AI Tools — 07 · Data Governance for AI Tool Usage](https://sigilipelli.github.io/ai-tools-mastery-path/level-3/07-data-governance/)
+
 ## Exercise
 
 Extend `validate_against_contract` to also flag a contract violation when a

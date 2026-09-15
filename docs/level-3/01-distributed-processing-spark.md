@@ -215,6 +215,10 @@ Spark's laziness exists because building an execution plan before running anythi
 
 A DataFrame is split into partitions — chunks of rows distributed across executor cores/machines — and most transformations (`filter`, `select`, `map`) apply independently per partition with zero cross-machine communication, which is why they're cheap and scale near-linearly. A shuffle is the expensive exception: operations like `groupBy`, `join`, or `repartition` require rows with the same key to end up on the same partition, which means writing every partition's data to disk, sending it across the network keyed by hash, and re-reading it on the receiving side — this disk-plus-network round trip is why "minimize shuffles" is the single biggest Spark performance lever, and why joining a large table against a small one uses a broadcast join instead (copying the small table to every executor so no shuffle is needed at all).
 
+## 🔀 Related lessons on other tracks
+
+- [Pyspark — 01 · What Is Spark & Why Distributed Processing](https://sigilipelli.github.io/pyspark-mastery-path/level-1/01-what-is-spark-distributed-processing/)
+
 ## Exercise
 
 Using the same `df`/`customers` DataFrames, write a query that computes

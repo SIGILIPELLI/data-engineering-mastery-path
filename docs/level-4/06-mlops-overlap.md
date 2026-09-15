@@ -193,6 +193,11 @@ Training/serving skew happens because a feature computed in a batch training pip
 
 Point-in-time correctness (avoiding training-data leakage) requires that when building a training example for an event at time T, every feature used is computed only from data available *as of* T — not data that happened to exist when the training set was built later. This is why naive joins for feature engineering are dangerous: joining a "current" customer lifetime value onto historical training rows leaks future information (the model implicitly learns the outcome, since lifetime value computed today already includes purchases that happened after the training event), and it's the mechanical reason feature stores implement "as-of" joins keyed on event time rather than simple foreign-key joins. Distribution drift detection (comparing the statistical distribution of incoming feature values against the training distribution, via a KS-test or population stability index) matters for ML data quality specifically because a model can silently degrade on data that's perfectly well-formed by row-count/null-rate standards — the values are all present and valid, just shifted from what the model was trained to expect.
 
+## 🔀 Related lessons on other tracks
+
+- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://sigilipelli.github.io/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
+- [Data Science — 04 · MLOps for Data Scientists](https://sigilipelli.github.io/data-science-mastery-path/level-4/04-mlops-for-data-scientists/)
+
 ## Exercise
 
 Modify `point_in_time_feature` to compute a *rolling 30-day* spend feature

@@ -172,6 +172,10 @@ CSV and JSON are byte-serialized as text with no embedded type information: `42`
 
 Read speed differences come from physical layout, not just parsing cost. CSV must be scanned close to linearly since row boundaries are only found by scanning for newlines and fields by scanning for commas (with quoting rules complicating that further). Parquet stores data column-by-column with a footer listing byte offsets for each column chunk, so reading three columns out of thirty means seeking directly to those column chunks and skipping the rest of the file's bytes entirely — I/O scales with columns selected, not file size.
 
+## 🔀 Related lessons on other tracks
+
+- [ETL & Data Lake — 08 · File Formats: CSV, JSON, Parquet, Avro](https://sigilipelli.github.io/etl-datalake-mastery-path/level-1/08-file-formats/)
+
 ## Exercise
 
 Take the `orders.csv` from this lesson, delete a handful of `amount` values to

@@ -147,6 +147,10 @@ Chunked processing exists because of a hard constraint: a process can only hold 
 
 Windowing (tumbling, sliding, or session windows) is the batch-world's way of turning an unbounded conceptual stream into bounded units of work: a tumbling window groups events into fixed, non-overlapping time buckets (assign each row to `floor(timestamp / window_size)`), which is exactly the same bucketing operation a `GROUP BY DATE_TRUNC(...)` performs in SQL — batch windowing and streaming windowing are the same mathematical operation, just triggered by a schedule instead of by watermark-driven event arrival.
 
+## 🔀 Related lessons on other tracks
+
+- [Adobe — 07 · Photoshop Automation (Actions & Batch Processing)](https://sigilipelli.github.io/adobe-mastery-path/level-2/07-photoshop-automation-actions/)
+
 ## Exercise
 
 Extend the events list to 30 events spread across three hourly windows, with

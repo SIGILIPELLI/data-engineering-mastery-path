@@ -256,6 +256,12 @@ automatically in many cases.
 
 Spark's physical plan (`.explain()`) shows the same kind of information at Spark's granularity: whether a join was broadcast (no shuffle) or sort-merge (full shuffle), and where `Exchange` nodes appear — each `Exchange` is a shuffle boundary, and counting them in the plan is a direct measure of how much network/disk I/O the query will incur. Partition skew — one partition holding far more rows than others because of an uneven key distribution — shows up as a job where most tasks finish quickly and a handful run far longer, because Spark parallelism is bounded by the slowest partition in a stage, not the average.
 
+## 🔀 Related lessons on other tracks
+
+- [Freertos — Performance Tuning & Measurement](https://sigilipelli.github.io/freertos-mastery-path/level-3/08-performance-tuning/)
+- [Pyspark — 05 · Performance Tuning](https://sigilipelli.github.io/pyspark-mastery-path/level-3/05-performance-tuning/)
+- [Tableau — 05 · Advanced Performance Tuning](https://sigilipelli.github.io/tableau-mastery-path/level-3/06-advanced-performance-tuning/)
+
 ## Exercise
 
 Take the `tax_slow` function above, profile it against a 500k-row

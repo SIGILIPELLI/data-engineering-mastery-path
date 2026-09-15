@@ -279,6 +279,10 @@ This project's bronze/silver/gold structure is the medallion architecture implem
 
 The quality gate sitting between silver and gold, rather than only at bronze, exists because dedup and join logic can itself introduce new problems (a bad join key fanning out rows, a dedup rule collapsing legitimately distinct records) that wouldn't have been visible in bronze's raw, unjoined data — checking again after the shuffle-heavy transformations catches errors the transformation itself introduced, not just errors inherited from the source. Wiring this into an Airflow DAG with a monitoring hook closes the loop: task-level retries handle transient Spark failures, and the monitoring hook (emitting row counts/duration per stage) is what lets an on-call engineer diagnose *which* layer degraded without re-deriving that from scratch during an incident.
 
+## 🔀 Related lessons on other tracks
+
+- [Pyspark — 10 · Capstone Tuned Batch Pipeline](https://sigilipelli.github.io/pyspark-mastery-path/level-3/10-capstone-tuned-batch-pipeline/)
+
 ## Exercise
 
 Replace the silver layer's `mode("overwrite")` with a Delta `MERGE INTO`

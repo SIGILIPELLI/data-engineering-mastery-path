@@ -165,6 +165,12 @@ Seniority in data engineering is mechanically distinguishable by scope of judgme
 
 A portfolio that actually demonstrates Level 3-4 material has to show artifacts of judgment, not just working code: an ADR (architecture decision record) explaining why a lakehouse over a warehouse for a specific scenario, a postmortem showing how an incident was diagnosed and what systemic fix followed, a cost-optimization writeup showing before/after numbers — these demonstrate the reasoning process a senior role is evaluated on, which a polished pipeline repository alone does not, because "the code works" is table stakes at that level, not the differentiator.
 
+## 🔀 Related lessons on other tracks
+
+- [Automotive Testing — 09 · Career Growth in Automotive Test Engineering](https://sigilipelli.github.io/automotive-testing-mastery-path/level-4/09-career-growth/)
+- [Data Science — 09 · Career Growth: IC to Principal Data Scientist](https://sigilipelli.github.io/data-science-mastery-path/level-4/09-career-growth/)
+- [Pyspark — 09 · Career Growth Big Data](https://sigilipelli.github.io/pyspark-mastery-path/level-4/09-career-growth-big-data/)
+
 ## Exercise
 
 Fill in the self-assessment rubric honestly for yourself right now, pick

@@ -143,6 +143,10 @@ felt the pain that streaming exists to solve.
 
 Mechanically, a batch pipeline acquires a delta of source data (a full snapshot, a timestamp filter, or a change-data-capture stream), holds it as an intermediate representation (a DataFrame, an in-memory Arrow buffer), applies transformation as vectorized column operations, and writes the result as new immutable files or upserted rows. Every stage boundary is also a checkpoint: if the process dies between extract and load, replaying from the last successful checkpoint rather than from scratch is what makes production pipelines resumable instead of catastrophic on failure.
 
+## 🔀 Related lessons on other tracks
+
+- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://sigilipelli.github.io/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
+
 ## Exercise
 
 Pick three data products you use in daily life (a bank app's transaction

@@ -197,6 +197,10 @@ Plain Parquet-on-object-storage lacks two things a table needs: atomic multi-fil
 
 Schema evolution works because the manifest stores column IDs, not column positions — adding, renaming, or reordering a column only changes the mapping in the manifest's schema definition, not the bytes of already-written data files, so old files remain readable under the new schema without a rewrite. Compaction exists because streaming/micro-batch writes naturally produce many small files (each write commits its own new files), and small files mean the query engine pays per-file open/seek overhead disproportionate to the data they hold — a compaction job periodically rewrites a set of small files into fewer, larger ones and atomically swaps them into the table's manifest, exactly the mechanism medallion architectures rely on to keep bronze/silver layers query-efficient over time.
 
+## 🔀 Related lessons on other tracks
+
+- [ETL & Data Lake — 10 · Capstone — Governed Enterprise Data Lake Architecture](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/10-capstone-enterprise-lake-architecture/)
+
 ## Exercise
 
 Extend `build_silver` to also write a `_dq_rejected` sibling file

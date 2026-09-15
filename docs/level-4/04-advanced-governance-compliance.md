@@ -212,6 +212,12 @@ Right-to-erasure against an append-only, immutable lake table (Iceberg/Delta/Hud
 
 Derived aggregates are the part people forget because deleting the source row doesn't retroactively un-compute a `SUM()` or a trained model feature that already incorporated that row's value — a real erasure pipeline has to trace lineage forward from the deleted row to every materialized aggregate/feature it contributed to and either recompute those or accept a documented, bounded staleness window. Consent tracking as a joinable table (rather than a flag baked into each record) works because consent state changes independently of the data it governs — storing `(user_id, consent_type, granted_at, revoked_at)` as its own table lets every downstream query join against current consent state at query time, rather than requiring every table that touches user data to be individually updated whenever consent changes.
 
+## 🔀 Related lessons on other tracks
+
+- [AI Manager — 02 · AI Governance & Compliance](https://sigilipelli.github.io/ai-manager-mastery-path/level-3/02-ai-governance-compliance/)
+- [AWS — Compliance & Governance (Config, Audit Manager)](https://sigilipelli.github.io/aws-mastery-path/level-4/08-compliance-governance/)
+- [ETL & Data Lake — 06 · Compliance & Retention in Data Lakes](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/06-compliance-retention/)
+
 ## Exercise
 
 Extend `find_all_tables_referencing_subject` to also flag which of the
