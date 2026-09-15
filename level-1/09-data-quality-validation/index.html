@@ -1014,6 +1014,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2289,6 +2300,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-lessons-on-other-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Related lessons on other tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2498,6 +2520,12 @@ deciding to override it.</p>
 <h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
 <p>Schema drift detection works by comparing an observed schema (column names, types, nullability inferred from an actual batch of data) against an expected schema (a stored contract, or the schema of a previous successful run) before the batch is allowed to write to the destination. Mechanically this is nothing more than a diff over two ordered lists of <code>(name, type)</code> pairs, but doing it <em>before</em> the load — rather than letting a warehouse's <code>ALTER TABLE ADD COLUMN</code> or a type-widening cast happen implicitly — is what turns a silent schema change into a loud, actionable failure at the pipeline boundary instead of a corrupted downstream report discovered days later.</p>
 <p><code>NULL</code> is not one value with one meaning; a validation gate has to encode which meaning is expected per column. <code>NULL</code> can mean "not yet known" (a shipped_at date before shipping), "not applicable" (a discount_code column for an order with no discount), or "missing due to upstream failure" (a required customer_id that's null because an API call errored). A blanket <code>NOT NULL</code> check conflates all three, so a real validation gate checks nullability per-column against what that column's semantics actually allow, and treats a null failing that check as a hard stop rather than a warning.</p>
+<h2 id="related-lessons-on-other-tracks">🔀 Related lessons on other tracks<a class="headerlink" href="#related-lessons-on-other-tracks" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://sigilipelli.github.io/etl-datalake-mastery-path/level-2/02-data-quality-validation/">ETL &amp; Data Lake — 02 · Data Quality Checks &amp; Validation</a></li>
+<li><a href="https://sigilipelli.github.io/excel-mastery-path/level-1/09-data-validation-cleaning/">Excel — 09 · Data Validation &amp; Cleaning</a></li>
+<li><a href="https://sigilipelli.github.io/pyspark-mastery-path/level-4/07-data-quality-gates/">Pyspark — 07 · Data Quality Gates</a></li>
+</ul>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Take the <code>validate()</code> function above and add a check for <strong>duplicate primary
 keys</strong> (<code>df["order_id"].duplicated().sum() &gt; 0</code>). Construct a DataFrame with
