@@ -1,3 +1,7 @@
+---
+description: "Streaming Basics (Kafka Concepts) — Every pipeline so far has been batch: pull a chunk of data, process it, done. Streaming flips this — data arrives…"
+---
+
 # 08 · Streaming Basics (Kafka Concepts)
 
 Every pipeline so far has been **batch**: pull a chunk of data, process it,

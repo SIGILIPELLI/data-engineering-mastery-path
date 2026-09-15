@@ -1,3 +1,7 @@
+---
+description: "What Is Data Engineering? — Every dashboard a business trusts, every ML model a data scientist trains, every report a finance team runs — all of them…"
+---
+
 # 01 · What Is Data Engineering?
 
 Every dashboard a business trusts, every ML model a data scientist trains,

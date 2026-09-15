@@ -1,3 +1,7 @@
+---
+description: "Cost Optimization for Data Platforms — Cloud data infrastructure has a habit of growing costs quietly — a warehouse left running, an unpartitioned table…"
+---
+
 # 05 · Cost Optimization for Data Platforms
 
 Cloud data infrastructure has a habit of growing costs quietly — a warehouse

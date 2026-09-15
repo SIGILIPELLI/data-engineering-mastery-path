@@ -1,3 +1,7 @@
+---
+description: "Intro to Orchestration — Every pipeline so far in this course has been 'run this script.' Real pipelines are usually several scripts with dependencies…"
+---
+
 # 08 · Intro to Orchestration
 
 Every pipeline so far in this course has been "run this script." Real

@@ -1,3 +1,7 @@
+---
+description: "Testing Data Pipelines — Application code gets unit tests; pipelines need those plus data tests — checks that the data itself, not just the code, meets…"
+---
+
 # 07 · Testing Data Pipelines
 
 Application code gets unit tests; pipelines need those *plus* data tests —

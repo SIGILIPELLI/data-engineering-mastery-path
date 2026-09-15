@@ -1,3 +1,7 @@
+---
+description: "Real-Time Streaming Architecture at Scale — Level 2 and 3 covered Kafka and Structured Streaming at the level of a single stream and a single consumer…"
+---
+
 # 02 · Real-Time Streaming Architecture at Scale
 
 Level 2 and 3 covered Kafka and Structured Streaming at the level of a

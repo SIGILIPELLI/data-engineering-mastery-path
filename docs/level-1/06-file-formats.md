@@ -1,3 +1,7 @@
+---
+description: "Working with File Formats — Before data reaches a database it usually sits in a file, and the format of that file is a real engineering decision — it…"
+---
+
 # 06 · Working with File Formats
 
 Before data reaches a database it usually sits in a file, and the format of

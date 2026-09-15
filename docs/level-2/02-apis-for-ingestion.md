@@ -1,3 +1,7 @@
+---
+description: "Working with APIs for Ingestion — Most real pipelines don't start with a clean CSV — they start with a REST API: paginated, rate-limited, and occasionally…"
+---
+
 # 02 · Working with APIs for Ingestion
 
 Most real pipelines don't start with a clean CSV — they start with a REST

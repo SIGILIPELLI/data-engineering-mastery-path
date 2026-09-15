@@ -1,3 +1,7 @@
+---
+description: "CI/CD for Data Pipelines — Data pipeline code is still code — it deserves the same automated testing, linting, and staged rollout as any other software.…"
+---
+
 # 06 · CI/CD for Data Pipelines
 
 Data pipeline code is still code — it deserves the same automated testing,

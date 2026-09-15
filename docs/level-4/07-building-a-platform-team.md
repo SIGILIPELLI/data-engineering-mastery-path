@@ -1,3 +1,7 @@
+---
+description: "Building a Data Platform Team — Everything through Level 4 Module 6 was technical. This module is about the organizational structure that makes a data…"
+---
+
 # 07 · Building a Data Platform Team
 
 Everything through Level 4 Module 6 was technical. This module is about

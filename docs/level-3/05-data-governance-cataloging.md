@@ -1,3 +1,7 @@
+---
+description: "Data Governance & Cataloging — As pipelines multiply, the hard problem stops being 'can I move the data' and becomes 'can anyone find, trust, and safely…"
+---
+
 # 05 · Data Governance & Cataloging
 
 As pipelines multiply, the hard problem stops being "can I move the data"

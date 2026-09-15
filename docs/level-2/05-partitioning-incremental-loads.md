@@ -1,3 +1,7 @@
+---
+description: "Data Partitioning & Incremental Loads — Reloading an entire table every run works until the table has millions of rows and the run takes hours. Two…"
+---
+
 # 05 · Data Partitioning & Incremental Loads
 
 Reloading an entire table every run works until the table has millions of

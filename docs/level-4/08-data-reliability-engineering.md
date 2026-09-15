@@ -1,3 +1,7 @@
+---
+description: "Data Reliability Engineering — Site Reliability Engineering borrowed to data: treating 'the data is correct and available' with the same rigor SRE applies…"
+---
+
 # 08 · Data Reliability Engineering
 
 Site Reliability Engineering borrowed to data: treating "the data is

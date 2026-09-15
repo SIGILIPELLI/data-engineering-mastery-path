@@ -1,3 +1,7 @@
+---
+description: "Data Lake Architecture — A data lake stores raw and processed data as files in cheap object storage (S3, GCS, ADLS) rather than inside a database engine…"
+---
+
 # 03 · Data Lake Architecture
 
 A data lake stores raw and processed data as files in cheap object storage

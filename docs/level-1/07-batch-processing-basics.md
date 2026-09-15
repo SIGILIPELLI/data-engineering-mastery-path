@@ -1,3 +1,7 @@
+---
+description: "Batch Processing Basics — Lesson 1 introduced batch vs. streaming as a concept; this lesson gets hands-on with the two things that make batch processing…"
+---
+
 # 07 · Batch Processing Basics
 
 Lesson 1 introduced batch vs. streaming as a concept; this lesson gets

@@ -1,3 +1,7 @@
+---
+description: "Distributed Processing (Spark Basics) — Every transform so far has run on a single machine. Apache Spark exists for the point where data no longer fits in…"
+---
+
 # 01 · Distributed Processing (Spark Basics)
 
 Every transform so far has run on a single machine. Apache Spark exists for

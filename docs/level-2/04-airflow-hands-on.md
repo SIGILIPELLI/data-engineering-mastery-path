@@ -1,3 +1,7 @@
+---
+description: "Airflow Hands-On — Level 1's 'Intro to Orchestration' module used a plain Python script that ran steps in order. Apache Airflow formalizes that idea: you…"
+---
+
 # 04 · Airflow Hands-On
 
 Level 1's "Intro to Orchestration" module used a plain Python script that ran

@@ -1,3 +1,7 @@
+---
+description: "Python for Data Engineering — Data engineering code is mostly the same handful of operations repeated on different data: load rows, filter, group, join…"
+---
+
 # 02 · Python for Data Engineering
 
 Data engineering code is mostly the same handful of operations repeated on

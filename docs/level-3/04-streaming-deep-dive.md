@@ -1,3 +1,7 @@
+---
+description: "Streaming Deep Dive — Level 2 covered Kafka as transport. This module goes into stream processing: windowing, watermarks, stateful aggregation, and…"
+---
+
 # 04 · Streaming Deep Dive
 
 Level 2 covered Kafka as transport. This module goes into stream

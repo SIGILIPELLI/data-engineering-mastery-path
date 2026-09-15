@@ -1,3 +1,7 @@
+---
+description: "Data Mesh Concepts — Data mesh is an organizational and architectural response to the centralized-platform-team bottleneck described in Module 1. This…"
+---
+
 # 03 · Data Mesh Concepts
 
 Data mesh is an organizational and architectural response to the

@@ -1,3 +1,7 @@
+---
+description: "Working with Cloud Data Warehouses — Snowflake, BigQuery, and Redshift share a common architecture (separated storage and compute, columnar storage, cost…"
+---
+
 # 08 · Working with Cloud Data Warehouses
 
 Snowflake, BigQuery, and Redshift share a common architecture (separated

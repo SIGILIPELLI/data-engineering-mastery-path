@@ -1,3 +1,7 @@
+---
+description: "Project — Build a Simple ETL Pipeline — This project combines every lesson in Level 1 into one working pipeline: extract a messy CSV, transform and reject…"
+---
+
 # 10 · Project — Build a Simple ETL Pipeline
 
 This project combines every lesson in Level 1 into one working pipeline:

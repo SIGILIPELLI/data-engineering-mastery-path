@@ -1,3 +1,7 @@
+---
+description: "Data Warehousing Concepts — A data warehouse organizes data for analysis, not transactions. This lesson covers the star schema (facts and dimensions)…"
+---
+
 # 03 · Data Warehousing Concepts
 
 A data warehouse organizes data for **analysis**, not transactions. This

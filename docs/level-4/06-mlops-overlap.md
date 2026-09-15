@@ -1,3 +1,7 @@
+---
+description: "MLOps & Data Engineering Overlap — Feature pipelines, training data, and model-serving inputs are still data pipelines — but ML introduces requirements…"
+---
+
 # 06 · MLOps & Data Engineering Overlap
 
 Feature pipelines, training data, and model-serving inputs are still data

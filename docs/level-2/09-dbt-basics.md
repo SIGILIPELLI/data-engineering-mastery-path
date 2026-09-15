@@ -1,3 +1,7 @@
+---
+description: "dbt Basics — Every transform so far has lived in Python. dbt (data build tool) takes a different approach: transformations are SQL SELECT statements that…"
+---
+
 # 09 · dbt Basics
 
 Every transform so far has lived in Python. dbt (data build tool) takes a

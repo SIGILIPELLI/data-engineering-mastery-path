@@ -1,3 +1,7 @@
+---
+description: "Working with Parquet/Arrow — CSV and JSON are row-oriented, text-based, and untyped — fine for small data, wasteful for analytics at scale. Parquet is a…"
+---
+
 # 06 · Working with Parquet/Arrow
 
 CSV and JSON are row-oriented, text-based, and untyped — fine for small data,

@@ -1,3 +1,7 @@
+---
+description: "Career Growth in Data Engineering — Technical mastery through Levels 1-4 gets you competent at the work. This module is about what changes as you move…"
+---
+
 # 09 · Career Growth in Data Engineering
 
 Technical mastery through Levels 1-4 gets you competent at the work.

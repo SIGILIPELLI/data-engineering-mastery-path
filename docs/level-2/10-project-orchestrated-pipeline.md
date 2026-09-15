@@ -1,3 +1,7 @@
+---
+description: "Project — Orchestrated Multi-Step Pipeline — This capstone combines everything from Level 2: an API-sourced extract, an incremental/partitioned load…"
+---
+
 # 10 · Project — Orchestrated Multi-Step Pipeline
 
 This capstone combines everything from Level 2: an API-sourced extract, an

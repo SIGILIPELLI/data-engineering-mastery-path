@@ -1,3 +1,7 @@
+---
+description: "Project — Spark-based Batch Pipeline — This project pulls together every Level 3 module — distributed processing, data lake layout, governance, CI…"
+---
+
 # 10 · Project — Spark-based Batch Pipeline
 
 This project pulls together every Level 3 module — distributed processing,

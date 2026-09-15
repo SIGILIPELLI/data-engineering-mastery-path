@@ -1,3 +1,7 @@
+---
+description: "Data Quality & Validation — Every trap flagged in lessons 2–7 — silent NaNs, dropped join rows, late-arriving data — has the same root cause: a pipeline…"
+---
+
 # 09 · Data Quality & Validation
 
 Every trap flagged in lessons 2–7 — silent `NaN`s, dropped join rows,

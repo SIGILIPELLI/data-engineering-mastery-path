@@ -1,3 +1,7 @@
+---
+description: "ETL Fundamentals — ETL — Extract, Transform, Load — is the shape of nearly every data pipeline you'll build, whether it's a five-line script or a…"
+---
+
 # 04 · ETL Fundamentals
 
 ETL — **Extract, Transform, Load** — is the shape of nearly every data

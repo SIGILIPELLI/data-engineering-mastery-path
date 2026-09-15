@@ -1,3 +1,7 @@
+---
+description: "Advanced SQL for Pipelines — Level 1 got you writing SELECT, WHERE, and basic JOINs. Production pipelines lean on a handful of SQL patterns far more…"
+---
+
 # 01 · Advanced SQL for Pipelines
 
 Level 1 got you writing `SELECT`, `WHERE`, and basic `JOIN`s. Production

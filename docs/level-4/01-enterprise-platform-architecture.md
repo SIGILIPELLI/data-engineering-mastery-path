@@ -1,3 +1,7 @@
+---
+description: "Enterprise Data Platform Architecture — Level 4 shifts focus from 'how do I build one pipeline' to 'how do I design a platform that serves hundreds of…"
+---
+
 # 01 · Enterprise Data Platform Architecture
 
 Level 4 shifts focus from "how do I build one pipeline" to "how do I design

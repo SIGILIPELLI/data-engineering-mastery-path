@@ -1,3 +1,7 @@
+---
+description: "SQL for Data Engineers — Pandas is great for exploring data in a script; SQL is how you query data that lives in a database, and it's the language every…"
+---
+
 # 03 · SQL for Data Engineers
 
 Pandas is great for exploring data in a script; SQL is how you query data that

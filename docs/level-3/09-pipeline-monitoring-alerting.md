@@ -1,3 +1,7 @@
+---
+description: "Data Pipeline Monitoring & Alerting — A pipeline that fails silently is worse than one that fails loudly — stale data that looks fine in a dashboard…"
+---
+
 # 09 · Data Pipeline Monitoring & Alerting
 
 A pipeline that fails silently is worse than one that fails loudly — stale

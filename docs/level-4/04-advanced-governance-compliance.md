@@ -1,3 +1,7 @@
+---
+description: "Advanced Data Governance & Compliance — Level 3's governance module covered cataloging, lineage, and access control as engineering patterns. This module…"
+---
+
 # 04 · Advanced Data Governance & Compliance
 
 Level 3's governance module covered cataloging, lineage, and access control

@@ -1,3 +1,7 @@
+---
+description: "Performance Tuning for Pipelines — A pipeline that's correct but slow is still a production problem — it blows SLAs, costs more compute, and hides the…"
+---
+
 # 07 · Performance Tuning for Pipelines
 
 A pipeline that's correct but slow is still a production problem — it

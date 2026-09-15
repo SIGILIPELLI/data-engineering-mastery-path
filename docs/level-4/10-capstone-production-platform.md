@@ -1,3 +1,7 @@
+---
+description: "Capstone — Full Production Data Platform Design — The capstone: design (not fully implement) a production data platform for a concrete scenario, pulling…"
+---
+
 # 10 · Capstone — Full Production Data Platform Design
 
 The capstone: design (not fully implement) a production data platform for

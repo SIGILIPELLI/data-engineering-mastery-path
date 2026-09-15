@@ -1,3 +1,7 @@
+---
+description: "Data Modeling Basics — Loading clean rows somewhere (lesson 4) is only half the job — how you shape the tables determines whether the next six months of…"
+---
+
 # 05 · Data Modeling Basics
 
 Loading clean rows somewhere (lesson 4) is only half the job — *how you shape

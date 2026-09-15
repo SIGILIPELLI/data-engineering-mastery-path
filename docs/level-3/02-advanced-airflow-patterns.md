@@ -1,3 +1,7 @@
+---
+description: "Advanced Airflow Patterns — process_file.expand(filename=files) creates one task instance per element of files at runtime, after list_files() has actually…"
+---
+
 # 02 · Advanced Airflow Patterns
 
 Level 2's Airflow module built a straight-line DAG. Real platforms need
