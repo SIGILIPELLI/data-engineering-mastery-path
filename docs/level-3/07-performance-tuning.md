@@ -258,9 +258,9 @@ Spark's physical plan (`.explain()`) shows the same kind of information at Spark
 
 ## 🔀 Related lessons on other tracks
 
-- [Freertos — Performance Tuning & Measurement](https://sigilipelli.github.io/freertos-mastery-path/level-3/08-performance-tuning/)
-- [Pyspark — 05 · Performance Tuning](https://sigilipelli.github.io/pyspark-mastery-path/level-3/05-performance-tuning/)
-- [Tableau — 05 · Advanced Performance Tuning](https://sigilipelli.github.io/tableau-mastery-path/level-3/06-advanced-performance-tuning/)
+- [Freertos — Performance Tuning & Measurement](https://learnmasterypath.com/freertos-mastery-path/level-3/08-performance-tuning/)
+- [Pyspark — 05 · Performance Tuning](https://learnmasterypath.com/pyspark-mastery-path/level-3/05-performance-tuning/)
+- [Tableau — 05 · Advanced Performance Tuning](https://learnmasterypath.com/tableau-mastery-path/level-3/06-advanced-performance-tuning/)
 
 ## Exercise
 

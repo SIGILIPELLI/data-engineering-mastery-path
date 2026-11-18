@@ -204,8 +204,8 @@ pandas (and Polars, DuckDB's DataFrame API) get their speed from the same trick:
 
 ## 🔀 Related lessons on other tracks
 
-- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://sigilipelli.github.io/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
-- [Data Science — 02 · Python for Data Science](https://sigilipelli.github.io/data-science-mastery-path/level-1/02-python-for-data-science/)
+- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://learnmasterypath.com/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
+- [Data Science — 02 · Python for Data Science](https://learnmasterypath.com/data-science-mastery-path/level-1/02-python-for-data-science/)
 
 ## Exercise
 

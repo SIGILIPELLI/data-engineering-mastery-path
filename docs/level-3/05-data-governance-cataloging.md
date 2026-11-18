@@ -254,9 +254,9 @@ Lineage capture at the pipeline level means recording, for every write, which up
 
 ## 🔀 Related lessons on other tracks
 
-- [ETL & Data Lake — 03 · Data Cataloging & Metadata Management](https://sigilipelli.github.io/etl-datalake-mastery-path/level-3/03-data-cataloging-metadata/)
-- [AI Manager — 04 · Data Governance Basics](https://sigilipelli.github.io/ai-manager-mastery-path/level-2/04-data-governance-basics/)
-- [AI Tools — 07 · Data Governance for AI Tool Usage](https://sigilipelli.github.io/ai-tools-mastery-path/level-3/07-data-governance/)
+- [ETL & Data Lake — 03 · Data Cataloging & Metadata Management](https://learnmasterypath.com/etl-datalake-mastery-path/level-3/03-data-cataloging-metadata/)
+- [AI Manager — 04 · Data Governance Basics](https://learnmasterypath.com/ai-manager-mastery-path/level-2/04-data-governance-basics/)
+- [AI Tools — 07 · Data Governance for AI Tool Usage](https://learnmasterypath.com/ai-tools-mastery-path/level-3/07-data-governance/)
 
 ## Exercise
 

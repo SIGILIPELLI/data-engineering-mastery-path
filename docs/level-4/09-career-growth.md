@@ -167,9 +167,9 @@ A portfolio that actually demonstrates Level 3-4 material has to show artifacts 
 
 ## 🔀 Related lessons on other tracks
 
-- [Automotive Testing — 09 · Career Growth in Automotive Test Engineering](https://sigilipelli.github.io/automotive-testing-mastery-path/level-4/09-career-growth/)
-- [Data Science — 09 · Career Growth: IC to Principal Data Scientist](https://sigilipelli.github.io/data-science-mastery-path/level-4/09-career-growth/)
-- [Pyspark — 09 · Career Growth Big Data](https://sigilipelli.github.io/pyspark-mastery-path/level-4/09-career-growth-big-data/)
+- [Automotive Testing — 09 · Career Growth in Automotive Test Engineering](https://learnmasterypath.com/automotive-testing-mastery-path/level-4/09-career-growth/)
+- [Data Science — 09 · Career Growth: IC to Principal Data Scientist](https://learnmasterypath.com/data-science-mastery-path/level-4/09-career-growth/)
+- [Pyspark — 09 · Career Growth Big Data](https://learnmasterypath.com/pyspark-mastery-path/level-4/09-career-growth-big-data/)
 
 ## Exercise
 

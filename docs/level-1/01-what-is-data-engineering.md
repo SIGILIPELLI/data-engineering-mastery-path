@@ -145,7 +145,7 @@ Mechanically, a batch pipeline acquires a delta of source data (a full snapshot,
 
 ## 🔀 Related lessons on other tracks
 
-- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://sigilipelli.github.io/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
+- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://learnmasterypath.com/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
 
 ## Exercise
 

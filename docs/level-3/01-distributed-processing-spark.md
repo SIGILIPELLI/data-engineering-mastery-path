@@ -217,7 +217,7 @@ A DataFrame is split into partitions — chunks of rows distributed across execu
 
 ## 🔀 Related lessons on other tracks
 
-- [Pyspark — 01 · What Is Spark & Why Distributed Processing](https://sigilipelli.github.io/pyspark-mastery-path/level-1/01-what-is-spark-distributed-processing/)
+- [Pyspark — 01 · What Is Spark & Why Distributed Processing](https://learnmasterypath.com/pyspark-mastery-path/level-1/01-what-is-spark-distributed-processing/)
 
 ## Exercise
 

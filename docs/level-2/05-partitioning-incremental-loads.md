@@ -243,7 +243,7 @@ A high-water mark works because most operational tables have a monotonically inc
 
 ## 🔀 Related lessons on other tracks
 
-- [ETL & Data Lake — 01 · Incremental Loads & Change Data Capture](https://sigilipelli.github.io/etl-datalake-mastery-path/level-2/01-incremental-loads-cdc/)
+- [ETL & Data Lake — 01 · Incremental Loads & Change Data Capture](https://learnmasterypath.com/etl-datalake-mastery-path/level-2/01-incremental-loads-cdc/)
 
 ## Exercise
 

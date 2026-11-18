@@ -185,7 +185,7 @@ A `JOIN` is not "look up the matching row" in the abstract — the query planner
 
 ## 🔀 Related lessons on other tracks
 
-- [Data Science — 08 · SQL for Data Scientists](https://sigilipelli.github.io/data-science-mastery-path/level-2/08-sql-for-data-scientists/)
+- [Data Science — 08 · SQL for Data Scientists](https://learnmasterypath.com/data-science-mastery-path/level-2/08-sql-for-data-scientists/)
 
 ## Exercise
 

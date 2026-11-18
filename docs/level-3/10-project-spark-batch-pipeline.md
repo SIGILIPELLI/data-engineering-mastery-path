@@ -281,7 +281,7 @@ The quality gate sitting between silver and gold, rather than only at bronze, ex
 
 ## 🔀 Related lessons on other tracks
 
-- [Pyspark — 10 · Capstone Tuned Batch Pipeline](https://sigilipelli.github.io/pyspark-mastery-path/level-3/10-capstone-tuned-batch-pipeline/)
+- [Pyspark — 10 · Capstone Tuned Batch Pipeline](https://learnmasterypath.com/pyspark-mastery-path/level-3/10-capstone-tuned-batch-pipeline/)
 
 ## Exercise
 

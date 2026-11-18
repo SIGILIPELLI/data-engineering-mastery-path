@@ -225,7 +225,7 @@ Row-count anomaly detection is typically a simple statistical test — comparing
 
 ## 🔀 Related lessons on other tracks
 
-- [ETL & Data Lake — 08 · Monitoring & Alerting for Pipelines](https://sigilipelli.github.io/etl-datalake-mastery-path/level-2/08-monitoring-alerting/)
+- [ETL & Data Lake — 08 · Monitoring & Alerting for Pipelines](https://learnmasterypath.com/etl-datalake-mastery-path/level-2/08-monitoring-alerting/)
 
 ## Exercise
 

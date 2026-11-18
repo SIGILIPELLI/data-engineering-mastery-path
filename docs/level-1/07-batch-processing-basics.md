@@ -149,7 +149,7 @@ Windowing (tumbling, sliding, or session windows) is the batch-world's way of tu
 
 ## 🔀 Related lessons on other tracks
 
-- [Adobe — 07 · Photoshop Automation (Actions & Batch Processing)](https://sigilipelli.github.io/adobe-mastery-path/level-2/07-photoshop-automation-actions/)
+- [Adobe — 07 · Photoshop Automation (Actions & Batch Processing)](https://learnmasterypath.com/adobe-mastery-path/level-2/07-photoshop-automation-actions/)
 
 ## Exercise
 

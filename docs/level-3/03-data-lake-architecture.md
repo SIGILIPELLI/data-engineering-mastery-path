@@ -199,7 +199,7 @@ Schema evolution works because the manifest stores column IDs, not column positi
 
 ## 🔀 Related lessons on other tracks
 
-- [ETL & Data Lake — 10 · Capstone — Governed Enterprise Data Lake Architecture](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/10-capstone-enterprise-lake-architecture/)
+- [ETL & Data Lake — 10 · Capstone — Governed Enterprise Data Lake Architecture](https://learnmasterypath.com/etl-datalake-mastery-path/level-4/10-capstone-enterprise-lake-architecture/)
 
 ## Exercise
 

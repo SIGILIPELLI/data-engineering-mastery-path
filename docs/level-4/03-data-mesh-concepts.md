@@ -191,7 +191,7 @@ The self-serve platform's job is deliberately narrow: it provides the paved-road
 
 ## 🔀 Related lessons on other tracks
 
-- [ETL & Data Lake — 05 · Data Mesh & Domain-Oriented Lake Ownership](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/05-data-mesh-domain-ownership/)
+- [ETL & Data Lake — 05 · Data Mesh & Domain-Oriented Lake Ownership](https://learnmasterypath.com/etl-datalake-mastery-path/level-4/05-data-mesh-domain-ownership/)
 
 ## Exercise
 

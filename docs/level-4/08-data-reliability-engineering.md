@@ -205,8 +205,8 @@ Choosing SLIs that matter to consumers (rather than ones convenient to measure) 
 
 ## 🔀 Related lessons on other tracks
 
-- [IBM Cloud — 09 · Site Reliability Engineering on IBM Cloud](https://sigilipelli.github.io/ibm-cloud-mastery-path/level-4/09-sre-on-ibm-cloud/)
-- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://sigilipelli.github.io/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
+- [IBM Cloud — 09 · Site Reliability Engineering on IBM Cloud](https://learnmasterypath.com/ibm-cloud-mastery-path/level-4/09-sre-on-ibm-cloud/)
+- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://learnmasterypath.com/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
 
 ## Exercise
 

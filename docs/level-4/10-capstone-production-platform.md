@@ -232,6 +232,6 @@ scenario's specific constraints (team size, budget, existing skills).
 
 ## 🔀 Related lessons on other tracks
 
-- [Edge AI — Data Collection & Dataset Design](https://sigilipelli.github.io/edge-ai-mastery-path/level-2/04-data-collection-datasets/)
-- [Azure — 08 · Data Platform at Scale (Synapse, Data Factory)](https://sigilipelli.github.io/azure-mastery-path/level-4/08-data-platform-at-scale/)
-- [Data Science — 03 · Building a Data Science Platform](https://sigilipelli.github.io/data-science-mastery-path/level-4/03-data-science-platform/)
+- [Edge AI — Data Collection & Dataset Design](https://learnmasterypath.com/edge-ai-mastery-path/level-2/04-data-collection-datasets/)
+- [Azure — 08 · Data Platform at Scale (Synapse, Data Factory)](https://learnmasterypath.com/azure-mastery-path/level-4/08-data-platform-at-scale/)
+- [Data Science — 03 · Building a Data Science Platform](https://learnmasterypath.com/data-science-mastery-path/level-4/03-data-science-platform/)

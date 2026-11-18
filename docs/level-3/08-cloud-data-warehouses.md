@@ -217,9 +217,9 @@ BigQuery's on-demand pricing charges per byte scanned, which is exactly why part
 
 ## 🔀 Related lessons on other tracks
 
-- [Data Science — 04 · Working with Big Data](https://sigilipelli.github.io/data-science-mastery-path/level-3/04-working-with-big-data/)
-- [Product Manager — 06 · Working with Data Teams](https://sigilipelli.github.io/product-manager-mastery-path/level-2/06-working-with-data-teams/)
-- [Tableau — 07 · Working with Multiple Data Sources](https://sigilipelli.github.io/tableau-mastery-path/level-2/07-multiple-data-sources/)
+- [Data Science — 04 · Working with Big Data](https://learnmasterypath.com/data-science-mastery-path/level-3/04-working-with-big-data/)
+- [Product Manager — 06 · Working with Data Teams](https://learnmasterypath.com/product-manager-mastery-path/level-2/06-working-with-data-teams/)
+- [Tableau — 07 · Working with Multiple Data Sources](https://learnmasterypath.com/tableau-mastery-path/level-2/07-multiple-data-sources/)
 
 ## Exercise
 

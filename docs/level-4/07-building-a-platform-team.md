@@ -169,9 +169,9 @@ Measuring platform success can't use the same metrics as a feature team (revenue
 
 ## 🔀 Related lessons on other tracks
 
-- [Azure — 08 · Data Platform at Scale (Synapse, Data Factory)](https://sigilipelli.github.io/azure-mastery-path/level-4/08-data-platform-at-scale/)
-- [Data Science — 03 · Building a Data Science Platform](https://sigilipelli.github.io/data-science-mastery-path/level-4/03-data-science-platform/)
-- [ETL & Data Lake — 09 · Building a Data Platform Team](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/09-building-a-platform-team/)
+- [Azure — 08 · Data Platform at Scale (Synapse, Data Factory)](https://learnmasterypath.com/azure-mastery-path/level-4/08-data-platform-at-scale/)
+- [Data Science — 03 · Building a Data Science Platform](https://learnmasterypath.com/data-science-mastery-path/level-4/03-data-science-platform/)
+- [ETL & Data Lake — 09 · Building a Data Platform Team](https://learnmasterypath.com/etl-datalake-mastery-path/level-4/09-building-a-platform-team/)
 
 ## Exercise
 

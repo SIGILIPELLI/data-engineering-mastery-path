@@ -185,9 +185,9 @@ Schema drift detection works by comparing an observed schema (column names, type
 
 ## 🔀 Related lessons on other tracks
 
-- [ETL & Data Lake — 02 · Data Quality Checks & Validation](https://sigilipelli.github.io/etl-datalake-mastery-path/level-2/02-data-quality-validation/)
-- [Excel — 09 · Data Validation & Cleaning](https://sigilipelli.github.io/excel-mastery-path/level-1/09-data-validation-cleaning/)
-- [Pyspark — 07 · Data Quality Gates](https://sigilipelli.github.io/pyspark-mastery-path/level-4/07-data-quality-gates/)
+- [ETL & Data Lake — 02 · Data Quality Checks & Validation](https://learnmasterypath.com/etl-datalake-mastery-path/level-2/02-data-quality-validation/)
+- [Excel — 09 · Data Validation & Cleaning](https://learnmasterypath.com/excel-mastery-path/level-1/09-data-validation-cleaning/)
+- [Pyspark — 07 · Data Quality Gates](https://learnmasterypath.com/pyspark-mastery-path/level-4/07-data-quality-gates/)
 
 ## Exercise
 

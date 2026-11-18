@@ -214,9 +214,9 @@ Derived aggregates are the part people forget because deleting the source row do
 
 ## 🔀 Related lessons on other tracks
 
-- [AI Manager — 02 · AI Governance & Compliance](https://sigilipelli.github.io/ai-manager-mastery-path/level-3/02-ai-governance-compliance/)
-- [AWS — Compliance & Governance (Config, Audit Manager)](https://sigilipelli.github.io/aws-mastery-path/level-4/08-compliance-governance/)
-- [ETL & Data Lake — 06 · Compliance & Retention in Data Lakes](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/06-compliance-retention/)
+- [AI Manager — 02 · AI Governance & Compliance](https://learnmasterypath.com/ai-manager-mastery-path/level-3/02-ai-governance-compliance/)
+- [AWS — Compliance & Governance (Config, Audit Manager)](https://learnmasterypath.com/aws-mastery-path/level-4/08-compliance-governance/)
+- [ETL & Data Lake — 06 · Compliance & Retention in Data Lakes](https://learnmasterypath.com/etl-datalake-mastery-path/level-4/06-compliance-retention/)
 
 ## Exercise
 

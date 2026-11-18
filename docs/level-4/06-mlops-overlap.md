@@ -195,8 +195,8 @@ Point-in-time correctness (avoiding training-data leakage) requires that when bu
 
 ## 🔀 Related lessons on other tracks
 
-- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://sigilipelli.github.io/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
-- [Data Science — 04 · MLOps for Data Scientists](https://sigilipelli.github.io/data-science-mastery-path/level-4/04-mlops-for-data-scientists/)
+- [AI/ML — 03 · Feature Stores & Data Engineering for ML](https://learnmasterypath.com/ai-ml-mastery-path/level-4/03-feature-stores-data-eng/)
+- [Data Science — 04 · MLOps for Data Scientists](https://learnmasterypath.com/data-science-mastery-path/level-4/04-mlops-for-data-scientists/)
 
 ## Exercise
 

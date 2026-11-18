@@ -201,9 +201,9 @@ Self-service onboarding works because the platform team ships golden-path templa
 
 ## 🔀 Related lessons on other tracks
 
-- [ETL & Data Lake — 10 · Capstone — Governed Enterprise Data Lake Architecture](https://sigilipelli.github.io/etl-datalake-mastery-path/level-4/10-capstone-enterprise-lake-architecture/)
-- [Excel — 01 · Enterprise Excel Architecture](https://sigilipelli.github.io/excel-mastery-path/level-4/01-enterprise-excel-architecture/)
-- [LLM Dev — 03 · Production LLM Platform Architecture](https://sigilipelli.github.io/llm-dev-mastery-path/level-4/03-llm-platform-architecture/)
+- [ETL & Data Lake — 10 · Capstone — Governed Enterprise Data Lake Architecture](https://learnmasterypath.com/etl-datalake-mastery-path/level-4/10-capstone-enterprise-lake-architecture/)
+- [Excel — 01 · Enterprise Excel Architecture](https://learnmasterypath.com/excel-mastery-path/level-4/01-enterprise-excel-architecture/)
+- [LLM Dev — 03 · Production LLM Platform Architecture](https://learnmasterypath.com/llm-dev-mastery-path/level-4/03-llm-platform-architecture/)
 
 ## Exercise
 
