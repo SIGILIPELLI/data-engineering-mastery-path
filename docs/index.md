@@ -74,7 +74,7 @@ Sister sites cover the neighboring ground:
 - [SQL Mastery Path](https://learnmasterypath.com/sql-mastery-path/) — SQL from first principles
 - [Python Testing Mastery Path](https://learnmasterypath.com/python-testing-mastery-path/) — testing Python code and pipelines
 
-🎥 **Prefer video?** Watch the [Mastery Path video series](https://youtube.com/@sigilipelli) on YouTube — Shorts and full walkthroughs of these lessons.
+🎥 **Prefer video?** Watch the [Mastery Path video series](https://youtube.com/@learnmasterypath) on YouTube — Shorts and full walkthroughs of these lessons.
 
 ## More from the Mastery Path series
 
