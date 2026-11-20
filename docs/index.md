@@ -1,6 +1,6 @@
 ---
 title: "Learn Data Engineering Free: Beginner to Master Course"
-description: "Free course on data engineering -- ETL pipelines, SQL, orchestration, and data platforms, with real hands-on projects. Part of a 40-course free learning library."
+description: "Free course on data engineering -- ETL pipelines, SQL, orchestration, and data platforms, with real hands-on projects. Part of a 100+ course free learning library."
 ---
 
 # Data Engineering Mastery Path

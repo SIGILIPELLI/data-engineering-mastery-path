@@ -6,6 +6,7 @@ repo_name: data-engineering-mastery-path
 
 theme:
   name: material
+  font: false
   favicon: assets/favicon.svg
   custom_dir: docs/overrides
   palette:
@@ -24,6 +25,7 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
+    - navigation.path
     - navigation.tabs
     - navigation.sections
     - navigation.expand
@@ -54,6 +56,22 @@ extra_css:
 
 extra_javascript:
   - javascripts/progress-tracker.js
+
+
+
+
+extra:
+  related:
+    - name: "Data Science"
+      url: https://learnmasterypath.com/data-science-mastery-path/
+    - name: "Tableau"
+      url: https://learnmasterypath.com/tableau-mastery-path/
+    - name: "Excel"
+      url: https://learnmasterypath.com/excel-mastery-path/
+    - name: "PySpark"
+      url: https://learnmasterypath.com/pyspark-mastery-path/
+    - name: "ETL & Data Lake"
+      url: https://learnmasterypath.com/etl-datalake-mastery-path/
 
 nav:
   - Home: index.md

@@ -1,3 +1,7 @@
+---
+description: "Level 1 (Entry) of the free Data Engineering Mastery Path. Understand every moving part of a data pipeline — Python and SQL for data work, ETL, data…"
+---
+
 # Level 1 · Entry <span class="level-badge">Foundations</span>
 
 Goal: understand every moving part of a data pipeline — Python and SQL for

@@ -1,3 +1,7 @@
+---
+description: "Level 4 (Master) of the free Data Engineering Mastery Path. Design enterprise data platforms, build real-time streaming architecture at scale, understand…"
+---
+
 # Level 4 · Master <span class="level-badge">Platforms & Leadership</span>
 
 Goal: design enterprise data platforms, build real-time streaming architecture at scale, understand data mesh, own governance and compliance, optimize cost, bridge into MLOps, build and lead a data platform team, and engineer for reliability.

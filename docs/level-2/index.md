@@ -1,3 +1,7 @@
+---
+description: "Level 2 (Intermediate) of the free Data Engineering Mastery Path. Move beyond a single manual script — write advanced SQL, ingest from APIs, warehouse…"
+---
+
 # Level 2 · Intermediate <span class="level-badge">Smarter Pipelines</span>
 
 Goal: move beyond a single manual script — write advanced SQL, ingest from APIs, warehouse properly, orchestrate with Airflow, handle incremental loads, work with Parquet/Arrow, test pipelines, learn streaming basics, and use dbt.

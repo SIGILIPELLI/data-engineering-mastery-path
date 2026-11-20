@@ -1,3 +1,7 @@
+---
+description: "Level 3 (Advanced) of the free Data Engineering Mastery Path. Process data at scale with Spark, build advanced orchestration patterns, design data lake…"
+---
+
 # Level 3 · Advanced <span class="level-badge">Scale & Production</span>
 
 Goal: process data at scale with Spark, build advanced orchestration patterns, design data lake architecture, go deep on streaming, govern and catalog data, wire up CI/CD, tune performance, work with cloud warehouses, and monitor pipelines in production.
