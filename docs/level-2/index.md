@@ -18,7 +18,3 @@ Goal: move beyond a single manual script — write advanced SQL, ingest from API
 8. [Streaming Basics (Kafka Concepts)](08-streaming-basics-kafka.md)
 9. [dbt Basics](09-dbt-basics.md)
 10. [Project — Orchestrated Multi-Step Pipeline](10-project-orchestrated-pipeline.md)
-
-!!! info "Coming soon"
-    Full lesson content for this level is being written next. Start with
-    [Level 1 · Entry](../level-1/index.md), which is complete.

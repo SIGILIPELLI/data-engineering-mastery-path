@@ -18,7 +18,3 @@ Goal: design enterprise data platforms, build real-time streaming architecture a
 8. [Data Reliability Engineering](08-data-reliability-engineering.md)
 9. [Career Growth in Data Engineering](09-career-growth.md)
 10. [Capstone — Full Production Data Platform Design](10-capstone-production-platform.md)
-
-!!! info "Coming soon"
-    Full lesson content for this level is being written next. Start with
-    [Level 1 · Entry](../level-1/index.md), which is complete.

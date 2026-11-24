@@ -18,7 +18,3 @@ Goal: process data at scale with Spark, build advanced orchestration patterns, d
 8. [Working with Cloud Data Warehouses](08-cloud-data-warehouses.md)
 9. [Data Pipeline Monitoring & Alerting](09-pipeline-monitoring-alerting.md)
 10. [Project — Spark-based Batch Pipeline](10-project-spark-batch-pipeline.md)
-
-!!! info "Coming soon"
-    Full lesson content for this level is being written next. Start with
-    [Level 1 · Entry](../level-1/index.md), which is complete.
