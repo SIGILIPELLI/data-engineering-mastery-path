@@ -7,8 +7,7 @@ description: "Free course on data engineering -- ETL pipelines, SQL, orchestrati
 
 A structured, module-wise training program on **data engineering** — from your
 first `pandas` script to production-grade, master-level data platforms — with
-runnable Python code in every module and a hands-on project at the end of each
-level.
+runnable Python code in every module and a hands-on project at the end of Levels 1–3 and a capstone at the end of Level 4.
 
 Data engineering is the discipline behind every dashboard, ML model, and
 report a company relies on: moving data reliably from where it's produced to
@@ -38,7 +37,7 @@ discipline from first principles — plain Python and SQL first, frameworks
 - Work through each level in order — later modules assume earlier ones.
 - Every topic page has runnable code — copy it into a local `.py` file and run
   it. Every output block on this site was actually executed, not invented.
-- Each level ends with a project that combines everything learned in that level.
+- Levels 1–3 each end with a project that combines everything learned in that level, and Level 4 ends with the course capstone.
 - Use the search bar (top of the page) to jump straight to a topic.
 
 Start here → [Level 1 · Entry](level-1/index.md)
